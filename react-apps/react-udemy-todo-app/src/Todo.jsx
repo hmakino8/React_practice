@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { CompleteTodos } from "./components/CompleteTodos";
+import { IncompleteTodos } from "./components/IncompleteTodos";
+import { InputTodos } from "./components/InputTodo";
 import "./style.css";
 
 export const Todo = () => {
@@ -9,9 +12,8 @@ export const Todo = () => {
   const onChangeTodoText = (event) => setTodoText(event.target.value);
 
   const validateInput = () => {
-    const trimedTodoText = todoText.trim();
-    const totalTodos = incompleteTodos.length + completeTodos.length + 1;
-    const MAX_TODO = 10;
+    const trimedTodoText = todoText;
+    trimedTodoText.trim();
 
     if (trimedTodoText === "") {
       return {
@@ -19,6 +21,10 @@ export const Todo = () => {
         message: "TODOを入力してください",
       };
     }
+
+    const totalTodos = incompleteTodos.length + completeTodos.length + 1;
+    const MAX_TODO = 10;
+
     if (totalTodos > MAX_TODO) {
       return {
         success: false,
@@ -59,45 +65,20 @@ export const Todo = () => {
 
   return (
     <>
-      <div className="input-area">
-        <input
-          placeholder="TODOを入力"
-          value={todoText}
-          onChange={onChangeTodoText}
-        ></input>
-        <button onClick={onClickAdd}>追加</button>
-      </div>
-      <div className="incomplete-area">
-        <p className="title">未完了のTODO</p>
-        <ul>
-          {incompleteTodos.map((todo, index) => (
-            <li key={todo}>
-              <div className="list-row">
-                <p className="todo-item">{todo}</p>
-                <button onClick={() => onClickToggleTodo(index, true)}>
-                  完了
-                </button>
-                <button onClick={() => onClickDelete(index)}>削除</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="complete-area">
-        <p className="title">完了のTODO</p>
-        <ul>
-          {completeTodos.map((todo, index) => (
-            <li key={todo}>
-              <div className="list-row">
-                <p className="todo-item">{todo}</p>
-                <button onClick={() => onClickToggleTodo(index, false)}>
-                  戻す
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <InputTodos
+        todoText={todoText}
+        onChange={onChangeTodoText}
+        onClick={onClickAdd}
+      />
+      <IncompleteTodos
+        incompleteTodos={incompleteTodos}
+        onClickToggleTodo={onClickToggleTodo}
+        onClickDelete={onClickDelete}
+      />
+      <CompleteTodos
+        completeTodos={completeTodos}
+        onClickToggleTodo={onClickToggleTodo}
+      />
     </>
   );
 };
