@@ -24,7 +24,7 @@ const todoItem = {
 };
 
 export const CompleteTodos = (props) => {
-  const { completeTodos, onClickToggleTodo } = props;
+  const { completeTodos, onClickToggleTodo, onClickDelete } = props;
 
   return (
     <div style={styleCompleteArea}>
@@ -38,6 +38,7 @@ export const CompleteTodos = (props) => {
               <button onClick={() => onClickToggleTodo(index, false)}>
                 戻す
               </button>
+              <button onClick={() => onClickDelete(index, true)}>削除</button>
             </div>
           </li>
         ))}

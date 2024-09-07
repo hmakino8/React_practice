@@ -37,7 +37,7 @@ export const IncompleteTodos = (props) => {
               <button onClick={() => onClickToggleTodo(index, true)}>
                 完了
               </button>
-              <button onClick={() => onClickDelete(index)}>削除</button>
+              <button onClick={() => onClickDelete(index, false)}>削除</button>
             </div>
           </li>
         ))}

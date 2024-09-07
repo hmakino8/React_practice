@@ -43,10 +43,11 @@ export const Todo = () => {
     setTodoText("");
   };
 
-  const onClickDelete = (index) => {
-    const newTodos = [...incompleteTodos];
+  const onClickDelete = (index, isComplete) => {
+    const newTodos = isComplete ? [...completeTodos] : [...incompleteTodos];
     newTodos.splice(index, 1);
-    setIncompleteTodos(newTodos);
+    isComplete ? setCompleteTodos(newTodos) : setIncompleteTodos(newTodos);
+    setErrorMessage("");
   };
 
   const onClickToggleTodo = (index, isComplete) => {
@@ -54,10 +55,10 @@ export const Todo = () => {
     const toTodos = isComplete ? completeTodos : incompleteTodos;
     const setFromTodos = isComplete ? setIncompleteTodos : setCompleteTodos;
     const setToTodos = isComplete ? setCompleteTodos : setIncompleteTodos;
-    setErrorMessage(""); // エラー発生時かつ完了or削除ボタンが押されたらエラー解除
 
     setToTodos([...toTodos, fromTodos[index]]);
     setFromTodos(fromTodos.toSpliced(index, 1));
+    setErrorMessage("");
   };
 
   return (
@@ -76,6 +77,7 @@ export const Todo = () => {
       <CompleteTodos
         completeTodos={completeTodos}
         onClickToggleTodo={onClickToggleTodo}
+        onClickDelete={onClickDelete}
       />
     </>
   );
