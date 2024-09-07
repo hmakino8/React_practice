@@ -4,10 +4,7 @@ import "./style.css";
 export const Todo = () => {
   const [todoText, setTodoText] = useState("");
   const [incompleteTodos, setIncompleteTodos] = useState([]);
-  const [completeTodos, setCompleteTodos] = useState([
-    "TODOでした1",
-    "TODOでした2",
-  ]);
+  const [completeTodos, setCompleteTodos] = useState([]);
 
   const onChangeTodoText = (event) => setTodoText(event.target.value);
 
@@ -50,8 +47,14 @@ export const Todo = () => {
     setIncompleteTodos(newTodos);
   };
 
-  const onClickSetCompleteTodos = () => {
-    setCompleteTodos();
+  const onClickToggleTodo = (index, isComplete) => {
+    const fromTodos = isComplete ? incompleteTodos : completeTodos;
+    const toTodos = isComplete ? completeTodos : incompleteTodos;
+    const setFromTodos = isComplete ? setIncompleteTodos : setCompleteTodos;
+    const setToTodos = isComplete ? setCompleteTodos : setIncompleteTodos;
+
+    setToTodos([...toTodos, fromTodos[index]]);
+    setFromTodos(fromTodos.toSpliced(index, 1));
   };
 
   return (
@@ -71,7 +74,9 @@ export const Todo = () => {
             <li key={todo}>
               <div className="list-row">
                 <p className="todo-item">{todo}</p>
-                <button onClick={onClickSetCompleteTodos}>完了</button>
+                <button onClick={() => onClickToggleTodo(index, true)}>
+                  完了
+                </button>
                 <button onClick={() => onClickDelete(index)}>削除</button>
               </div>
             </li>
@@ -81,11 +86,13 @@ export const Todo = () => {
       <div className="complete-area">
         <p className="title">完了のTODO</p>
         <ul>
-          {completeTodos.map((todo) => (
+          {completeTodos.map((todo, index) => (
             <li key={todo}>
               <div className="list-row">
                 <p className="todo-item">{todo}</p>
-                <button>戻す</button>
+                <button onClick={() => onClickToggleTodo(index, false)}>
+                  戻す
+                </button>
               </div>
             </li>
           ))}
