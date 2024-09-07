@@ -1,3 +1,5 @@
+import { TODO_TITLE, BUTTON_LABELS } from "../utils/constants";
+
 const styleIncompleteArea = {
   border: "2px solid #aacfd0",
   width: "400px",
@@ -27,7 +29,7 @@ export const IncompleteTodos = (props) => {
 
   return (
     <div style={styleIncompleteArea}>
-      <p style={styleTitle}>未完了のTODO</p>
+      <p style={styleTitle}>{TODO_TITLE.INCOMPLETE}</p>
       <ul>
         {incompleteTodos.map((todo, index) => (
           // 一意のkeyにする
@@ -35,9 +37,11 @@ export const IncompleteTodos = (props) => {
             <div style={listRow}>
               <p style={todoItem}>{todo}</p>
               <button onClick={() => onClickToggleTodo(index, true)}>
-                完了
+                {BUTTON_LABELS.RESUME}
               </button>
-              <button onClick={() => onClickDelete(index, false)}>削除</button>
+              <button onClick={() => onClickDelete(index, false)}>
+                {BUTTON_LABELS.DELETE}
+              </button>
             </div>
           </li>
         ))}

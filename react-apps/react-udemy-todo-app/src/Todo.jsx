@@ -2,41 +2,20 @@ import { useState } from "react";
 import { CompleteTodos } from "./components/CompleteTodos";
 import { IncompleteTodos } from "./components/IncompleteTodos";
 import { InputTodos } from "./components/InputTodo";
-import "./style.css";
+import { validateInput } from "./utils/Validate";
+import "./styles/style.css";
 
 export const Todo = () => {
   const [todoText, setTodoText] = useState("");
   const [incompleteTodos, setIncompleteTodos] = useState([]);
   const [completeTodos, setCompleteTodos] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-
   const onChangeTodoText = (event) => setTodoText(event.target.value);
 
-  const validateInput = () => {
-    const trimedTodoText = todoText;
-    trimedTodoText.trim();
-
-    if (trimedTodoText === "") {
-      setErrorMessage("⚠️TODOを入力してください");
-      return false;
-    }
-
-    const totalTodos = incompleteTodos.length + completeTodos.length + 1;
-    const MAX_TODO = 10;
-
-    if (totalTodos > MAX_TODO) {
-      setErrorMessage(
-        "⚠️TODOリストに追加できるのは10個までです。\n項目を削除してください。"
-      );
-      return false;
-    }
-
-    setErrorMessage("");
-    return true;
-  };
-
   const onClickAdd = () => {
-    if (!validateInput()) return;
+    const props = { setErrorMessage, todoText, incompleteTodos, completeTodos };
+
+    if (!validateInput(props)) return;
 
     const newTodos = [...incompleteTodos, todoText];
     setIncompleteTodos(newTodos);

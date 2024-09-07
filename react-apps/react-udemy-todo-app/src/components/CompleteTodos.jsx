@@ -1,3 +1,5 @@
+import { TODO_TITLE, BUTTON_LABELS } from "../utils/constants";
+
 const styleCompleteArea = {
   border: "2px solid #aacfd0",
   width: "400px",
@@ -14,12 +16,12 @@ const styleTitle = {
   fontWeight: "bold",
 };
 
-const listRow = {
+const styleListRow = {
   display: "flex",
   alignItems: "center",
 };
 
-const todoItem = {
+const styleTodoItem = {
   margin: "6px",
 };
 
@@ -28,17 +30,19 @@ export const CompleteTodos = (props) => {
 
   return (
     <div style={styleCompleteArea}>
-      <p style={styleTitle}>完了のTODO</p>
+      <p style={styleTitle}>{TODO_TITLE.COMPLETE}</p>
       <ul>
         {completeTodos.map((todo, index) => (
-          // 一意のkeynにする
+          // 一意のkeyにする
           <li key={`${todo}-${index}`}>
-            <div style={listRow}>
-              <p style={todoItem}>{todo}</p>
+            <div style={styleListRow}>
+              <p style={styleTodoItem}>{todo}</p>
               <button onClick={() => onClickToggleTodo(index, false)}>
-                戻す
+                {BUTTON_LABELS.RESUME}
               </button>
-              <button onClick={() => onClickDelete(index, true)}>削除</button>
+              <button onClick={() => onClickDelete(index, true)}>
+                {BUTTON_LABELS.DELETE}
+              </button>
             </div>
           </li>
         ))}
