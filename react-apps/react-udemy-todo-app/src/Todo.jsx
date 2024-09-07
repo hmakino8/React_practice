@@ -8,6 +8,7 @@ export const Todo = () => {
   const [todoText, setTodoText] = useState("");
   const [incompleteTodos, setIncompleteTodos] = useState([]);
   const [completeTodos, setCompleteTodos] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onChangeTodoText = (event) => setTodoText(event.target.value);
 
@@ -16,32 +17,27 @@ export const Todo = () => {
     trimedTodoText.trim();
 
     if (trimedTodoText === "") {
-      return {
-        success: false,
-        message: "TODOを入力してください",
-      };
+      setErrorMessage("⚠️TODOを入力してください");
+      return false;
     }
 
     const totalTodos = incompleteTodos.length + completeTodos.length + 1;
     const MAX_TODO = 10;
 
     if (totalTodos > MAX_TODO) {
-      return {
-        success: false,
-        message:
-          "TODOリストに追加できるのは10個までです。項目を削除してください。",
-      };
+      setErrorMessage(
+        "⚠️TODOリストに追加できるのは10個までです。\n項目を削除してください。"
+      );
+      return false;
     }
-    return { success: true };
+
+    setErrorMessage("");
+    return true;
   };
 
   const onClickAdd = () => {
-    const result = validateInput();
+    if (!validateInput()) return;
 
-    if (!result.success) {
-      alert(result.message);
-      return;
-    }
     const newTodos = [...incompleteTodos, todoText];
     setIncompleteTodos(newTodos);
     setTodoText("");
@@ -58,6 +54,7 @@ export const Todo = () => {
     const toTodos = isComplete ? completeTodos : incompleteTodos;
     const setFromTodos = isComplete ? setIncompleteTodos : setCompleteTodos;
     const setToTodos = isComplete ? setCompleteTodos : setIncompleteTodos;
+    setErrorMessage(""); // エラー発生時かつ完了or削除ボタンが押されたらエラー解除
 
     setToTodos([...toTodos, fromTodos[index]]);
     setFromTodos(fromTodos.toSpliced(index, 1));
@@ -67,8 +64,9 @@ export const Todo = () => {
     <>
       <InputTodos
         todoText={todoText}
-        onChange={onChangeTodoText}
-        onClick={onClickAdd}
+        onChangeTodoText={onChangeTodoText}
+        onClickAdd={onClickAdd}
+        errorMessage={errorMessage}
       />
       <IncompleteTodos
         incompleteTodos={incompleteTodos}
