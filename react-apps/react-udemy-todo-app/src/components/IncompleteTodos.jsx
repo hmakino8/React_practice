@@ -37,7 +37,7 @@ export const IncompleteTodos = (props) => {
             <div style={listRow}>
               <p style={todoItem}>{todo}</p>
               <button onClick={() => onClickToggleTodo(index, true)}>
-                {BUTTON_LABELS.RESUME}
+                {BUTTON_LABELS.COMPLETE}
               </button>
               <button onClick={() => onClickDelete(index, false)}>
                 {BUTTON_LABELS.DELETE}
