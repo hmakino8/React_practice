@@ -5,8 +5,7 @@ import { Modal } from "./Modal";
 import "./styles.css";
 
 const todoContainer = {
-  minHeight: "1500px",
-  backgroundColor: "#888",
+  // backgroundColor: "#888",
   display: "flex",
 };
 
@@ -15,9 +14,9 @@ const todoWrapper = {
   flexDirection: "column",
   /* align-items: center; */
   /* padding: 2rem; フォントサイズの相対単位 ルートのサイズの2倍のスペース */
-  margin: "50px auto",
+  margin: "10px auto auto",
   width: "800px",
-  height: "800px",
+  height: "1000px",
   backgroundColor: "#f4f4f4" /* 背景色を設定 */,
   borderRadius: "10px" /* 角を丸くする */,
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 影を付ける */

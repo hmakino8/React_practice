@@ -1,3 +1,8 @@
+p,
+h2 {
+  color: rgb(100, 100, 100);
+}
+
 .modal {
   /* display: none; デフォルトでは非表示 */
   position: fixed; /* スクロールしてもモーガルが画面上に固定 */
@@ -31,4 +36,9 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.styleTasksButtonAdd:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }
