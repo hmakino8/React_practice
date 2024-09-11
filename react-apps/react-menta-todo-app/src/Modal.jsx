@@ -39,9 +39,115 @@ const styleTasksNoData = {
   alignItems: "center",
 };
 
-export const Modal = (todos, setTodos) => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // モーダルの表示状態を管理
-  const [todoText, setTodoText] = useState({});
+const CreateInputForm = ({ closeModal, setTodos }) => {
+  const InitializeTodoInfo = {
+    title: "",
+    priority: "",
+    deadline: "",
+    comments: "",
+  };
+  const [todoInfo, setTodoInfo] = useState({ InitializeTodoInfo });
+
+  const addTodo = () => {
+    setTodos((prevTodos) => {
+      const newTodos = prevTodos;
+      newTodos.push(todoInfo);
+      return newTodos;
+    });
+    closeModal();
+  };
+
+  return (
+    <>
+      <div
+        style={{
+          display: "flex",
+          flexFlow: "column",
+          width: "100%",
+          marginBottom: "20px",
+        }}
+      >
+        <label for="title" style={{ marginBottom: "5px" }}>
+          Title
+        </label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          value={todoInfo.title}
+          // onChangeのe.targetは変更された<input>要素を指す
+          onChange={(e) => {
+            const { name, value } = e.target;
+            setTodoInfo((prevTodoInfo) => ({
+              ...prevTodoInfo,
+              [name]: value,
+            }));
+            // console.log(todoInfo);
+          }}
+          // className="todo-input"
+        />
+
+        <label for="priority" style={{ marginBottom: "5px" }}>
+          Priority
+        </label>
+        <input
+          type="text"
+          id="priority"
+          name="priority"
+          value={todoInfo["priority"]}
+          // onChangeのe.targetは変更された<input>要素を指す
+          onChange={(e) => {
+            const { name, value } = e.target;
+            setTodoInfo((prevTodoInfo) => ({
+              ...prevTodoInfo,
+              [name]: value,
+            }));
+          }}
+        />
+
+        <label for="deadline" style={{ marginBottom: "5px" }}>
+          Deadline
+        </label>
+        <input
+          type="text"
+          id="deadline"
+          name="deadline"
+          value={todoInfo["deadline"]}
+          // onChangeのe.targetは変更された<input>要素を指す
+          onChange={(e) => {
+            const { name, value } = e.target;
+            setTodoInfo((prevTodoInfo) => ({
+              ...prevTodoInfo,
+              [name]: value,
+            }));
+          }}
+        />
+
+        <label for="comment" style={{ marginBottom: "5px" }}>
+          Comment
+        </label>
+        <textarea
+          id="comment"
+          name="comment"
+          value={todoInfo["comment"]}
+          // onChangeのe.targetは変更された<input>要素を指す
+          onChange={(e) => {
+            const { name, value } = e.target;
+            setTodoInfo((prevTodoInfo) => ({
+              ...prevTodoInfo,
+              [name]: value,
+            }));
+          }}
+        />
+        <button onClick={closeModal}>Close</button>
+        <button onClick={addTodo}>Add Task</button>
+      </div>
+    </>
+  );
+};
+
+export const Modal = ({ todos, setTodos }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -49,36 +155,6 @@ export const Modal = (todos, setTodos) => {
 
   const openModal = () => {
     setIsModalOpen(true);
-  };
-
-  const addTodo = () => {
-    if (todoText === "") return;
-    setTodos([...todos, { text: todoText, completed: false }]);
-    setTodoText("");
-    closeModal();
-  };
-
-  const CreateInputForm = ({ title }) => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexFlow: "column",
-          width: "100%",
-          margin: "5px",
-        }}
-      >
-        <label for={title}>{title}</label>
-        <input
-          type="text"
-          id={title}
-          name={title}
-          value={todoText[title]}
-          onChange={(e) => setTodoText(e.target.value)}
-          className="todo-input"
-        />
-      </div>
-    );
   };
 
   return (
@@ -101,24 +177,14 @@ export const Modal = (todos, setTodos) => {
               <span className="close" onClick={closeModal}>
                 &times;
               </span>
-              <h2>Add a new TODO</h2>
-              <CreateInputForm title="title" />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <CreateInputForm title="Priority" />
-                <CreateInputForm title="Deadline" />
-              </div>
-              <CreateInputForm title="Comments" />
+              <h2>Task Details</h2>
+              <CreateInputForm closeModal={closeModal} setTodos={setTodos} />
             </div>
-            <button onClick={addTodo}>Close</button>
-            <button onClick={addTodo}>Add Task</button>
           </div>
-        ) : (
+        ) : todos.length === 0 ? (
           <p style={styleTasksNoData}>No data to display</p>
+        ) : (
+          ""
         )}
       </div>
     </>

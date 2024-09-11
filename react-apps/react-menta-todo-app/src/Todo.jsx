@@ -4,12 +4,11 @@ import { useState } from "react";
 import { Modal } from "./Modal";
 import "./styles.css";
 
-const todoContainer = {
-  // backgroundColor: "#888",
+const styleTodoContainer = {
   display: "flex",
 };
 
-const todoWrapper = {
+const styleTodoWrapper = {
   display: "flex",
   flexDirection: "column",
   /* align-items: center; */
@@ -22,7 +21,7 @@ const todoWrapper = {
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 影を付ける */
 };
 
-const contentsWrapper = {
+const styleContentsWrapper = {
   width: "80%",
   margin: "0 auto",
 };
@@ -30,12 +29,12 @@ const contentsWrapper = {
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
   return (
-    <div style={todoContainer}>
-      <div style={todoWrapper}>
-        <div style={contentsWrapper}>
+    <div style={styleTodoContainer}>
+      <div style={styleTodoWrapper}>
+        <div style={styleContentsWrapper}>
           <TodoTitle />
-          <Modal todos={(todos, setTodos)} />
-          <TodoList todos={todos} setTodos={setTodos} />
+          <Modal todos={todos} setTodos={setTodos} />
+          {/* <TodoList todos={todos} setTodos={setTodos} /> */}
         </div>
       </div>
     </div>
