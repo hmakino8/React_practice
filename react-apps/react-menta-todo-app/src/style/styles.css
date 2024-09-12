@@ -1,0 +1,31 @@
+p,
+label {
+  color: rgb(80, 80, 80);
+}
+
+.tasksButtonAdd:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 3px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border: 1px solid green;
+}
+
+input:not(:focus):hover,
+textarea:not(:focus):hover,
+select:not(:focus):hover {
+  outline: none;
+  border: 1px solid rgb(150, 150, 150);
+}
