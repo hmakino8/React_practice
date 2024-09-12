@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal } from "./Modal";
+import { TodoList } from "./TodoList";
 import * as Style from "../style/styleTodo";
 
 export const Todo = () => {
@@ -13,6 +14,7 @@ export const Todo = () => {
             Todo App
           </h1>
           <Modal todos={todos} setTodos={setTodos} />
+          <TodoList todos={todos} />
         </div>
       </div>
     </div>

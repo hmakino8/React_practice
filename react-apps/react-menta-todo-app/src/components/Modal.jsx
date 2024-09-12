@@ -20,23 +20,19 @@ const Tasks = ({ openModal }) => {
 };
 
 const ModalContents = (props) => {
-  const { closeModal, isModalOpen, todos, setTodos } = props;
+  const { closeModal, isModalOpen, setTodos } = props;
 
   return (
-    <div style={Style.tasksContents}>
-      {isModalOpen ? (
+    <>
+      {isModalOpen && (
         <div style={Style.modal} onClick={closeModal}>
           <div style={Style.modalContent} onClick={(e) => e.stopPropagation()}>
             <h2>Task Details</h2>
             <InputForm closeModal={closeModal} setTodos={setTodos} />
           </div>
         </div>
-      ) : todos.length === 0 ? (
-        <p style={Style.tasksNoData}>No data to display</p>
-      ) : (
-        ""
       )}
-    </div>
+    </>
   );
 };
 

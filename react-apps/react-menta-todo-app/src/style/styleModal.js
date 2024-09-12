@@ -18,25 +18,6 @@ export const tasksButtonAdd = {
   marginLeft: "auto",
 };
 
-export const tasksContents = {
-  display: "flex",
-  height: "700px",
-  backgroundColor: "white",
-  borderRadius: "3px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-};
-
-export const tasksNoData = {
-  display: "flex",
-  fontSize: "0.5rem",
-  margin: "20px auto",
-  border: "1px solid rgb(240, 240, 240)",
-  width: "95%",
-  height: "60%",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
 export const modal = {
   /* display: none; デフォルトでは非表示 */
   position: "fixed" /* スクロールしてもモーガルが画面上に固定 */,

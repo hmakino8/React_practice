@@ -24,5 +24,6 @@ export const todoWrapper = {
 
 export const contentsWrapper = {
   width: "80%",
+  height: "80%",
   margin: "0 auto",
 };
