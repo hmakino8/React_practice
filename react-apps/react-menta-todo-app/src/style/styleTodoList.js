@@ -6,7 +6,7 @@ export const listContentsWrapper = {
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   border: "1px solid, rgb(220, 220, 220",
   flexDirection: "column",
-  fontSize: "0.8rem",
+  fontSize: "0.6rem",
   alignItems: "center",
 };
 
@@ -48,4 +48,11 @@ export const task = {
   borderRadius: "3px",
   boxShadow: "0 1.6px 1px rgba(0, 0, 0, 0.1)",
   border: "1.2px solid, rgb(220, 220, 220",
+  alignItems: "center",
+};
+
+export const priority = {
+  padding: "8px",
+  marginRight: "5px",
+  borderRadius: "10px",
 };

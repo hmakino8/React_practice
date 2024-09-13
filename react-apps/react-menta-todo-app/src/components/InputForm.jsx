@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { initializeTodoInfo, generateId } from "../utils/utils";
 import * as Style from "../style/styleInputForm";
 
 const CreateInputForm = ({ titleName, todoInfo, setTodoInfo }) => {
   const handleOnChange = (e) => {
     const { name, value } = e.target;
+
     setTodoInfo((prevTodoInfo) => ({
       ...prevTodoInfo,
       [name]: value,
@@ -16,12 +18,6 @@ const CreateInputForm = ({ titleName, todoInfo, setTodoInfo }) => {
     value: todoInfo[titleName] || "",
     onChange: handleOnChange,
   };
-
-  // debug
-  // useEffect(() => {
-  //   // コンポーネントがマウントされたとき、または titleName が変更されたときの処理
-  //   console.log(`${titleName} component mounted or updated`);
-  // }, [titleName]); // 依存配列に titleName を指定
 
   switch (titleName) {
     case "title":
@@ -64,53 +60,68 @@ const CreateInputForm = ({ titleName, todoInfo, setTodoInfo }) => {
   }
 };
 
-export const InputForm = ({ closeModal, setTodos }) => {
-  const [todoInfo, setTodoInfo] = useState({
-    title: "",
-    priority: "",
-    deadline: "",
-    comments: "",
-  });
+export const InputForm = (props) => {
+  const { setTodos, todoInfo, setTodoInfo, setIsModalOpen } = props;
 
   const addTodo = () => {
-    setTodos((prevTodos) => {
-      const newTodos = [...prevTodos, todoInfo];
-      return newTodos;
-    });
-    closeModal();
+    const uniqueId = generateId();
+    setTodos((prevTodos) => [...prevTodos, { ...todoInfo, id: uniqueId }]);
+    console.log(uniqueId);
+    // Add Taskを押した時に前回の入力が残らないようtodoInfoをリセット
+    setTodoInfo(initializeTodoInfo());
+    setIsModalOpen(false);
   };
 
-  // debug
-  // useEffect(() => {
-  //   console.log("todoInfo changed:", todoInfo);
-  // }, [todoInfo]);
+  const editTodo = () => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((prevTodo) => {
+        if (prevTodo.id === todoInfo.id) {
+          return { ...prevTodo, ...todoInfo };
+        } else {
+          return prevTodo;
+        }
+      });
+    });
+
+    setIsModalOpen(false);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
-    <div>
-      <CreateInputForm
-        titleName="title"
-        todoInfo={todoInfo}
-        setTodoInfo={setTodoInfo}
-      />
-      <div style={Style.priorityAndDeadline}>
+    <>
+      <div>
         <CreateInputForm
-          titleName="priority"
+          titleName="title"
           todoInfo={todoInfo}
           setTodoInfo={setTodoInfo}
         />
+        <div style={Style.priorityAndDeadline}>
+          <CreateInputForm
+            titleName="priority"
+            todoInfo={todoInfo}
+            setTodoInfo={setTodoInfo}
+          />
+          <CreateInputForm
+            titleName="deadline"
+            todoInfo={todoInfo}
+            setTodoInfo={setTodoInfo}
+          />
+        </div>
         <CreateInputForm
-          titleName="deadline"
+          titleName="comment"
           todoInfo={todoInfo}
           setTodoInfo={setTodoInfo}
         />
+        <button onClick={closeModal}>Close</button>
+        {todoInfo.isNew ? (
+          <button onClick={addTodo}>Add Task</button>
+        ) : (
+          <button onClick={editTodo}>Done</button>
+        )}
       </div>
-      <CreateInputForm
-        titleName="comment"
-        todoInfo={todoInfo}
-        setTodoInfo={setTodoInfo}
-      />
-      <button onClick={closeModal}>Close</button>
-      <button onClick={addTodo}>Add Task</button>
-    </div>
+    </>
   );
 };
