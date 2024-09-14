@@ -1,33 +1,33 @@
 export const listContentsWrapper = {
-  display: "flex",
-  height: "90%",
+  height: "88%",
   backgroundColor: "white",
-  borderRadius: "3px",
+  borderRadius: "5px",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   border: "1px solid, rgb(220, 220, 220",
-  flexDirection: "column",
   fontSize: "0.6rem",
-  alignItems: "center",
+  display: "flex",
+  overflowX: "auto",
 };
 
-export const listContentsComplete = {
-  height: "28%",
-  width: "93%",
+export const listContents = {
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  minWidth: "300px",
   backgroundColor: "white",
   borderRadius: "3px",
-  boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
+  boxShadow: "2px 2px 2px 2px rgba(0, 0, 0, 0.1)",
   border: "1px solid, rgb(250, 250, 250",
-  margin: "2px auto",
+  margin: "5px",
+  // overflowY: "auto",
 };
-
-export const listContentsIncomplete = {
-  height: "72%",
-  width: "93%",
-  backgroundColor: "white",
+export const tasksWrapper = {
+  width: "100%",
+  // backgroundColor: "white",
   borderRadius: "3px",
-  boxShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
-  border: "1px solid, rgb(250, 250, 250",
-  margin: "2px auto",
+  // boxShadow: "2px 2px 2px 2px rgba(0, 0, 0, 0.1)",
+  // border: "1px solid, rgb(250, 250, 250",
+  overflowY: "auto",
 };
 
 export const listNoData = {
@@ -55,4 +55,12 @@ export const priority = {
   padding: "8px",
   marginRight: "5px",
   borderRadius: "10px",
+  border: "2px, solid, rgb(240, 240, 240)",
+};
+
+export const priorityColor = {
+  High: { backgroundColor: "red" },
+  Medium: { backgroundColor: "yellow" },
+  Low: { backgroundColor: "gray" },
+  "": { backgroundColor: "white" },
 };

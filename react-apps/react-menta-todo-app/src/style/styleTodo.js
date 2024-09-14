@@ -1,29 +1,24 @@
 export const todoTitle = {
-  color: "white",
-  margin: "10px auto 80px",
-  padding: "25px",
-  textAlign: "center",
+  color: "rgb(100, 100, 100)",
+  paddingLeft: "10px",
+  margin: "0",
+  fontSize: "1.5rem",
+  padding: "0.3rem",
   borderRadius: "3px",
-  boxShadow: "0 4px 8px black",
-  backgroundColor: "green",
-};
-
-export const todoContainer = {
-  display: "flex",
+  backgroundColor: "#fff",
+  borderBottom: "1px solid rgb(200, 200 ,200)",
 };
 
 export const todoWrapper = {
+  position: "absolute",
+  top: "0",
+  left: "0",
+  margin: "0",
+  padding: "0",
   display: "flex",
   flexDirection: "column",
-  margin: "10px auto auto",
-  width: "800px",
-  height: "1000px",
+  width: "100%",
+  minWidth: "500px",
+  height: "100vh", // ブラウザの表示域を基準にする
   backgroundColor: "#f4f4f4",
-  borderRadius: "10px",
-};
-
-export const contentsWrapper = {
-  width: "80%",
-  height: "80%",
-  margin: "0 auto",
 };

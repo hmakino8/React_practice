@@ -1,3 +1,10 @@
+export const PRIORITYCOLOR = {
+  High: "red",
+  Medium: "yellow",
+  Low: "grey",
+  NoData: "white",
+};
+
 export const initializeTodoInfo = () => ({
   title: "",
   priority: "",
