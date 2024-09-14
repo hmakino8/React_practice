@@ -1,12 +1,12 @@
 export const todoTitle = {
+  display: "flex",
+  alignItems: "center",
   color: "rgb(100, 100, 100)",
-  paddingLeft: "10px",
-  margin: "0",
   fontSize: "1.5rem",
-  padding: "0.3rem",
-  borderRadius: "3px",
+  height: "63px",
   backgroundColor: "#fff",
   borderBottom: "1px solid rgb(200, 200 ,200)",
+  fontWeight: "bold",
 };
 
 export const todoWrapper = {

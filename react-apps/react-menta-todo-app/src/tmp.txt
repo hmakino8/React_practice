@@ -1,13 +1,13 @@
 import React from "react";
-import { initializeTodoInfo } from "../utils/utils";
+import { initializeTaskInfo } from "../utils/utils";
 import * as Style from "../style/styleInputForm";
 
-const CreateInputForm = ({ titleName, todoInfo, setTodoInfo }) => {
+const CreateInputForm = ({ titleName, TaskInfo, setTaskInfo }) => {
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 
-    setTodoInfo((prevTodoInfo) => ({
-      ...prevTodoInfo,
+    setTaskInfo((prevTaskInfo) => ({
+      ...prevTaskInfo,
       [name]: value,
     }));
   };
@@ -15,7 +15,7 @@ const CreateInputForm = ({ titleName, todoInfo, setTodoInfo }) => {
   const commonProps = {
     id: titleName,
     name: titleName,
-    value: todoInfo[titleName] || "",
+    value: TaskInfo[titleName] || "",
     onChange: handleOnChange,
   };
 
@@ -61,20 +61,20 @@ const CreateInputForm = ({ titleName, todoInfo, setTodoInfo }) => {
 };
 
 export const InputForm = (props) => {
-  const { setTodos, todoInfo, setTodoInfo, setIsModalOpen } = props;
+  const { setTodos, TaskInfo, setTaskInfo, setIsModalOpen } = props;
 
   const addTodo = () => {
-    setTodos((prevTodos) => [...prevTodos, todoInfo]);
-    // Add Taskを押した時に前回の入力が残らないようtodoInfoをリセット
-    setTodoInfo(initializeTodoInfo());
+    setTodos((prevTodos) => [...prevTodos, TaskInfo]);
+    // Add Taskを押した時に前回の入力が残らないようTaskInfoをリセット
+    setTaskInfo(initializeTaskInfo());
     setIsModalOpen(false);
   };
 
   const editTodo = () => {
     setTodos((prevTodos) => {
       const newTodos = prevTodos.map((prevTodo) => {
-        if (prevTodo.id === todoInfo.id) {
-          return { ...todoInfo };
+        if (prevTodo.id === TaskInfo.id) {
+          return { ...TaskInfo };
         } else {
           return prevTodo;
         }
@@ -94,28 +94,28 @@ export const InputForm = (props) => {
       <div>
         <CreateInputForm
           titleName="title"
-          todoInfo={todoInfo}
-          setTodoInfo={setTodoInfo}
+          TaskInfo={TaskInfo}
+          setTaskInfo={setTaskInfo}
         />
         <div style={Style.priorityAndDeadline}>
           <CreateInputForm
             titleName="priority"
-            todoInfo={todoInfo}
-            setTodoInfo={setTodoInfo}
+            TaskInfo={TaskInfo}
+            setTaskInfo={setTaskInfo}
           />
           <CreateInputForm
             titleName="deadline"
-            todoInfo={todoInfo}
-            setTodoInfo={setTodoInfo}
+            TaskInfo={TaskInfo}
+            setTaskInfo={setTaskInfo}
           />
         </div>
         <CreateInputForm
           titleName="comment"
-          todoInfo={todoInfo}
-          setTodoInfo={setTodoInfo}
+          TaskInfo={TaskInfo}
+          setTaskInfo={setTaskInfo}
         />
         <button onClick={closeModal}>Close</button>
-        {todoInfo.isNew ? (
+        {TaskInfo.isNew ? (
           <button onClick={addTodo}>Add Task</button>
         ) : (
           <button onClick={editTodo}>Done</button>
@@ -126,12 +126,12 @@ export const InputForm = (props) => {
 };
 import React from "react";
 import { InputForm } from "./InputForm";
-import { initializeTodoInfo } from "../utils/utils";
+import { initializeTaskInfo } from "../utils/utils";
 import * as Style from "../style/styleModal";
 import "../style/styles.css";
 
 const Tasks = (props) => {
-  const { setIsModalOpen, setTodoInfo } = props;
+  const { setIsModalOpen, setTaskInfo } = props;
 
   return (
     <div style={Style.tasks}>
@@ -140,7 +140,7 @@ const Tasks = (props) => {
         className="tasksButtonAdd"
         style={Style.tasksButtonAdd}
         onClick={() => {
-          setTodoInfo(initializeTodoInfo());
+          setTaskInfo(initializeTaskInfo());
           setIsModalOpen(true);
         }}
       >
@@ -152,7 +152,7 @@ const Tasks = (props) => {
 };
 
 const ModalContents = (props) => {
-  const { setTodos, todoInfo, setTodoInfo, isModalOpen, setIsModalOpen } =
+  const { setTodos, TaskInfo, setTaskInfo, isModalOpen, setIsModalOpen } =
     props;
 
   return (
@@ -160,11 +160,11 @@ const ModalContents = (props) => {
       {isModalOpen && (
         <div style={Style.modal} onClick={() => setIsModalOpen(false)}>
           <div style={Style.modalContent} onClick={(e) => e.stopPropagation()}>
-            {todoInfo.isNew ? <h2>Task Details</h2> : <h2>Edit</h2>}
+            {TaskInfo.isNew ? <h2>Task Details</h2> : <h2>Edit</h2>}
             <InputForm
               setTodos={setTodos}
-              todoInfo={todoInfo}
-              setTodoInfo={setTodoInfo}
+              TaskInfo={TaskInfo}
+              setTaskInfo={setTaskInfo}
               setIsModalOpen={setIsModalOpen}
             />
           </div>
@@ -175,16 +175,16 @@ const ModalContents = (props) => {
 };
 
 export const Modal = (props) => {
-  const { setTodos, todoInfo, setTodoInfo, isModalOpen, setIsModalOpen } =
+  const { setTodos, TaskInfo, setTaskInfo, isModalOpen, setIsModalOpen } =
     props;
 
   return (
     <>
-      <Tasks setIsModalOpen={setIsModalOpen} setTodoInfo={setTodoInfo} />
+      <Tasks setIsModalOpen={setIsModalOpen} setTaskInfo={setTaskInfo} />
       <ModalContents
         setTodos={setTodos}
-        todoInfo={todoInfo}
-        setTodoInfo={setTodoInfo}
+        TaskInfo={TaskInfo}
+        setTaskInfo={setTaskInfo}
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
       />
@@ -194,13 +194,13 @@ export const Modal = (props) => {
 import { useState } from "react";
 import { Modal } from "./Modal";
 import { TodoList } from "./TodoList";
-import { initializeTodoInfo } from "../utils/utils";
+import { initializeTaskInfo } from "../utils/utils";
 import * as Style from "../style/styleTodo";
 
 export const Todo = () => {
   const [todos, setTodos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [todoInfo, setTodoInfo] = useState(initializeTodoInfo());
+  const [TaskInfo, setTaskInfo] = useState(initializeTaskInfo());
 
   return (
     <div style={Style.todoContainer}>
@@ -211,15 +211,15 @@ export const Todo = () => {
           </h1>
           <Modal
             setTodos={setTodos}
-            todoInfo={todoInfo}
-            setTodoInfo={setTodoInfo}
+            TaskInfo={TaskInfo}
+            setTaskInfo={setTaskInfo}
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
           />
           <TodoList
             todos={todos}
             setTodos={setTodos}
-            setTodoInfo={setTodoInfo}
+            setTaskInfo={setTaskInfo}
             setIsModalOpen={setIsModalOpen}
           />
         </div>
@@ -232,7 +232,7 @@ import { formatDate } from "../utils/utils";
 import * as Style from "../style/styleTodoList";
 
 const ContentsIncomplete = (props) => {
-  const { index, todo, setTodoInfo, handleOnChange, setIsModalOpen } = props;
+  const { index, todo, setTaskInfo, handleOnChange, setIsModalOpen } = props;
 
   return (
     <div style={Style.task}>
@@ -255,7 +255,7 @@ const ContentsIncomplete = (props) => {
         className="fa-duotone fa-solid fa-pen-to-square"
         style={{ marginRight: "10px" }}
         onClick={() => {
-          setTodoInfo(() => ({ ...todo, isNew: false }));
+          setTaskInfo(() => ({ ...todo, isNew: false }));
           setIsModalOpen(true);
         }}
       ></i>
@@ -303,7 +303,7 @@ const ContentsComplete = (props) => {
 };
 
 export const TodoList = (props) => {
-  const { todos, setTodos, setTodoInfo, setIsModalOpen } = props;
+  const { todos, setTodos, setTaskInfo, setIsModalOpen } = props;
 
   // チェックボックスによる完了、未完了のトグル
   const handleOnChange = (e, index) => {
@@ -329,7 +329,7 @@ export const TodoList = (props) => {
                   <ContentsIncomplete
                     index={index}
                     todo={todo}
-                    setTodoInfo={setTodoInfo}
+                    setTaskInfo={setTaskInfo}
                     handleOnChange={handleOnChange}
                     setIsModalOpen={setIsModalOpen}
                   />
@@ -568,7 +568,7 @@ select:not(:focus):hover {
   outline: none;
   border: 1px solid rgb(150, 150, 150);
 }
-export const initializeTodoInfo = () => ({
+export const initializeTaskInfo = () => ({
   title: "",
   priority: "",
   deadline: "",

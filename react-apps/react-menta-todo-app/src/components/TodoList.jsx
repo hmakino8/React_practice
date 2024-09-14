@@ -2,10 +2,10 @@ import React from "react";
 import { formatDate } from "../utils/utils";
 import * as Style from "../style/styleTodoList";
 import * as Style2 from "../style/styleModal";
-import { initializeTodoInfo } from "../utils/utils";
+import { initializeTaskInfo, CreateToodleIcon } from "../utils/utils";
 
 const ContentsIncomplete = (props) => {
-  const { index, todo, setTodoInfo, handleOnChange, setIsModalOpen } = props;
+  const { index, todo, setTaskInfo, handleOnChange, setIsModalOpen } = props;
 
   return (
     <div style={Style.task}>
@@ -23,28 +23,33 @@ const ContentsIncomplete = (props) => {
       </div>
       <div
         style={{
+          display: "flex",
           width: "50%",
           overflow: "hidden",
           whiteSpace: "norap",
           textAlign: "center",
         }}
       >
-        <i className="fa-regular fa-clock" style={{ marginRight: "5%" }}></i>
+        <span class="material-symbols-outlined" style={{ fontSize: "20px" }}>
+          schedule
+        </span>
         {formatDate(todo.deadline)}
       </div>
       <button
         style={{
+          padding: "0",
+          fontSize: "1px",
           marginRight: "5px",
           borderRadius: "50%",
           border: "none",
-          // backgroundColor: "#fff",
+          color: "rgb(100, 100, 100)",
         }}
         onClick={() => {
-          setTodoInfo(() => ({ ...todo, isNew: false }));
+          setTaskInfo(() => ({ ...todo, isNew: false }));
           setIsModalOpen(true);
         }}
       >
-        <i class="fa-solid fa-ellipsis-vertical"></i>
+        <span class="material-symbols-outlined">more_vert</span>
       </button>
       <div
         style={{
@@ -87,7 +92,7 @@ const ContentsComplete = (props) => {
 };
 
 const Tasks = (props) => {
-  const { setIsModalOpen, setTodoInfo } = props;
+  const { isModalOpen, setIsModalOpen, setTaskInfo } = props;
 
   return (
     <>
@@ -95,11 +100,11 @@ const Tasks = (props) => {
         className="buttonAddList"
         style={Style2.buttonAddList}
         onClick={() => {
-          setTodoInfo(initializeTodoInfo());
+          setTaskInfo(initializeTaskInfo());
           setIsModalOpen(true);
         }}
       >
-        <i className="fa-thin fa-plus" style={{ marginLeft: "10px" }}></i>
+        <CreateToodleIcon isModalOpen={isModalOpen} />
         <p style={Style2.buttonAddTaskParagraph}>作成</p>
       </button>
     </>
@@ -107,7 +112,7 @@ const Tasks = (props) => {
 };
 
 export const TodoList = (props) => {
-  const { todos, setTodos, setTodoInfo, setIsModalOpen } = props;
+  const { todos, setTodos, setTaskInfo, isModalOpen, setIsModalOpen } = props;
 
   // チェックボックスによる完了、未完了のトグル
   const handleOnChange = (e, index) => {
@@ -122,7 +127,11 @@ export const TodoList = (props) => {
 
   return (
     <>
-      <Tasks setIsModalOpen={setIsModalOpen} setTodoInfo={setTodoInfo} />
+      <Tasks
+        idModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        setTaskInfo={setTaskInfo}
+      />
       <div style={Style.listContentsWrapper}>
         {todos.length === 0 ? (
           <p style={Style.listNoData}>No data to display</p>
@@ -142,6 +151,7 @@ export const TodoList = (props) => {
                 <button
                   className="addTask"
                   style={{
+                    display: "flex",
                     borderRadius: "10px",
                     padding: "5px",
                     width: "130px",
@@ -149,14 +159,18 @@ export const TodoList = (props) => {
                     marginLeft: "10px",
                     border: "none",
                     color: "rgb(66, 133, 244)",
-                    // backgroundColor: "rgba(66, 133, 244, 0.1)",
-                    backgroundColor: "none",
                   }}
                 >
-                  <i
-                    className="fa-regular fa-circle-check"
-                    style={{ marginRight: "5px" }}
-                  ></i>
+                  <span
+                    class="material-symbols-outlined"
+                    style={{
+                      color: "rgb(66, 133, 244)",
+                      fontSize: "1.2rem",
+                      marginRight: "10px",
+                    }}
+                  >
+                    add_task
+                  </span>
                   タスクを追加
                 </button>
               </p>
@@ -167,7 +181,7 @@ export const TodoList = (props) => {
                       <ContentsIncomplete
                         index={index}
                         todo={todo}
-                        setTodoInfo={setTodoInfo}
+                        setTaskInfo={setTaskInfo}
                         handleOnChange={handleOnChange}
                         setIsModalOpen={setIsModalOpen}
                       />
