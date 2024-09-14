@@ -33,27 +33,29 @@ export const tasksParagraph = {
 };
 
 export const buttonAddList = {
-  position: "relative",
+  position: "absolute",
+  top: "58px",
   alignSelf: "flex-start",
   display: "flex",
   fontSize: "3rem",
-  // color: "#fbbc05",
   border: "none",
-  alignItems: "center",
   borderRadius: "30px",
   paddingleft: "80px",
   paddingTop: "2px",
   padding: "0",
   margin: "10px",
-  width: "100px",
+  width: "140px",
   height: "45px",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
 };
 
 export const buttonAddTaskParagraph = {
-  position: "absolute",
+  // position: "absolute",
   fontSize: "0.8rem",
-  right: "20px",
+  // right: "5px",
+  width: "100%",
+  textAlign: "right",
+  marginRight: "15px",
 };
 
 export const modal = {

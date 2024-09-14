@@ -92,27 +92,26 @@ const ContentsComplete = (props) => {
 };
 
 const Tasks = (props) => {
-  const { isModalOpen, setIsModalOpen, setTaskInfo } = props;
+  const { setIsModalOpen, setTaskInfo } = props;
 
   return (
     <>
       <button
-        className="buttonAddList"
         style={Style2.buttonAddList}
         onClick={() => {
           setTaskInfo(initializeTaskInfo());
           setIsModalOpen(true);
         }}
       >
-        <CreateToodleIcon isModalOpen={isModalOpen} />
-        <p style={Style2.buttonAddTaskParagraph}>作成</p>
+        <CreateToodleIcon />
+        <p style={Style2.buttonAddTaskParagraph}>リストを作成</p>
       </button>
     </>
   );
 };
 
 export const TodoList = (props) => {
-  const { todos, setTodos, setTaskInfo, isModalOpen, setIsModalOpen } = props;
+  const { todos, setTodos, setTaskInfo, setIsModalOpen } = props;
 
   // チェックボックスによる完了、未完了のトグル
   const handleOnChange = (e, index) => {
@@ -127,36 +126,29 @@ export const TodoList = (props) => {
 
   return (
     <>
-      <Tasks
-        idModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        setTaskInfo={setTaskInfo}
-      />
+      <Tasks setIsModalOpen={setIsModalOpen} setTaskInfo={setTaskInfo} />
       <div style={Style.listContentsWrapper}>
         {todos.length === 0 ? (
           <p style={Style.listNoData}>No data to display</p>
         ) : (
           <>
             <div style={Style.listContents}>
+              <p style={{ fontSize: "20px", margin: "5px" }}>未完了</p>
               <p
                 style={{
                   display: "flex",
                   fontSize: "1rem",
                   height: "10px",
                   alignItems: "center",
-                  marginLeft: "10px",
                 }}
               >
-                未完了
                 <button
-                  className="addTask"
+                  onClick={() => setIsModalOpen(true)}
                   style={{
                     display: "flex",
                     borderRadius: "10px",
                     padding: "5px",
                     width: "130px",
-                    textAlign: "left",
-                    marginLeft: "10px",
                     border: "none",
                     color: "rgb(66, 133, 244)",
                   }}
@@ -166,7 +158,7 @@ export const TodoList = (props) => {
                     style={{
                       color: "rgb(66, 133, 244)",
                       fontSize: "1.2rem",
-                      marginRight: "10px",
+                      marginRight: "5px",
                     }}
                   >
                     add_task

@@ -3,10 +3,11 @@ export const todoTitle = {
   alignItems: "center",
   color: "rgb(100, 100, 100)",
   fontSize: "1.5rem",
-  height: "63px",
+  minHeight: "60px",
   backgroundColor: "#fff",
   borderBottom: "1px solid rgb(200, 200 ,200)",
   fontWeight: "bold",
+  marginBottom: "60px",
 };
 
 export const todoWrapper = {

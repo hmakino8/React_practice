@@ -30,7 +30,7 @@ export const generateId = () => {
   return timeStamp + rondomNumber;
 };
 
-export const CreateToodleIcon = (props) => {
+export const CreateToodleIcon = () => {
   return (
     <>
       <div
@@ -128,9 +128,10 @@ export const CreateToodleIcon = (props) => {
       ></div>
       <div
         style={{
+          position: "absolute",
+          top: "12px",
           background: `conic-gradient(${COLOR.BLUE} 0% 25%, ${COLOR.GREEN} 25% 50%, ${COLOR.YELLOW} 50% 75%, ${COLOR.RED} 75% 100%)`,
           transform: "rotate(45deg)",
-          position: "absolute",
           padding: "10px",
           left: "20px",
         }}

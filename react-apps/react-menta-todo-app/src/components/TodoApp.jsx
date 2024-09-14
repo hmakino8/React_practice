@@ -10,13 +10,11 @@ const Title = () => {
       <button
         style={{
           display: "flex",
-          // color: "rgb(100, 100, 100)",
           fontSize: "1.2rem",
           borderRadius: "50%",
           border: "none",
           margin: "0 20px",
           padding: "13px",
-          // backgroundColor: "rgb(260, 230, 230)",
         }}
       >
         <span class="material-symbols-outlined">menu</span>
@@ -35,7 +33,15 @@ const Title = () => {
         <span style={{ color: COLOR.YELLOW }}>o</span>
         <span style={{ color: COLOR.BLUE }}>d</span>
         <span style={{ color: COLOR.GREEN }}>l</span>
-        <span style={{ color: COLOR.RED }}>e</span>
+        <span
+          style={{
+            color: COLOR.RED,
+            transform: "rotate(-30deg)",
+            display: "inline-block",
+          }}
+        >
+          e
+        </span>
       </div>
     </div>
   );
@@ -61,7 +67,6 @@ export const TodoApp = () => {
           todos={todos}
           setTodos={setTodos}
           setTaskInfo={setTaskInfo}
-          isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         />
       </div>
