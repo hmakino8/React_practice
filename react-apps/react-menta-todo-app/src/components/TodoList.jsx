@@ -2,10 +2,10 @@ import React from "react";
 import { formatDate } from "../utils/utils";
 import * as Style from "../style/styleTodoList";
 import * as Style2 from "../style/styleModal";
-import { initializeTaskInfo, CreateToodleIcon } from "../utils/utils";
+import { initFormData, CreateToodleIcon } from "../utils/utils";
 
 const ContentsIncomplete = (props) => {
-  const { index, todo, setTaskInfo, handleOnChange, setIsModalOpen } = props;
+  const { index, todo, setFormData, handleOnChange, setIsModalOpen } = props;
 
   return (
     <div style={Style.task}>
@@ -30,7 +30,10 @@ const ContentsIncomplete = (props) => {
           textAlign: "center",
         }}
       >
-        <span class="material-symbols-outlined" style={{ fontSize: "20px" }}>
+        <span
+          className="material-symbols-outlined"
+          style={{ fontSize: "20px" }}
+        >
           schedule
         </span>
         {formatDate(todo.deadline)}
@@ -45,11 +48,11 @@ const ContentsIncomplete = (props) => {
           color: "rgb(100, 100, 100)",
         }}
         onClick={() => {
-          setTaskInfo(() => ({ ...todo, isNew: false }));
+          setFormData(() => ({ ...todo, isEditing: true }));
           setIsModalOpen(true);
         }}
       >
-        <span class="material-symbols-outlined">more_vert</span>
+        <span className="material-symbols-outlined">more_vert</span>
       </button>
       <div
         style={{
@@ -92,30 +95,30 @@ const ContentsComplete = (props) => {
 };
 
 const Tasks = (props) => {
-  const { setIsModalOpen, setTaskInfo } = props;
+  const { setIsModalOpen, setFormData } = props;
 
   return (
     <>
       <button
         style={Style2.buttonAddList}
         onClick={() => {
-          setTaskInfo(initializeTaskInfo());
+          setFormData(initFormData());
           setIsModalOpen(true);
         }}
       >
         <CreateToodleIcon />
-        <p style={Style2.buttonAddTaskParagraph}>リストを作成</p>
+        <p style={Style2.buttonAddTaskParagraph}>プロジェクトの追加</p>
       </button>
     </>
   );
 };
 
 export const TodoList = (props) => {
-  const { todos, setTodos, setTaskInfo, setIsModalOpen } = props;
+  const { taskList, setTaskList, setFormData, setIsModalOpen } = props;
 
   // チェックボックスによる完了、未完了のトグル
   const handleOnChange = (e, index) => {
-    setTodos((prevTodos) =>
+    setTaskList((prevTodos) =>
       prevTodos.map((prevTodo, prevTodoIndex) =>
         prevTodoIndex === index
           ? { ...prevTodo, isComplete: e.target.checked }
@@ -126,9 +129,9 @@ export const TodoList = (props) => {
 
   return (
     <>
-      <Tasks setIsModalOpen={setIsModalOpen} setTaskInfo={setTaskInfo} />
+      <Tasks setIsModalOpen={setIsModalOpen} setFormData={setFormData} />
       <div style={Style.listContentsWrapper}>
-        {todos.length === 0 ? (
+        {taskList.length === 0 ? (
           <p style={Style.listNoData}>No data to display</p>
         ) : (
           <>
@@ -154,7 +157,7 @@ export const TodoList = (props) => {
                   }}
                 >
                   <span
-                    class="material-symbols-outlined"
+                    className="material-symbols-outlined"
                     style={{
                       color: "rgb(66, 133, 244)",
                       fontSize: "1.2rem",
@@ -167,13 +170,13 @@ export const TodoList = (props) => {
                 </button>
               </p>
               <div style={Style.tasksWrapper}>
-                {todos.map((todo, index) => (
+                {taskList.map((todo, index) => (
                   <React.Fragment key={index}>
                     {!todo.isComplete && (
                       <ContentsIncomplete
                         index={index}
                         todo={todo}
-                        setTaskInfo={setTaskInfo}
+                        setFormData={setFormData}
                         handleOnChange={handleOnChange}
                         setIsModalOpen={setIsModalOpen}
                       />
@@ -184,7 +187,7 @@ export const TodoList = (props) => {
             </div>
             <div style={Style.listContents}>
               <p style={{ fontSize: "0.6rem", margin: "auto" }}>完了</p>
-              {todos.map((todo, index) => (
+              {taskList.map((todo, index) => (
                 <React.Fragment key={index}>
                   {todo.isComplete && (
                     <ContentsComplete
@@ -198,7 +201,7 @@ export const TodoList = (props) => {
             </div>
             <div style={Style.listContents}>
               <p style={{ fontSize: "0.6rem", margin: "auto" }}>期限切れ</p>
-              {todos.map((todo, index) => (
+              {taskList.map((todo, index) => (
                 <React.Fragment key={index}>
                   {todo.isComplete && (
                     <ContentsComplete
@@ -212,7 +215,7 @@ export const TodoList = (props) => {
             </div>
             <div style={Style.listContents}>
               <p style={{ fontSize: "0.6rem", margin: "auto" }}>ゴミ箱</p>
-              {todos.map((todo, index) => (
+              {taskList.map((todo, index) => (
                 <React.Fragment key={index}>
                   {todo.isComplete && (
                     <ContentsComplete

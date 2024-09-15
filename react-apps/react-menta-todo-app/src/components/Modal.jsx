@@ -1,40 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../style/styles.css";
 import * as Utils from "../utils/utils";
 import * as Style from "../style/styleModal";
 
-const CreateTask = ({ titleName, taskInfo, setTaskInfo }) => {
+const GetFormData = (props) => {
+  const { formFields, formFeild, formData, setFormData } = props;
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 
-    setTaskInfo((prevTaskInfo) => ({
-      ...prevTaskInfo,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
     }));
   };
 
   const commonProps = {
-    id: titleName,
-    name: titleName,
-    value: taskInfo[titleName] || "",
+    id: formFeild,
+    name: formFeild,
+    value: formData[formFeild] || "",
     onChange: handleOnChange,
   };
 
-  switch (titleName) {
-    case Utils.FORMINFO.TITLE:
+  switch (formFeild) {
+    case formFields.title:
       return (
         <div style={Style.inputForm}>
-          <label style={Style.label}>{titleName}</label>
+          <label style={Style.label}>{formFields.title}</label>
           <input type="text" {...commonProps} />
         </div>
       );
-    case Utils.FORMINFO.PRIORITY:
+    case formFields.priority:
       return (
         <div style={{ ...Style.inputForm, ...Style.priority }}>
-          <label style={Style.label}>{titleName}</label>
+          <label style={Style.label}>{formFields.priority}</label>
           <select {...commonProps}>
             <option value="" disabled>
-              選択してください
+              優先順位を選択
             </option>
             <option value="High">High</option>
             <option value="Medium">Medium</option>
@@ -42,17 +44,17 @@ const CreateTask = ({ titleName, taskInfo, setTaskInfo }) => {
           </select>
         </div>
       );
-    case Utils.FORMINFO.DEADLINE:
+    case formFields.deadline:
       return (
         <div style={Style.inputForm}>
-          <label style={Style.label}>{titleName}</label>
+          <label style={Style.label}>{formFeild.deadline}</label>
           <input type="datetime-local" {...commonProps} />
         </div>
       );
-    case Utils.FORMINFO.COMMENT:
+    case formFields.comment:
       return (
         <div style={Style.inputForm}>
-          <label style={Style.label}>{titleName}</label>
+          <label style={Style.label}>{formFields.comment}</label>
           <textarea {...commonProps} />
         </div>
       );
@@ -61,21 +63,29 @@ const CreateTask = ({ titleName, taskInfo, setTaskInfo }) => {
   }
 };
 
-export const ModalContents = (props) => {
-  const { setTodos, taskInfo, setTaskInfo, setIsModalOpen } = props;
+export const TaskBuilder = (props) => {
+  const { setTaskList, formData, setFormData, setIsModalOpen } = props;
+  const formFields = {
+    title: "title",
+    priority: "priority",
+    deadline: "deadline",
+    comment: "comment",
+  };
 
   const addTask = () => {
     const uniqueId = Utils.generateId();
-    setTodos((prevTodos) => [...prevTodos, { ...taskInfo, id: uniqueId }]);
-    setTaskInfo(Utils.initializeTaskInfo());
+
+    setTaskList((prevTodos) => [...prevTodos, { ...formData, id: uniqueId }]);
+    setFormData(Utils.initFormData());
+
     setIsModalOpen(false);
   };
 
   const editTask = () => {
-    setTodos((prevTodos) => {
+    setTaskList((prevTodos) => {
       return prevTodos.map((prevTodo) => {
-        if (prevTodo.id === taskInfo.id) {
-          return { ...prevTodo, ...taskInfo };
+        if (prevTodo.id === formData.id) {
+          return { ...prevTodo, ...formData };
         } else {
           return prevTodo;
         }
@@ -91,59 +101,59 @@ export const ModalContents = (props) => {
 
   return (
     <>
-      <div>
-        <CreateTask
-          titleName={Utils.FORMINFO.TITLE}
-          taskInfo={taskInfo}
-          setTaskInfo={setTaskInfo}
+      {formData.isEditing ? <h2>タスク編集</h2> : <h2>タスク追加</h2>}
+      <GetFormData
+        formFields={formFields}
+        formFeild={formFields.title}
+        formData={formData}
+        setFormData={setFormData}
+      />
+      <div style={Style.priorityAndDeadline}>
+        <GetFormData
+          formFields={formFields}
+          formFeild={formFields.priority}
+          formData={formData}
+          setFormData={setFormData}
         />
-        <div style={Style.priorityAndDeadline}>
-          <CreateTask
-            titleName={Utils.FORMINFO.PRIORITY}
-            taskInfo={taskInfo}
-            setTaskInfo={setTaskInfo}
-          />
-          <CreateTask
-            titleName={Utils.FORMINFO.DEADLINE}
-            taskInfo={taskInfo}
-            setTaskInfo={setTaskInfo}
-          />
-        </div>
-        <CreateTask
-          titleName={Utils.FORMINFO.COMMENT}
-          taskInfo={taskInfo}
-          setTaskInfo={setTaskInfo}
+        <GetFormData
+          formFields={formFields}
+          formFeild={formFields.deadline}
+          formData={formData}
+          setFormData={setFormData}
         />
-        <button onClick={closeModal}>Close</button>
-        {taskInfo.isNew ? (
-          <button onClick={addTask}>Add Task</button>
-        ) : (
-          <button onClick={editTask}>Done</button>
-        )}
       </div>
+      <GetFormData
+        formFields={formFields}
+        formFeild={formFields.comment}
+        formData={formData}
+        setFormData={setFormData}
+      />
+      <button onClick={closeModal}>Close</button>
+      {formData.isEditing ? (
+        <button onClick={editTask}>変更を保存</button>
+      ) : (
+        <button onClick={addTask}>追加</button>
+      )}
     </>
   );
 };
 
 export const Modal = (props) => {
-  const { setTodos, taskInfo, setTaskInfo, isModalOpen, setIsModalOpen } =
-    props;
+  const { setTaskList, formData, setFormData, setIsModalOpen } = props;
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
 
   return (
-    <>
-      {isModalOpen && (
-        <div style={Style.modal} onClick={() => setIsModalOpen(false)}>
-          <div style={Style.modalContent} onClick={(e) => e.stopPropagation()}>
-            {taskInfo.isNew ? <h2>タスク詳細</h2> : <h2>編集</h2>}
-            <ModalContents
-              setTodos={setTodos}
-              taskInfo={taskInfo}
-              setTaskInfo={setTaskInfo}
-              setIsModalOpen={setIsModalOpen}
-            />
-          </div>
-        </div>
-      )}
-    </>
+    <div style={Style.modal} onClick={() => setIsModalOpen(false)}>
+      <div style={Style.modalContent} onClick={(e) => e.stopPropagation()}>
+        <TaskBuilder
+          setTaskList={setTaskList}
+          formData={formData}
+          setFormData={setFormData}
+          setIsModalOpen={setIsModalOpen}
+        />
+      </div>
+    </div>
   );
 };

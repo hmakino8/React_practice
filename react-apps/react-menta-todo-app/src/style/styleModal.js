@@ -44,15 +44,13 @@ export const buttonAddList = {
   paddingTop: "2px",
   padding: "0",
   margin: "10px",
-  width: "140px",
+  width: "180px",
   height: "45px",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
 };
 
 export const buttonAddTaskParagraph = {
-  // position: "absolute",
   fontSize: "0.8rem",
-  // right: "5px",
   width: "100%",
   textAlign: "right",
   marginRight: "15px",

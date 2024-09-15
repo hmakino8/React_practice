@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal } from "./Modal";
 import { TodoList } from "./TodoList";
-import { initializeTaskInfo, COLOR } from "../utils/utils";
+import { initFormData, COLOR } from "../utils/utils";
 import * as Style from "../style/styleTodo";
 
 const Title = () => {
@@ -17,7 +17,7 @@ const Title = () => {
           padding: "13px",
         }}
       >
-        <span class="material-symbols-outlined">menu</span>
+        <span className="material-symbols-outlined">menu</span>
       </button>
       <div>
         <span style={{ color: COLOR.BLUE }}>T</span>
@@ -36,7 +36,7 @@ const Title = () => {
         <span
           style={{
             color: COLOR.RED,
-            transform: "rotate(-30deg)",
+            transform: "rotate(-20deg)",
             display: "inline-block",
           }}
         >
@@ -48,28 +48,27 @@ const Title = () => {
 };
 
 export const TodoApp = () => {
-  const [todos, setTodos] = useState([]);
+  const [taskList, setTaskList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [taskInfo, setTaskInfo] = useState(initializeTaskInfo());
+  const [formData, setFormData] = useState(initFormData());
 
   return (
-    <>
-      <div style={Style.todoWrapper}>
-        <Title />
+    <div style={Style.todoWrapper}>
+      <Title />
+      {isModalOpen && (
         <Modal
-          setTodos={setTodos}
-          taskInfo={taskInfo}
-          setTaskInfo={setTaskInfo}
-          isModalOpen={isModalOpen}
+          setTaskList={setTaskList}
+          formData={formData}
+          setFormData={setFormData}
           setIsModalOpen={setIsModalOpen}
         />
-        <TodoList
-          todos={todos}
-          setTodos={setTodos}
-          setTaskInfo={setTaskInfo}
-          setIsModalOpen={setIsModalOpen}
-        />
-      </div>
-    </>
+      )}
+      <TodoList
+        taskList={taskList}
+        setTaskList={setTaskList}
+        setFormData={setFormData}
+        setIsModalOpen={setIsModalOpen}
+      />
+    </div>
   );
 };

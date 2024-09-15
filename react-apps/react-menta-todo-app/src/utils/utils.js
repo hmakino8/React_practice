@@ -4,19 +4,19 @@ export const COLOR = {
   YELLOW: "#FBBC05",
   GREEN: "#34A853",
 };
-export const FORMINFO = {
+export const FORM_LABELS = {
   TITLE: "タイトル",
-  DEADLINE: "期限",
   PRIORITY: "優先度",
+  DEADLINE: "期限",
   COMMENT: "説明",
 };
-export const initializeTaskInfo = () => ({
+export const initFormData = () => ({
   title: "",
   priority: "",
   deadline: "",
-  comments: "",
+  comment: "",
   isComplete: false,
-  isNew: true,
+  isEditing: false,
 });
 
 export const formatDate = (dateString) => {
