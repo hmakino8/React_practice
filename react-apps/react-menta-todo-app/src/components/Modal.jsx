@@ -144,7 +144,7 @@ export const TaskBuilder = (props) => {
   );
 };
 
-export const AddTaskToList = (props) => {
+export const AddTasksToList = (props) => {
   const { setTaskList, taskInfo, setTaskInfo, setIsModalOpen } = props;
 
   return (
