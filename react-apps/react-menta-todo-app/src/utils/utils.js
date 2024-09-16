@@ -10,7 +10,7 @@ export const FORM_LABELS = {
   DEADLINE: "期限",
   COMMENT: "説明",
 };
-export const initFormData = () => ({
+export const initTaskInfo = () => ({
   title: "",
   priority: "",
   deadline: "",

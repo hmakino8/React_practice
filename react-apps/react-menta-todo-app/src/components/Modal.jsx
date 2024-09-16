@@ -4,12 +4,12 @@ import * as Utils from "../utils/utils";
 import * as Style from "../style/styleModal";
 
 const GetFormData = (props) => {
-  const { formFields, formFeild, formData, setFormData } = props;
+  const { formFields, formFeild, taskInfo, setTaskInfo } = props;
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData((prevFormData) => ({
+    setTaskInfo((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
@@ -18,7 +18,7 @@ const GetFormData = (props) => {
   const commonProps = {
     id: formFeild,
     name: formFeild,
-    value: formData[formFeild] || "",
+    value: taskInfo[formFeild] || "",
     onChange: handleOnChange,
   };
 
@@ -26,36 +26,37 @@ const GetFormData = (props) => {
     case formFields.title:
       return (
         <div style={Style.inputForm}>
-          <label style={Style.label}>{formFields.title}</label>
-          <input type="text" {...commonProps} />
+          {/* <label style={Style.label}>{formFields.title}</label> */}
+          <input type="text" {...commonProps} placeholder="タイトル" />
         </div>
       );
     case formFields.priority:
       return (
         <div style={{ ...Style.inputForm, ...Style.priority }}>
-          <label style={Style.label}>{formFields.priority}</label>
+          {/* <label style={Style.label}>{formFields.priority}</label> */}
           <select {...commonProps}>
             <option value="" disabled>
               優先順位を選択
             </option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
+            <option value="">なし</option>
+            <option value="High">高</option>
+            <option value="Medium">中</option>
+            <option value="Low">低</option>
           </select>
         </div>
       );
     case formFields.deadline:
       return (
         <div style={Style.inputForm}>
-          <label style={Style.label}>{formFeild.deadline}</label>
+          {/* <label style={Style.label}>{formFields.deadline}</label> */}
           <input type="datetime-local" {...commonProps} />
         </div>
       );
     case formFields.comment:
       return (
         <div style={Style.inputForm}>
-          <label style={Style.label}>{formFields.comment}</label>
-          <textarea {...commonProps} />
+          {/* <label style={Style.label}>{formFields.comment}</label> */}
+          <textarea {...commonProps} placeholder="説明を追加" />
         </div>
       );
     default:
@@ -64,7 +65,8 @@ const GetFormData = (props) => {
 };
 
 export const TaskBuilder = (props) => {
-  const { setTaskList, formData, setFormData, setIsModalOpen } = props;
+  const { setTaskList, taskInfo, setTaskInfo, setIsModalOpen } = props;
+
   const formFields = {
     title: "title",
     priority: "priority",
@@ -72,22 +74,26 @@ export const TaskBuilder = (props) => {
     comment: "comment",
   };
 
-  const addTask = () => {
+  const taskAdder = () => {
     const uniqueId = Utils.generateId();
 
-    setTaskList((prevTodos) => [...prevTodos, { ...formData, id: uniqueId }]);
-    setFormData(Utils.initFormData());
+    setTaskList((prevList) => [...prevList, { ...taskInfo, id: uniqueId }]);
+    setTaskInfo(Utils.initTaskInfo());
 
     setIsModalOpen(false);
   };
 
-  const editTask = () => {
-    setTaskList((prevTodos) => {
-      return prevTodos.map((prevTodo) => {
-        if (prevTodo.id === formData.id) {
-          return { ...prevTodo, ...formData };
+  const taskEditer = () => {
+    setTaskList((prevList) => {
+      return prevList.map((prevTask) => {
+        if (prevTask.id === taskInfo.id) {
+          setTaskInfo((prevTaskInfo) => ({
+            ...prevTaskInfo,
+            isEditing: false,
+          }));
+          return { ...prevTask, ...taskInfo };
         } else {
-          return prevTodo;
+          return prevTask;
         }
       });
     });
@@ -101,56 +107,53 @@ export const TaskBuilder = (props) => {
 
   return (
     <>
-      {formData.isEditing ? <h2>タスク編集</h2> : <h2>タスク追加</h2>}
+      {taskInfo.isEditing ? <h2>タスク編集</h2> : <h2>タスク追加</h2>}
       <GetFormData
         formFields={formFields}
         formFeild={formFields.title}
-        formData={formData}
-        setFormData={setFormData}
+        taskInfo={taskInfo}
+        setTaskInfo={setTaskInfo}
       />
       <div style={Style.priorityAndDeadline}>
         <GetFormData
           formFields={formFields}
           formFeild={formFields.priority}
-          formData={formData}
-          setFormData={setFormData}
+          taskInfo={taskInfo}
+          setTaskInfo={setTaskInfo}
         />
         <GetFormData
           formFields={formFields}
           formFeild={formFields.deadline}
-          formData={formData}
-          setFormData={setFormData}
+          taskInfo={taskInfo}
+          setTaskInfo={setTaskInfo}
         />
       </div>
       <GetFormData
         formFields={formFields}
         formFeild={formFields.comment}
-        formData={formData}
-        setFormData={setFormData}
+        taskInfo={taskInfo}
+        setTaskInfo={setTaskInfo}
       />
       <button onClick={closeModal}>Close</button>
-      {formData.isEditing ? (
-        <button onClick={editTask}>変更を保存</button>
+      {taskInfo.isEditing ? (
+        <button onClick={taskEditer}>変更を保存</button>
       ) : (
-        <button onClick={addTask}>追加</button>
+        <button onClick={taskAdder}>追加</button>
       )}
     </>
   );
 };
 
-export const Modal = (props) => {
-  const { setTaskList, formData, setFormData, setIsModalOpen } = props;
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+export const AddTaskToList = (props) => {
+  const { setTaskList, taskInfo, setTaskInfo, setIsModalOpen } = props;
 
   return (
     <div style={Style.modal} onClick={() => setIsModalOpen(false)}>
       <div style={Style.modalContent} onClick={(e) => e.stopPropagation()}>
         <TaskBuilder
           setTaskList={setTaskList}
-          formData={formData}
-          setFormData={setFormData}
+          taskInfo={taskInfo}
+          setTaskInfo={setTaskInfo}
           setIsModalOpen={setIsModalOpen}
         />
       </div>

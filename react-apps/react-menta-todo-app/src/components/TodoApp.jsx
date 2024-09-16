@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Modal } from "./Modal";
-import { TodoList } from "./TodoList";
-import { initFormData, COLOR } from "../utils/utils";
+import { AddTaskToList, Modal } from "./Modal";
+import { DisplayTasks } from "./DisplayTasks";
+import { initTaskInfo, COLOR } from "../utils/utils";
 import * as Style from "../style/styleTodo";
 
 const Title = () => {
@@ -50,23 +50,26 @@ const Title = () => {
 export const TodoApp = () => {
   const [taskList, setTaskList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState(initFormData());
+  const [taskInfo, setTaskInfo] = useState(initTaskInfo());
 
+  useEffect(() => {
+    console.log(taskList);
+  });
   return (
     <div style={Style.todoWrapper}>
       <Title />
       {isModalOpen && (
-        <Modal
+        <AddTaskToList
           setTaskList={setTaskList}
-          formData={formData}
-          setFormData={setFormData}
+          taskInfo={taskInfo}
+          setTaskInfo={setTaskInfo}
           setIsModalOpen={setIsModalOpen}
         />
       )}
-      <TodoList
+      <DisplayTasks
         taskList={taskList}
         setTaskList={setTaskList}
-        setFormData={setFormData}
+        setTaskInfo={setTaskInfo}
         setIsModalOpen={setIsModalOpen}
       />
     </div>

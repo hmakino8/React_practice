@@ -10,6 +10,7 @@ export const listContentsWrapper = {
 };
 
 export const listContents = {
+  maxWidth: "100px",
   display: "flex",
   flexDirection: "column",
   width: "100%",
@@ -28,6 +29,7 @@ export const tasksWrapper = {
   // boxShadow: "2px 2px 2px 2px rgba(0, 0, 0, 0.1)",
   // border: "1px solid, rgb(250, 250, 250",
   overflowY: "auto",
+  border: "1px solid",
 };
 
 export const listNoData = {
