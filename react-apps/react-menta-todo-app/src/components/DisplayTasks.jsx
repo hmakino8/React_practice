@@ -15,7 +15,7 @@ export const AddListsToProject = (props) => {
 
   return (
     <div style={Style.listContentsWrapper}>
-      <div style={Style.listContents}>
+      <div className="listContents" style={Style.listContents}>
         <p style={{ fontSize: "20px", margin: "5px" }}>マイタスク</p>
         <p
           style={{

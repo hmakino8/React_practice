@@ -40,3 +40,7 @@ button:hover {
 button:not(:hover) {
   background-color: #fff;
 }
+
+.listContents:hover {
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.1);
+}

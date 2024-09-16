@@ -9,23 +9,6 @@ import * as Style from "../style/styleTodo";
 import * as Style2 from "../style/styleModal";
 import * as Style3 from "../style/styleTaskList";
 
-const TodoAppHeader = (props) => {
-  const { isMenuOpen, setIsMenuOpen } = props;
-
-  const handleToggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  return (
-    <div style={Style.todoAppHeader}>
-      <button style={Style.toggleMenuProject} onClick={handleToggleMenu}>
-        <ToggleMenuProject />
-      </button>
-      <TodleTitle />
-    </div>
-  );
-};
-
 export const TodoApp = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,10 +27,10 @@ export const TodoApp = () => {
           setIsModalOpen={setIsModalOpen}
         />
       )}
-      <div style={{ display: "flex", height: "100%" }}>
+      <div style={Style.todoAppBody}>
         {isMenuOpen && (
-          <div style={Style3.MenuBar}>
-            <MenuProject
+          <div style={Style.MenuBar}>
+            <MenuBar
               setIsModalOpen={setIsModalOpen}
               setTaskInfo={setTaskInfo}
             />
@@ -66,21 +49,36 @@ export const TodoApp = () => {
   );
 };
 
-const MenuProject = (props) => {
+const TodoAppHeader = (props) => {
+  const { isMenuOpen, setIsMenuOpen } = props;
+
+  const handleToggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  return (
+    <div style={Style.todoAppHeader}>
+      <button style={Style.toggleMenuProject} onClick={handleToggleMenu}>
+        <ToggleMenuProject />
+      </button>
+      <TodleTitle />
+    </div>
+  );
+};
+
+const MenuBar = (props) => {
   const { setIsModalOpen, setTaskInfo } = props;
 
   return (
-    <div style={{ height: "70px" }}>
-      <button
-        style={Style2.buttonAddList}
-        onClick={() => {
-          setTaskInfo(initTaskInfo());
-          setIsModalOpen(true);
-        }}
-      >
-        <TodleButtonAdd />
-        <p style={Style2.buttonAddTaskParagraph}>プロジェクトの追加</p>
-      </button>
-    </div>
+    <button
+      style={Style2.buttonAddList}
+      onClick={() => {
+        setTaskInfo(initTaskInfo());
+        setIsModalOpen(true);
+      }}
+    >
+      <TodleButtonAdd />
+      <p style={Style2.buttonAddTaskParagraph}>プロジェクトの追加</p>
+    </button>
   );
 };

@@ -48,30 +48,25 @@ export const priorityColor = {
 
 export const listContentsWrapper = {
   borderRadius: "5px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  border: "1px solid, rgb(220, 220, 220",
+  // boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  // border: "1px solid, rgb(220, 220, 220",
   fontSize: "0.6rem",
   display: "flex",
   overflowX: "auto",
   width: "100%",
 };
 
-export const MenuBar = {
-  width: "300px",
-  fontSize: "0.6rem",
-  display: "flex",
-};
-
 export const listContents = {
   display: "flex",
   flexDirection: "column",
-  width: "100%",
+  width: "60%",
   minWidth: "300px",
+  maxWidth: "700px",
   backgroundColor: "white",
   borderRadius: "15px",
-  boxShadow: "2px 2px 2px 2px rgba(0, 0, 0, 0.1)",
-  border: "1px solid, rgb(250, 250, 250)",
-  margin: "5px",
+  border: "1px solid rgb(200, 200 ,200)",
+  margin: "15px auto",
+  padding: "5px",
 };
 export const tasksWrapper = {
   width: "100%",

@@ -21,7 +21,6 @@ export const todoAppHeader = {
   backgroundColor: "#fff",
   borderBottom: "1px solid rgb(200, 200 ,200)",
   fontWeight: "bold",
-  // marginBottom: "60px",
 };
 
 export const toggleMenuProject = {
@@ -31,4 +30,15 @@ export const toggleMenuProject = {
   border: "none",
   margin: "0 20px",
   padding: "13px",
+};
+
+export const todoAppBody = {
+  display: "flex",
+  height: "100%",
+};
+
+export const MenuBar = {
+  minWidth: "250px",
+  fontSize: "0.6rem",
+  display: "flex",
 };
