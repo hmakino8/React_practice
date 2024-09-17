@@ -1,3 +1,5 @@
+import { calculateNewValue } from "@testing-library/user-event/dist/utils";
+
 export const inputForm = {
   display: "flex",
   flexFlow: "column",
@@ -57,8 +59,12 @@ export const buttonAddTaskParagraph = {
 };
 
 export const modal = {
-  position: "fixed" /* スクロールしてもモーガルが画面上に固定 */,
-  zIndex: "3" /* 要素が重なった際の前後関係 */,
+  position: "absolute",
+  display: "flex",
+  flexWrap: "wrap",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: 3 /* 要素が重なった際の前後関係 */,
   width: "100%",
   height: "100%",
   backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -67,10 +73,10 @@ export const modal = {
 
 export const modalContent = {
   backgroundColor: "#fff",
-  margin: "15% auto",
   padding: "20px",
-  border: "1px solid #888",
-  width: "80%",
-  maxWidth: "400px",
+  border: "1px solid rgba(240, 240, 240)",
   borderRadius: "10px",
+  minWidth: "500px",
+  maxHeight: "500px",
+  margin: "10px",
 };

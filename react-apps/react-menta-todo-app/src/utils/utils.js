@@ -1,19 +1,9 @@
-import { COLOR } from "./constants";
-
 export const FORM_LABELS = {
   TITLE: "タイトル",
   PRIORITY: "優先度",
   DEADLINE: "期限",
   COMMENT: "説明",
 };
-export const initTaskInfo = () => ({
-  title: "",
-  priority: "",
-  deadline: "",
-  comment: "",
-  isComplete: false,
-  isEditing: false,
-});
 
 export const formatDate = (dateString) => {
   const date = new Date(dateString);

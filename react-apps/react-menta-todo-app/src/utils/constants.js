@@ -4,3 +4,25 @@ export const COLOR = {
   YELLOW: "#FBBC05",
   GREEN: "#34A853",
 };
+
+export const LABEL = {
+  ADD_TASK_LIST: "作成",
+  ADD_TASK: "タスクを追加",
+};
+
+export const PLACEHOLDER = {
+  TITLE: "タイトルを追加",
+  PRIORITY_DEFAULT: "選択してください",
+  COMMENT: "説明を追加",
+};
+
+export const PULLDOWN = {
+  PRIORITY_HIGH: "高",
+  PRIORITY_MEDIUM: "中",
+  PRIORITY_LOW: "低",
+};
+
+export const FORMDATA_TITLE_ADD = "タスク追加";
+export const FORMDATA_TITLE_EDIT = "タスク編集";
+
+export const DEFAULT_LIST_TITLE = "マイタスク";

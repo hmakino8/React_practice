@@ -16,15 +16,29 @@ export const taskDeadline = {
 };
 
 export const checkbox = {
-  marginRight: "15px",
+  display: "flex",
+  alignItems: "center",
+  // marginRight: "20px",
+  appearance: "none",
+  webkitAppearance: "none",
+  borderRadius: "50%",
+  // marginRight: "15px",
+  padding: "8px",
+  cursor: "pointer",
 };
 
 export const iconClock = {
   fontSize: "20px",
 };
 
+export const iconMoreVert = {
+  fontSize: "1.3rem",
+  width: "auto",
+};
+
 export const buttonTaskEdit = {
-  padding: "0",
+  width: "40px",
+  height: "40px",
   fontSize: "1px",
   marginRight: "5px",
   borderRadius: "50%",
@@ -46,33 +60,65 @@ export const priorityColor = {
   "": { backgroundColor: "white" },
 };
 
-export const listContentsWrapper = {
-  borderRadius: "5px",
-  // boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  // border: "1px solid, rgb(220, 220, 220",
-  fontSize: "0.6rem",
-  display: "flex",
-  overflowX: "auto",
-  width: "100%",
-};
-
 export const listContents = {
   display: "flex",
   flexDirection: "column",
-  width: "60%",
+  width: "95%",
   minWidth: "300px",
   maxWidth: "700px",
   backgroundColor: "white",
   borderRadius: "15px",
-  border: "1px solid rgb(200, 200 ,200)",
+  border: "1px solid rgb(240, 240 ,240)",
   margin: "15px auto",
   padding: "5px",
 };
-export const tasksWrapper = {
+
+export const listTitle = {
+  display: "flex",
+  justifyContent: "space-between",
+  height: "40px",
+};
+
+export const listName = {
+  fontSize: "20px",
+  margin: "5px",
+};
+
+export const LabelButtonAddTask = {
+  display: "flex",
+  fontSize: "1rem",
+  height: "10px",
+  alignItems: "center",
+};
+
+export const ButtonAddTask = {
+  display: "flex",
+  borderRadius: "10px",
+  padding: "5px",
+  width: "80%",
+  border: "none",
+  color: COLOR.BLUE,
+};
+
+export const ButtonMoreVert = {
+  display: "flex",
+  alignItems: "center",
+  borderRadius: "50%",
+  border: "none",
+};
+
+export const IconButtonAddTask = {
+  color: "rgb(66, 133, 244)",
+  fontSize: "1.2rem",
+  marginRight: "5px",
+};
+
+export const tasksComplete = {
   width: "100%",
   borderRadius: "3px",
   overflowY: "auto",
-  border: "1px solid",
+  // border: "1px solid",
+  // minHeight: "100px",
 };
 
 export const listNoData = {
@@ -87,11 +133,23 @@ export const listNoData = {
 };
 
 export const task = {
+  // backgroundColor: "rgb(240, 240, 240)",
+  width: "100%",
+  minHeight: "50px",
+  cursor: "default",
   display: "flex",
-  height: "1.7rem",
+  // height: "1.7rem",
   margin: "5px 1px",
   borderRadius: "3px",
-  boxShadow: "0 1.6px 1px rgba(0, 0, 0, 0.1)",
-  border: "1.2px solid, rgb(220, 220, 220",
+  // boxShadow: "0 1.6px 1px rgba(0, 0, 0, 0.1)",
+  border: "1.2px solid, rgb(240, 240, 240",
   alignItems: "center",
+};
+
+export const listGroupWrapper = {
+  display: "flex",
+  borderRadius: "5px",
+  fontSize: "0.6rem",
+  width: "100%",
+  overflowX: "auto",
 };
