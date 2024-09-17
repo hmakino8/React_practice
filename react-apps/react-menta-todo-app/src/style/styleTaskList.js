@@ -66,6 +66,7 @@ export const listContents = {
   width: "95%",
   minWidth: "300px",
   maxWidth: "700px",
+  minHeight: "300px",
   backgroundColor: "white",
   borderRadius: "15px",
   border: "1px solid rgb(240, 240 ,240)",
@@ -152,4 +153,6 @@ export const listGroupWrapper = {
   fontSize: "0.6rem",
   width: "100%",
   overflowX: "auto",
+  // margin: "0 auto",
+  // justifyContent: "center",
 };
