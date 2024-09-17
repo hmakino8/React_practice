@@ -6,14 +6,16 @@ export const COLOR = {
 };
 
 export const LABEL = {
-  ADD_TASK_LIST: "作成",
+  ADD_TASK_TO_LIST: "作成",
   ADD_TASK: "タスクを追加",
+  CREATE_TASK_LIST: "新しいリストを作成",
 };
 
 export const PLACEHOLDER = {
   TITLE: "タイトルを追加",
   PRIORITY_DEFAULT: "選択してください",
   COMMENT: "説明を追加",
+  CREATE_TASK_LIST: "名前を入力してください",
 };
 
 export const PULLDOWN = {

@@ -69,7 +69,7 @@ export const listContents = {
   backgroundColor: "white",
   borderRadius: "15px",
   border: "1px solid rgb(240, 240 ,240)",
-  margin: "15px auto",
+  margin: "15px 5px",
   padding: "5px",
 };
 

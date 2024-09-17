@@ -27,3 +27,14 @@ export const AddTask = () => {
     </span>
   );
 };
+
+export const CreateTaskList = () => {
+  return (
+    <span
+      className="material-symbols-outlined"
+      style={{ marginRight: "15px", fontSize: "1.6rem" }}
+    >
+      add
+    </span>
+  );
+};

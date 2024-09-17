@@ -34,18 +34,19 @@ export const todoAppBody = {
   height: "100%",
 };
 
-export const MenuBar = {
+export const MenuBarWrapper = {
+  position: "relative",
   minWidth: "250px",
-  fontSize: "0.6rem",
   display: "flex",
+  padding: "15px",
+  borderRight: "1px solid rgb(220, 220, 220)",
 };
 
-export const buttonAddTaskList = {
+export const buttonAddTaskToList = {
   position: "absolute",
   alignSelf: "flex-start",
   display: "flex",
   borderRadius: "30px",
-  margin: "15px",
   width: "110px",
   height: "50px",
   boxShadow: "1px 1px rgba(0, 0, 0, 0.2)",
@@ -58,4 +59,16 @@ export const menuBarLabel = {
   width: "100%",
   textAlign: "right",
   marginRight: "15px",
+};
+
+export const buttonCreateTaskList = {
+  position: "absolute",
+  display: "flex",
+  alignItems: "center",
+  fontSize: "0.9rem",
+  width: "90%",
+  height: "40px",
+  borderRadius: "20px",
+  top: "90px",
+  border: "none",
 };

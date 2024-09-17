@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import * as Style from "../style/styleTaskList";
 import { formatDate } from "../utils/utils";
+import { InputForm } from "./DisplayModal";
+import { initFormData } from "../utils/initializer";
 import * as Icon from "../utils/Icon";
 import { COLOR } from "../utils/constants";
 import { LABEL } from "../utils/constants";
@@ -11,12 +13,14 @@ export const DisplayAllTasks = (props) => {
 
   return (
     <div style={Style.listGroupWrapper}>
-      <AddListToListGroup
-        taskList={taskList}
-        setTaskList={setTaskList}
-        taskGroup={taskGroup}
-        setTaskGroup={setTaskGroup}
-      />
+      {taskGroup.map((List) => (
+        <AddListToListGroup
+          taskList={List.taskList}
+          setTaskList={setTaskList}
+          taskGroup={taskGroup}
+          setTaskGroup={setTaskGroup}
+        />
+      ))}
     </div>
   );
 };

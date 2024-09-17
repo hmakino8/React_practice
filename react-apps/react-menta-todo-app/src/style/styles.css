@@ -45,6 +45,10 @@ button:hover {
 }
 
 button:not(:hover) {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.buttonAddTaskToList:not(:hover) {
   background-color: #fff;
 }
 
