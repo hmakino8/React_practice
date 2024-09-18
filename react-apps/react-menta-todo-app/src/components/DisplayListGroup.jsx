@@ -6,11 +6,11 @@ import { LABEL, COLOR } from "../utils/constants";
 import { generateId } from "../utils/utils";
 
 export const DisplayListGroup = (props) => {
-  const { setTasks, ListGroup, setTaskGroup } = props;
+  const { setTasks, listGroup, setListGroup } = props;
 
   return (
     <div style={Style.listGroupWrapper}>
-      {ListGroup.map((taskList) => (
+      {listGroup.map((taskList) => (
         <AddListToListGroup
           key={generateId()}
           taskList={taskList}

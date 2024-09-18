@@ -12,7 +12,7 @@ import { generateId } from "../utils/utils";
 
 export const TodoApp = () => {
   const [tasks, setTasks] = useState([]);
-  const [ListGroup, setTaskGroup] = useState(initTaskGroup());
+  const [listGroup, setListGroup] = useState(initTaskGroup());
   const [modalData, setModalData] = useState(initModalData());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
@@ -23,10 +23,11 @@ export const TodoApp = () => {
       <div style={Style.todoAppBody}>
         {isModalOpen && (
           <GetModalData
-            setTasks={setTasks}
+            setIsModalOpen={setIsModalOpen}
             modalData={modalData}
             setModalData={setModalData}
-            setIsModalOpen={setIsModalOpen}
+            setTasks={setTasks}
+            listGroup={listGroup}
           />
         )}
         {isMenuOpen && (
@@ -34,14 +35,14 @@ export const TodoApp = () => {
             tasks={tasks}
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
-            ListGroup={ListGroup}
-            setTaskGroup={setTaskGroup}
+            listGroup={listGroup}
+            setListGroup={setListGroup}
           />
         )}
         <DisplayListGroup
           setTasks={setTasks}
-          ListGroup={ListGroup}
-          setTaskGroup={setTaskGroup}
+          listGroup={listGroup}
+          setListGroup={setListGroup}
         />
       </div>
     </div>
@@ -66,7 +67,7 @@ const TodoAppHeader = (props) => {
 };
 
 const MenuBar = (props) => {
-  const { tasks, ListGroup, setTaskGroup, isModalOpen, setIsModalOpen } = props;
+  const { tasks, listGroup, setListGroup, isModalOpen, setIsModalOpen } = props;
   const [isCreateTaskList, setIsCreateTaskList] = useState(false);
 
   const handleModalOpen = () => {
@@ -82,12 +83,12 @@ const MenuBar = (props) => {
   };
 
   const Test = () => {
-    setTaskGroup((prev) => {
+    setListGroup((prev) => {
       return [
         ...prev,
         {
           listId: generateId(),
-          listName: `マイタスク${ListGroup.length}`,
+          listName: `マイタスク${listGroup.length}`,
           tasks: tasks,
         },
       ];
@@ -99,7 +100,6 @@ const MenuBar = (props) => {
       <button
         className="buttonAddTaskToList"
         style={Style.buttonAddTaskToList}
-        // onClick={handleModalOpen}
         onClick={handleModalOpen}
       >
         <TodleButtonAdd />

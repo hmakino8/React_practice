@@ -6,18 +6,15 @@ import { PLACEHOLDER, PULLDOWN } from "../utils/constants";
 import "../style/styles.css";
 
 export const GetModalData = (props) => {
-  const { setTasks, modalData, setModalData, setIsModalOpen } = props;
-
-  //DEBUG
-  useEffect(() => {
-    console.log(modalData);
-  });
+  const { setIsModalOpen, modalData, setModalData, setTasks, listGroup } =
+    props;
 
   const modalItems = {
     title: "title",
     priority: "priority",
     deadline: "deadline",
     comment: "comment",
+    listName: "listName",
   };
 
   const commonProps = (modalItem) => ({
@@ -72,6 +69,7 @@ export const GetModalData = (props) => {
           <ModalItemDeadline {...commonProps("deadline")} />
         </div>
         <ModalItemComment {...commonProps("comment")} />
+        <ModalItemListName {...commonProps("listName")} listGroup={listGroup} />
         <button onClick={closeTaskModal}>Close</button>
         {modalData.isEditing ? (
           <button onClick={taskEditer}>変更を保存</button>
@@ -84,7 +82,6 @@ export const GetModalData = (props) => {
 };
 
 const ModalItemTitle = (props) => {
-  console.log(props);
   return (
     <div style={Style.inputForm}>
       <input {...props} type="text" placeholder={PLACEHOLDER.TITLE} />
@@ -97,7 +94,7 @@ const ModalItemPriority = (props) => {
     <div style={{ ...Style.inputForm, ...Style.priority }}>
       <select {...props}>
         <option value="" disabled>
-          {PLACEHOLDER.PRIORITY_DEFAULT}
+          {PLACEHOLDER.PRIORITY}
         </option>
         <option value=""></option>
         <option value="High">{PULLDOWN.PRIORITY_HIGH}</option>
@@ -120,6 +117,24 @@ const ModalItemComment = (props) => {
   return (
     <div style={Style.inputForm}>
       <textarea {...props} placeholder={PLACEHOLDER.COMMENT} />
+    </div>
+  );
+};
+
+const ModalItemListName = (props) => {
+  const { listGroup } = props;
+
+  console.log(listGroup);
+  return (
+    <div style={{ ...Style.inputForm, width: "50%" }}>
+      <select {...props}>
+        <option value="" disabled>
+          {PLACEHOLDER.LIST_NAME}
+        </option>
+        {listGroup.map((list) => (
+          <option value={list.listName}>{list.listName}</option>
+        ))}
+      </select>
     </div>
   );
 };
