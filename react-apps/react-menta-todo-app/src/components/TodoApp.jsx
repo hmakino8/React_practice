@@ -1,21 +1,27 @@
 import { useState } from "react";
 import { GetModalData } from "./GetModalData";
-import { DisplayListGroup } from "./DisplayListGroup";
+import { RenderListGroup } from "./RenderListGroup";
 import { ToggleMenuProject } from "../utils/Icon";
-import { initTaskGroup, initModalData } from "../utils/initializer";
+import { initListGroup, initModalData } from "../utils/initializer";
 import { TodleTitle } from "../utils/TodleTitle";
 import { TodleButtonAdd } from "../utils/TodleButtonAdd";
 import { LABEL, PLACEHOLDER } from "../utils/constants";
 import * as Icon from "../utils/Icon";
 import * as Style from "../style/todoApp";
 import { generateId } from "../utils/utils";
+import { useEffect } from "react";
+import { listName } from "../style/styleTaskList";
 
 export const TodoApp = () => {
   const [tasks, setTasks] = useState([]);
-  const [listGroup, setListGroup] = useState(initTaskGroup());
+  const [listGroup, setListGroup] = useState(initListGroup());
   const [modalData, setModalData] = useState(initModalData());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
+
+  useEffect(() => {
+    console.log(listGroup);
+  }, [listGroup]);
 
   return (
     <div style={Style.todoAppWrapper}>
@@ -39,11 +45,12 @@ export const TodoApp = () => {
             setListGroup={setListGroup}
           />
         )}
-        <DisplayListGroup
+        {/* <RenderListGroup
+          tasks={tasks}
           setTasks={setTasks}
           listGroup={listGroup}
           setListGroup={setListGroup}
-        />
+        /> */}
       </div>
     </div>
   );
@@ -69,6 +76,11 @@ const TodoAppHeader = (props) => {
 const MenuBar = (props) => {
   const { tasks, listGroup, setListGroup, isModalOpen, setIsModalOpen } = props;
   const [isCreateTaskList, setIsCreateTaskList] = useState(false);
+  const [listName, setListName] = useState("");
+
+  useEffect(() => {
+    console.log(listGroup);
+  }, [listGroup]);
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -95,6 +107,31 @@ const MenuBar = (props) => {
     });
   };
 
+  const handleCreateTaskList = () => {
+    if (listName.trim() !== "") {
+      setListGroup((prevListGroup) => [
+        ...prevListGroup,
+        {
+          listId: generateId(),
+          listName: listName,
+          tasks: [],
+        },
+      ]);
+      setListName("");
+      disableCreateTaskList();
+    }
+  };
+
+  const handleSetListName = (e) => {
+    setListName(e.target.value);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleCreateTaskList();
+    }
+  };
+
   return (
     <div style={Style.MenuBarWrapper}>
       <button
@@ -116,11 +153,18 @@ const MenuBar = (props) => {
             position: "absolute",
             width: "90%",
             top: "130px",
-            height: "20px",
+            borderRadius: "0",
+            borderTop: "none",
+            borderRight: "none",
+            borderLeft: "none",
+            backgroundColor: "transparent",
           }}
           placeholder={PLACEHOLDER.CREATE_TASK_LIST}
           autoFocus
           onBlur={disableCreateTaskList}
+          value={listName}
+          onChange={handleSetListName}
+          onKeyDown={handleKeyDown}
         />
       )}
     </div>

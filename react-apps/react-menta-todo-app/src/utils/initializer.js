@@ -1,10 +1,10 @@
 import { generateId } from "./utils";
 import { DEFAULT_LIST_NAME } from "./constants";
 
-export const initTaskGroup = () => {
+export const initListGroup = () => {
   return [
     {
-      listId: generateId(),
+      id: generateId(),
       listName: DEFAULT_LIST_NAME,
       tasks: [],
     },
@@ -12,6 +12,7 @@ export const initTaskGroup = () => {
 };
 
 export const initModalData = () => ({
+  id: "",
   title: "",
   priority: "",
   deadline: "",

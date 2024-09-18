@@ -14,7 +14,6 @@ export const GetModalData = (props) => {
     priority: "priority",
     deadline: "deadline",
     comment: "comment",
-    listName: "listName",
   };
 
   const commonProps = (modalItem) => ({
@@ -121,18 +120,17 @@ const ModalItemComment = (props) => {
   );
 };
 
-const ModalItemListName = (props) => {
-  const { listGroup } = props;
-
-  console.log(listGroup);
+const ModalItemListName = ({ listGroup, ...props }) => {
   return (
     <div style={{ ...Style.inputForm, width: "50%" }}>
       <select {...props}>
         <option value="" disabled>
           {PLACEHOLDER.LIST_NAME}
         </option>
-        {listGroup.map((list) => (
-          <option value={list.listName}>{list.listName}</option>
+        {listGroup.map((taskList) => (
+          <option value={taskList.listName} key={taskList.id}>
+            {taskList.listName}
+          </option>
         ))}
       </select>
     </div>
