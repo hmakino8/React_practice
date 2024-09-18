@@ -13,7 +13,7 @@ export const LABEL = {
 
 export const PLACEHOLDER = {
   TITLE: "タイトルを追加",
-  PRIORITY_DEFAULT: "選択してください",
+  PRIORITY_DEFAULT: "優先順位を選択してください",
   COMMENT: "説明を追加",
   CREATE_TASK_LIST: "名前を入力してください",
 };
@@ -24,7 +24,4 @@ export const PULLDOWN = {
   PRIORITY_LOW: "低",
 };
 
-export const FORMDATA_TITLE_ADD = "タスク追加";
-export const FORMDATA_TITLE_EDIT = "タスク編集";
-
-export const DEFAULT_LIST_TITLE = "マイタスク";
+export const DEFAULT_LIST_NAME = "マイタスク";

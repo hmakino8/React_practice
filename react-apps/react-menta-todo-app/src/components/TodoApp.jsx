@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { DisplayModal } from "./DisplayModal";
-import { DisplayAllTasks } from "./DisplayAllTasks";
+import { GetModalData } from "./GetModalData";
+import { DisplayListGroup } from "./DisplayListGroup";
 import { ToggleMenuProject } from "../utils/Icon";
 import { initTaskGroup, initModalData } from "../utils/initializer";
 import { TodleTitle } from "../utils/TodleTitle";
@@ -8,24 +8,22 @@ import { TodleButtonAdd } from "../utils/TodleButtonAdd";
 import { LABEL, PLACEHOLDER } from "../utils/constants";
 import * as Icon from "../utils/Icon";
 import * as Style from "../style/todoApp";
-import * as Style2 from "../style/styleTaskList";
 import { generateId } from "../utils/utils";
 
 export const TodoApp = () => {
-  const [taskList, setTaskList] = useState([]);
-  const [taskGroup, setTaskGroup] = useState(initTaskGroup());
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tasks, setTasks] = useState([]);
+  const [ListGroup, setTaskGroup] = useState(initTaskGroup());
   const [modalData, setModalData] = useState(initModalData());
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
-  const [testAddList, setTestAddList] = useState(0);
 
   return (
     <div style={Style.todoAppWrapper}>
       <TodoAppHeader isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <div style={Style.todoAppBody}>
         {isModalOpen && (
-          <DisplayModal
-            setTaskList={setTaskList}
+          <GetModalData
+            setTasks={setTasks}
             modalData={modalData}
             setModalData={setModalData}
             setIsModalOpen={setIsModalOpen}
@@ -33,18 +31,16 @@ export const TodoApp = () => {
         )}
         {isMenuOpen && (
           <MenuBar
-            taskList={taskList}
+            tasks={tasks}
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
-            taskGroup={taskGroup}
+            ListGroup={ListGroup}
             setTaskGroup={setTaskGroup}
           />
         )}
-        <DisplayAllTasks
-          id={generateId()}
-          taskList={taskList}
-          setTaskList={setTaskList}
-          taskGroup={taskGroup}
+        <DisplayListGroup
+          setTasks={setTasks}
+          ListGroup={ListGroup}
           setTaskGroup={setTaskGroup}
         />
       </div>
@@ -70,8 +66,7 @@ const TodoAppHeader = (props) => {
 };
 
 const MenuBar = (props) => {
-  const { taskList, taskGroup, setTaskGroup, isModalOpen, setIsModalOpen } =
-    props;
+  const { tasks, ListGroup, setTaskGroup, isModalOpen, setIsModalOpen } = props;
   const [isCreateTaskList, setIsCreateTaskList] = useState(false);
 
   const handleModalOpen = () => {
@@ -91,9 +86,9 @@ const MenuBar = (props) => {
       return [
         ...prev,
         {
-          projectId: generateId(),
-          projectTitle: `マイタスク${taskGroup.length}`,
-          taskList: taskList,
+          listId: generateId(),
+          listName: `マイタスク${ListGroup.length}`,
+          tasks: tasks,
         },
       ];
     });
@@ -105,7 +100,7 @@ const MenuBar = (props) => {
         className="buttonAddTaskToList"
         style={Style.buttonAddTaskToList}
         // onClick={handleModalOpen}
-        onClick={Test}
+        onClick={handleModalOpen}
       >
         <TodleButtonAdd />
         <p style={Style.menuBarLabel}>{LABEL.ADD_TASK_TO_LIST}</p>

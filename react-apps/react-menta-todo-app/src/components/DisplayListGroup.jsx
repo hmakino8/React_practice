@@ -1,24 +1,20 @@
 import React, { useState } from "react";
 import * as Style from "../style/styleTaskList";
 import { formatDate } from "../utils/utils";
-import { InputForm } from "./DisplayModal";
-import { initFormData } from "../utils/initializer";
 import * as Icon from "../utils/Icon";
-import { COLOR } from "../utils/constants";
-import { LABEL } from "../utils/constants";
-import { DEFAULT_LIST_TITLE } from "../utils/constants";
+import { LABEL, COLOR } from "../utils/constants";
+import { generateId } from "../utils/utils";
 
-export const DisplayAllTasks = (props) => {
-  const { taskList, setTaskList, taskGroup, setTaskGroup } = props;
+export const DisplayListGroup = (props) => {
+  const { setTasks, ListGroup, setTaskGroup } = props;
 
   return (
     <div style={Style.listGroupWrapper}>
-      {taskGroup.map((List) => (
+      {ListGroup.map((taskList) => (
         <AddListToListGroup
-          taskList={List.taskList}
-          setTaskList={setTaskList}
-          taskGroup={taskGroup}
-          setTaskGroup={setTaskGroup}
+          key={generateId()}
+          taskList={taskList}
+          setTasks={setTasks}
         />
       ))}
     </div>
@@ -26,12 +22,12 @@ export const DisplayAllTasks = (props) => {
 };
 
 export const AddListToListGroup = (props) => {
-  const { taskList, setTaskList, taskGroup, setTaskGroup } = props;
+  const { taskList, setTasks } = props;
 
   return (
     <div className="listContents" style={Style.listContents}>
       <div style={Style.listTitle}>
-        <p style={Style.listName}>{DEFAULT_LIST_TITLE}</p>
+        <p style={Style.listName}>{taskList.listName}</p>
         <button style={Style.buttonTaskEdit}>
           <Icon.MoreVert />
         </button>
@@ -43,28 +39,28 @@ export const AddListToListGroup = (props) => {
         </button>
       </p>
       <div style={{ ...Style.tasksComplete }}>
-        {taskList
+        {taskList.tasks
           .filter((task) => !task.isComplete)
           .map((taskIncomplete) => {
             return (
               <DisplayTask
                 key={taskIncomplete.id}
                 task={taskIncomplete}
-                setTaskList={setTaskList}
+                setTasks={setTasks}
               />
             );
           })}
       </div>
       <div>完了</div>
       <div style={{ ...Style.tasksComplete }}>
-        {taskList
+        {taskList.tasks
           .filter((task) => task.isComplete)
           .map((taskComplete) => {
             return (
               <DisplayTask
                 key={taskComplete.id}
                 task={taskComplete}
-                setTaskList={setTaskList}
+                setTasks={setTasks}
               />
             );
           })}
@@ -74,11 +70,11 @@ export const AddListToListGroup = (props) => {
 };
 
 const DisplayTask = (props) => {
-  const { task, setTaskList } = props;
+  const { task, setTasks } = props;
   const [isHovered, setIsHovered] = useState(false);
 
   const handleToggleIsComplete = () => {
-    setTaskList((prevTaskList) => {
+    setTasks((prevTaskList) => {
       return prevTaskList.map((prevTask) =>
         prevTask.id === task.id
           ? { ...prevTask, isComplete: !prevTask.isComplete }

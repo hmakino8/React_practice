@@ -1,12 +1,12 @@
 import { generateId } from "./utils";
-import { DEFAULT_LIST_TITLE } from "./constants";
+import { DEFAULT_LIST_NAME } from "./constants";
 
 export const initTaskGroup = () => {
   return [
     {
-      projectId: generateId(),
-      projectTitle: { DEFAULT_LIST_TITLE },
-      taskList: [],
+      listId: generateId(),
+      listName: DEFAULT_LIST_NAME,
+      tasks: [],
     },
   ];
 };

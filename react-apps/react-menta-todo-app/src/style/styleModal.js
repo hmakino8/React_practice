@@ -71,7 +71,7 @@ export const modal = {
   overflowY: "auto",
 };
 
-export const modalContent = {
+export const modalContents = {
   backgroundColor: "#fff",
   padding: "20px",
   border: "1px solid rgba(240, 240, 240)",
