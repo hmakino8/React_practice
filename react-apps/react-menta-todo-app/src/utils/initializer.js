@@ -4,7 +4,7 @@ import { DEFAULT_LIST_NAME } from "./constants";
 export const initListGroup = () => {
   return [
     {
-      id: generateId(),
+      listId: generateId(),
       listName: DEFAULT_LIST_NAME,
       tasks: [],
     },
@@ -12,7 +12,8 @@ export const initListGroup = () => {
 };
 
 export const initModalData = () => ({
-  id: "",
+  listId: "",
+  taskId: "",
   title: "",
   priority: "",
   deadline: "",

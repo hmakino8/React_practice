@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { initModalData } from "../utils/initializer";
 import * as Utils from "../utils/utils";
 import * as Style from "../style/styleModal";
@@ -6,10 +6,17 @@ import { PLACEHOLDER, PULLDOWN } from "../utils/constants";
 import "../style/styles.css";
 
 export const GetModalData = (props) => {
-  const { setIsModalOpen, modalData, setModalData, setTasks, listGroup } =
-    props;
+  const {
+    setIsModalOpen,
+    modalData,
+    setModalData,
+    setTasks,
+    listGroup,
+    setListGroup,
+  } = props;
 
   const modalItems = {
+    listId: "",
     title: "title",
     priority: "priority",
     deadline: "deadline",
@@ -33,30 +40,29 @@ export const GetModalData = (props) => {
   };
 
   const taskAdder = () => {
-    const uniqueId = Utils.generateId();
+    const newTasks = { ...modalData, taskId: Utils.generateId() };
 
-    setTasks((prevTasks) => [...prevTasks, { ...modalData, id: uniqueId }]);
+    setTasks((prevTasks) => [...prevTasks, { ...newTasks }]);
     setModalData(initModalData());
 
     closeTaskModal();
   };
 
   const taskEditer = () => {
-    setTasks((prevTasks) => {
-      return prevTasks.map((task) => {
-        if (task.id === modalData.id) {
-          setModalData((prevModalData) => ({
-            ...prevModalData,
-            isEditing: false,
-          }));
-          return { ...task, ...modalData };
-        } else {
-          return task;
-        }
-      });
-    });
-
-    closeTaskModal();
+    // setTasks((prevTasks) => {
+    //   return prevTasks.map((task) => {
+    //     if (task.id === modalData.id) {
+    //       setModalData((prevModalData) => ({
+    //         ...prevModalData,
+    //         isEditing: false,
+    //       }));
+    //       return { ...task, ...modalData };
+    //     } else {
+    //       return task;
+    //     }
+    //   });
+    // });
+    // closeTaskModal();
   };
 
   return (
@@ -68,7 +74,10 @@ export const GetModalData = (props) => {
           <ModalItemDeadline {...commonProps("deadline")} />
         </div>
         <ModalItemComment {...commonProps("comment")} />
-        <ModalItemListName {...commonProps("listName")} listGroup={listGroup} />
+        <ModalItemListName
+          handleSetFormData={handleSetFormData}
+          listGroup={listGroup}
+        />
         <button onClick={closeTaskModal}>Close</button>
         {modalData.isEditing ? (
           <button onClick={taskEditer}>変更を保存</button>
@@ -120,15 +129,15 @@ const ModalItemComment = (props) => {
   );
 };
 
-const ModalItemListName = ({ listGroup, ...props }) => {
+const ModalItemListName = (props) => {
+  const { handleSetFormData, listGroup } = props;
+
   return (
     <div style={{ ...Style.inputForm, width: "50%" }}>
-      <select {...props}>
-        <option value="" disabled>
-          {PLACEHOLDER.LIST_NAME}
-        </option>
+      <select name={"listId"} onChange={handleSetFormData}>
+        <option value="">リストを選択してください</option>
         {listGroup.map((taskList) => (
-          <option value={taskList.listName} key={taskList.id}>
+          <option value={taskList.listId} key={taskList.listId}>
             {taskList.listName}
           </option>
         ))}

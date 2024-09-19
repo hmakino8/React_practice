@@ -11,17 +11,20 @@ import * as Style from "../style/todoApp";
 import { generateId } from "../utils/utils";
 import { useEffect } from "react";
 import { listName } from "../style/styleTaskList";
+import { modal } from "../style/styleModal";
 
 export const TodoApp = () => {
   const [tasks, setTasks] = useState([]);
-  const [listGroup, setListGroup] = useState(initListGroup());
   const [modalData, setModalData] = useState(initModalData());
+  const [listGroup, setListGroup] = useState(initListGroup());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   useEffect(() => {
-    console.log(listGroup);
-  }, [listGroup]);
+    console.log("tasks=", tasks);
+    console.log("listGroup=", listGroup);
+    console.log("modalData=", modalData);
+  }, [tasks, listGroup, modalData]);
 
   return (
     <div style={Style.todoAppWrapper}>
@@ -34,6 +37,7 @@ export const TodoApp = () => {
             setModalData={setModalData}
             setTasks={setTasks}
             listGroup={listGroup}
+            setListGroup={setListGroup}
           />
         )}
         {isMenuOpen && (
