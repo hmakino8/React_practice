@@ -21,10 +21,8 @@ export const TodoApp = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   useEffect(() => {
-    console.log("tasks=", tasks);
     console.log("listGroup=", listGroup);
-    console.log("modalData=", modalData);
-  }, [tasks, listGroup, modalData]);
+  }, [listGroup]);
 
   return (
     <div style={Style.todoAppWrapper}>
@@ -49,12 +47,12 @@ export const TodoApp = () => {
             setListGroup={setListGroup}
           />
         )}
-        {/* <RenderListGroup
+        <RenderListGroup
           tasks={tasks}
           setTasks={setTasks}
           listGroup={listGroup}
           setListGroup={setListGroup}
-        /> */}
+        />
       </div>
     </div>
   );
@@ -81,10 +79,6 @@ const MenuBar = (props) => {
   const { tasks, listGroup, setListGroup, isModalOpen, setIsModalOpen } = props;
   const [isCreateTaskList, setIsCreateTaskList] = useState(false);
   const [listName, setListName] = useState("");
-
-  useEffect(() => {
-    console.log(listGroup);
-  }, [listGroup]);
 
   const handleModalOpen = () => {
     setIsModalOpen(true);

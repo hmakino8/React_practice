@@ -6,12 +6,25 @@ import { LABEL, COLOR } from "../utils/constants";
 import { generateId } from "../utils/utils";
 import { useEffect } from "react";
 
-const modalDataToListGroup = ({ tasks, listGroup, setListGroup }) => {};
+const tasksToListGroup = (tasks, listGroup, setListGroup) => {
+  if (tasks) {
+    setListGroup((prevListGroup) =>
+      prevListGroup.map((prevList) => {
+        const newTasks = tasks.filter(
+          (task) => task.listId === prevList.listId
+        );
+        return { ...prevList, tasks: [...newTasks] };
+      })
+    );
+  }
+};
 
 export const RenderListGroup = (props) => {
   const { tasks, setTasks, listGroup, setListGroup } = props;
 
-  return;
+  useEffect(() => {
+    tasksToListGroup(tasks, listGroup, setListGroup);
+  }, [tasks]);
 
   // return (
   //     <div style={Style.listGroupWrapper}>
