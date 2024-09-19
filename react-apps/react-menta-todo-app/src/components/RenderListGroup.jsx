@@ -26,64 +26,64 @@ export const RenderListGroup = (props) => {
     tasksToListGroup(tasks, listGroup, setListGroup);
   }, [tasks]);
 
-  // return (
-  //     <div style={Style.listGroupWrapper}>
-  //       {ListGroup.map((taskList) => (
-  //         <AddListToListGroup
-  //           key={generateId()}
-  //           taskList={taskList}
-  //           setTasks={setTasks}
-  //         />
-  //       ))}
-  //     </div>
-  //   );
-  // };
-  // export const AddListToListGroup = (props) => {
-  //   const { taskList, setTasks } = props;
+  return (
+    <div style={Style.listGroupWrapper}>
+      {listGroup.map((list) => (
+        <AddListToListGroup
+          key={generateId()}
+          list={list}
+          setTasks={setTasks}
+        />
+      ))}
+    </div>
+  );
+};
+export const AddListToListGroup = (props) => {
+  const { list, setTasks } = props;
 
-  //   return (
-  //     <div className="listContents" style={Style.listContents}>
-  //       <div style={Style.listTitle}>
-  //         <p style={Style.listName}>{taskList.listName}</p>
-  //         <button style={Style.buttonTaskEdit}>
-  //           <Icon.MoreVert />
-  //         </button>
-  //       </div>
-  //       <p style={Style.LabelButtonAddTask}>
-  //         <button style={Style.ButtonAddTask}>
-  //           <Icon.AddTask />
-  //           {LABEL.ADD_TASK}
-  //         </button>
-  //       </p>
-  //       <div style={{ ...Style.tasksComplete }}>
-  //         {taskList.tasks
-  //           .filter((task) => !task.isComplete)
-  //           .map((taskIncomplete) => {
-  //             return (
-  //               <DisplayTask
-  //                 key={taskIncomplete.id}
-  //                 task={taskIncomplete}
-  //                 setTasks={setTasks}
-  //               />
-  //             );
-  //           })}
-  //       </div>
-  //       <div>完了</div>
-  //       <div style={{ ...Style.tasksComplete }}>
-  //         {taskList.tasks
-  //           .filter((task) => task.isComplete)
-  //           .map((taskComplete) => {
-  //             return (
-  //               <DisplayTask
-  //                 key={taskComplete.id}
-  //                 task={taskComplete}
-  //                 setTasks={setTasks}
-  //               />
-  //             );
-  //           })}
-  //       </div>
-  //     </div>
-  // );
+  return (
+    <div className="listContents" style={Style.listContents}>
+      <div style={Style.listTitle}>
+        <p style={Style.listName}>{list.listName}</p>
+        <button style={Style.buttonTaskEdit}>
+          <Icon.MoreVert />
+        </button>
+      </div>
+      <p style={Style.LabelButtonAddTask}>
+        <button style={Style.ButtonAddTask}>
+          <Icon.AddTask />
+          {LABEL.ADD_TASK}
+        </button>
+      </p>
+      <div style={{ ...Style.tasksComplete }}>
+        {list.tasks
+          .filter((task) => !task.isComplete)
+          .map((taskIncomplete) => {
+            return (
+              <DisplayTask
+                key={taskIncomplete.taskId}
+                task={taskIncomplete}
+                setTasks={setTasks}
+              />
+            );
+          })}
+      </div>
+      <div>完了</div>
+      <div style={{ ...Style.tasksComplete }}>
+        {list.tasks
+          .filter((task) => !task.isComplete)
+          .map((taskIncomplete) => {
+            return (
+              <DisplayTask
+                key={taskIncomplete.taskId}
+                task={taskIncomplete}
+                setTasks={setTasks}
+              />
+            );
+          })}
+      </div>
+    </div>
+  );
 };
 
 const DisplayTask = (props) => {
@@ -91,9 +91,9 @@ const DisplayTask = (props) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleToggleIsComplete = () => {
-    setTasks((prevTaskList) => {
-      return prevTaskList.map((prevTask) =>
-        prevTask.id === task.id
+    setTasks((prevTasks) => {
+      return prevTasks.map((prevTask) =>
+        prevTask.taskId === task.taskId
           ? { ...prevTask, isComplete: !prevTask.isComplete }
           : prevTask
       );
@@ -123,7 +123,6 @@ const DisplayTask = (props) => {
               checked={task.isComplete}
               style={Style.checkbox}
               onChange={handleToggleIsComplete}
-              on
             ></input>
           ) : (
             <button>
