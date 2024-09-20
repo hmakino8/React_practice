@@ -16,6 +16,14 @@ export const ArrowDown = () => {
   return <span className="material-symbols-outlined">arrow_drop_down</span>;
 };
 
+export const KeyboardArrowDown = () => {
+  return <span class="material-symbols-outlined">keyboard_arrow_down</span>;
+};
+
+export const KeyboardControlKey = () => {
+  return <span class="material-symbols-outlined">keyboard_control_key</span>;
+};
+
 export const MoreVert = () => {
   return (
     <span className="material-symbols-outlined" style={Style.iconMoreVert}>

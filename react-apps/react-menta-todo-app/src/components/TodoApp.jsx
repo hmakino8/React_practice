@@ -85,6 +85,7 @@ const MenuBar = (props) => {
   const { tasks, listGroup, setListGroup, isModalOpen, setIsModalOpen } = props;
   const [isCreateTaskList, setIsCreateTaskList] = useState(false);
   const [listName, setListName] = useState("");
+  const [isOpenLists, setIsOpenLists] = useState(true);
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -104,6 +105,7 @@ const MenuBar = (props) => {
         {
           listId: generateId(),
           listName: listName,
+          display: true,
           tasks: [],
         },
         ...prevListGroup,
@@ -124,6 +126,24 @@ const MenuBar = (props) => {
     }
   };
 
+  const handleIsOpenList = () => {
+    setIsOpenLists((prev) => !prev);
+  };
+
+  const handleListContents = (e) => {
+    // const { checked } = e.target.checked;
+    const listId = e.target.dataset.listId;
+
+    setListGroup((prevListGroup) =>
+      prevListGroup.map((prevList) => {
+        if (prevList.listId === listId) {
+          return { ...prevList, display: !prevList.display };
+        }
+        return prevList;
+      })
+    );
+  };
+
   return (
     <div style={Style.MenuBarWrapper}>
       <button
@@ -134,7 +154,6 @@ const MenuBar = (props) => {
         <TodleButtonAdd />
         <p style={Style.menuBarLabel}>{LABEL.ADD_TASK_TO_LIST}</p>
       </button>
-
       <button style={Style.buttonCreateTaskList} onClick={enableCreateTaskList}>
         <Icon.CreateTaskList />
         {LABEL.CREATE_TASK_LIST}
@@ -158,6 +177,72 @@ const MenuBar = (props) => {
           onChange={handleSetListName}
           onKeyDown={handleKeyDown}
         />
+      )}
+      <div
+        style={{
+          fontSize: "0.9rem",
+          position: "absolute",
+          width: "90%",
+          top: "160px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          cursor: "pointer",
+        }}
+      >
+        リスト
+        <button
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "5px",
+            border: "none",
+            borderRadius: "100%",
+          }}
+          onClick={handleIsOpenList}
+        >
+          {isOpenLists ? (
+            <Icon.KeyboardControlKey />
+          ) : (
+            <Icon.KeyboardArrowDown />
+          )}
+        </button>
+      </div>
+      {isOpenLists && (
+        <>
+          {listGroup.map((list, index) => (
+            <label
+              className="menu-list"
+              key={list.listId}
+              style={{
+                position: "absolute",
+                top: `${200 + 35 * index}px`,
+                display: "flex",
+                alignItems: "center",
+                height: "35px",
+                width: "80%",
+                border: "none",
+                borderRadius: "20px",
+                fontSize: "1rem",
+                paddingLeft: "5px",
+              }}
+            >
+              <input
+                style={{
+                  marginRight: "15px",
+                  padding: "20px",
+                }}
+                type="checkBox"
+                data-list-id={list.listId}
+                checked={list.display}
+                onClick={handleListContents}
+                disabled={list.listName === "マイタスク"}
+              />
+              {list.listName}
+            </label>
+          ))}
+        </>
       )}
     </div>
   );

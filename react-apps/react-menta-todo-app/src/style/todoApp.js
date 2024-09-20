@@ -4,7 +4,7 @@ export const todoAppWrapper = {
   flexDirection: "column",
   width: "100vw",
   height: "100vh",
-  backgroundColor: "#f4f4f4",
+  backgroundColor: "rgb(250, 250, 250)",
 };
 
 export const todoAppHeader = {

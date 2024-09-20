@@ -29,15 +29,19 @@ export const RenderListGroup = (props) => {
   return (
     <div style={Style.listGroupWrapper(isMenuOpen)}>
       {listGroup.map((list) => (
-        <AddListToListGroup
-          key={list.listId}
-          modalData={modalData}
-          setModalData={setModalData}
-          list={list}
-          setTasks={setTasks}
-          isAddTask={isAddTask}
-          setIsAddTask={setIsAddTask}
-        />
+        <>
+          {list.display && (
+            <AddListToListGroup
+              key={list.listId}
+              modalData={modalData}
+              setModalData={setModalData}
+              list={list}
+              setTasks={setTasks}
+              isAddTask={isAddTask}
+              setIsAddTask={setIsAddTask}
+            />
+          )}
+        </>
       ))}
     </div>
   );

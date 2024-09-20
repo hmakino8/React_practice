@@ -28,7 +28,7 @@ textarea {
 input:focus,
 select:focus {
   outline: none;
-  border-bottom: 2px solid #4285f4;
+  border-bottom: 2px solid rgb(63, 133, 244);
 }
 
 textarea:focus {
@@ -46,6 +46,11 @@ textarea:not(:focus):hover {
   background-color: rgb(230, 230, 230);
 }
 
+.menu-list:hover {
+  background-color: rgb(230, 230, 230);
+  cursor: pointer;
+}
+
 .task:hover {
   background-color: rgb(250, 250, 250);
 }
@@ -56,6 +61,7 @@ button {
 
 button:hover {
   cursor: pointer;
+  background-color: rgb(240, 240, 240);
 }
 
 button:not(:hover) {
