@@ -13,6 +13,7 @@ export const label = {
 
 export const priorityAndDeadline = {
   display: "flex",
+  alignItems: "flex-end",
 };
 
 export const priority = {

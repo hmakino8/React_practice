@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GetModalData } from "./GetModalData";
 import { RenderListGroup } from "./RenderListGroup";
-import { ToggleMenuProject } from "../utils/Icon";
 import { initListGroup, initModalData } from "../utils/initializer";
 import { TodleTitle } from "../utils/TodleTitle";
 import { TodleButtonAdd } from "../utils/TodleButtonAdd";
@@ -9,9 +8,6 @@ import { LABEL, PLACEHOLDER } from "../utils/constants";
 import * as Icon from "../utils/Icon";
 import * as Style from "../style/todoApp";
 import { generateId } from "../utils/utils";
-import { useEffect } from "react";
-import { listName } from "../style/styleTaskList";
-import { modal } from "../style/styleModal";
 
 export const TodoApp = () => {
   const [tasks, setTasks] = useState([]);
@@ -19,6 +15,7 @@ export const TodoApp = () => {
   const [listGroup, setListGroup] = useState(initListGroup());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isAddTask, setIsAddTask] = useState(false);
 
   useEffect(() => {
     console.log("listGroup=", listGroup);
@@ -50,8 +47,12 @@ export const TodoApp = () => {
         <RenderListGroup
           tasks={tasks}
           setTasks={setTasks}
+          modalData={modalData}
+          setModalData={setModalData}
           listGroup={listGroup}
           setListGroup={setListGroup}
+          isAddTask={isAddTask}
+          setIsAddTask={setIsAddTask}
         />
       </div>
     </div>
@@ -68,7 +69,7 @@ const TodoAppHeader = (props) => {
   return (
     <div style={Style.todoAppHeader}>
       <button style={Style.toggleMenuProject} onClick={handleToggleMenu}>
-        <ToggleMenuProject />
+        <Icon.ToggleMenuProject />
       </button>
       <TodleTitle />
     </div>
@@ -92,29 +93,17 @@ const MenuBar = (props) => {
     if (isCreateTaskList) setIsCreateTaskList(false);
   };
 
-  const Test = () => {
-    setListGroup((prev) => {
-      return [
-        ...prev,
-        {
-          listId: generateId(),
-          listName: `マイタスク${listGroup.length}`,
-          tasks: tasks,
-        },
-      ];
-    });
-  };
-
   const handleCreateTaskList = () => {
     if (listName.trim() !== "") {
       setListGroup((prevListGroup) => [
-        ...prevListGroup,
         {
           listId: generateId(),
           listName: listName,
           tasks: [],
         },
+        ...prevListGroup,
       ]);
+
       setListName("");
       disableCreateTaskList();
     }

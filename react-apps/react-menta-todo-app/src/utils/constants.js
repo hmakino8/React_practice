@@ -13,9 +13,10 @@ export const LABEL = {
 
 export const PLACEHOLDER = {
   TITLE: "タイトルを追加",
-  PRIORITY: "優先順位を選択してください",
+  PRIORITY: "優先順位を選択",
   LIST_NAME: "リスト名を選んでください",
   COMMENT: "説明を追加",
+  DEADLINE: "期限",
   CREATE_TASK_LIST: "名前を入力してください",
 };
 

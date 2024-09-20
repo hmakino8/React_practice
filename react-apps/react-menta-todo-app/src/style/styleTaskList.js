@@ -1,30 +1,36 @@
 import { COLOR } from "../utils/constants";
 
 export const taskTitle = {
-  width: "40%",
+  width: "100%",
   overflow: "hidden",
   textOverFlow: "ellipsis",
+  border: "none",
+  backgroundColor: "transparent",
 };
 
-export const taskDeadline = {
+export const taskDeadline = (length) => ({
   display: "flex",
-  width: "60%",
+  flexDirection: "column",
+  width: `${length}ch`,
   overflow: "hidden",
   whiteSpace: "norap",
-  textAlign: "center",
+  // textAlign: "center",
   alignItems: "center",
-};
+  backgroundColor: "rgb(240, 240, 240)",
+  border: "none",
+  borderRadius: "5px",
+});
 
 export const checkbox = {
-  display: "flex",
-  alignItems: "center",
   // marginRight: "20px",
   appearance: "none",
   webkitAppearance: "none",
+  border: "1px solid rgb(200, 200, 200)",
   borderRadius: "50%",
   // marginRight: "15px",
   padding: "8px",
   cursor: "pointer",
+  flexDirection: "row",
 };
 
 export const iconClock = {
@@ -33,7 +39,7 @@ export const iconClock = {
 
 export const iconMoreVert = {
   fontSize: "1.3rem",
-  width: "auto",
+  width: "30px",
 };
 
 export const buttonTaskEdit = {
@@ -47,17 +53,19 @@ export const buttonTaskEdit = {
 };
 
 export const priority = {
-  padding: "8px",
-  marginRight: "5px",
-  borderRadius: "10px",
+  webkitAppearance: "none",
+  MozAppearance: "none",
+  appearance: "none",
+  padding: "10px",
+  fontSize: "0",
+  borderRadius: "100%",
   border: "2px, solid, rgb(240, 240, 240)",
 };
 
 export const priorityColor = {
   High: { backgroundColor: COLOR.RED },
   Medium: { backgroundColor: COLOR.YELLOW },
-  Low: { backgroundColor: COLOR.BLUE },
-  "": { backgroundColor: "white" },
+  Low: { backgroundColor: "#fff" },
 };
 
 export const listContents = {
@@ -135,7 +143,7 @@ export const listNoData = {
 
 export const task = {
   // backgroundColor: "rgb(240, 240, 240)",
-  width: "100%",
+  width: "99%",
   minHeight: "50px",
   cursor: "default",
   display: "flex",
@@ -144,7 +152,8 @@ export const task = {
   borderRadius: "3px",
   // boxShadow: "0 1.6px 1px rgba(0, 0, 0, 0.1)",
   border: "1.2px solid, rgb(240, 240, 240",
-  alignItems: "center",
+  // alignItems: "center",
+  flexDirection: "column",
 };
 
 export const listGroupWrapper = {

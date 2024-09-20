@@ -15,32 +15,16 @@ export const GetModalData = (props) => {
     setListGroup,
   } = props;
 
-  const modalItems = {
-    listId: "",
-    title: "title",
-    priority: "priority",
-    deadline: "deadline",
-    comment: "comment",
-  };
-
-  const commonProps = (modalItem) => ({
-    name: modalItem,
-    value: modalData[modalItems[modalItem]] || "",
-    onChange: handleSetFormData,
-  });
-
-  const handleSetFormData = (e) => {
-    const { name, value } = e.target;
-
-    setModalData((prev) => ({ ...prev, [name]: value }));
-  };
-
   const closeTaskModal = () => {
     setIsModalOpen(false);
   };
 
   const taskAdder = () => {
-    const newTasks = { ...modalData, taskId: Utils.generateId() };
+    const newTasks = {
+      ...modalData,
+      taskId: Utils.generateId(),
+      ...(!modalData.priority && { priority: "Low" }),
+    };
 
     setTasks((prevTasks) => [...prevTasks, { ...newTasks }]);
     setModalData(initModalData());
@@ -68,14 +52,21 @@ export const GetModalData = (props) => {
   return (
     <div style={Style.modal} onClick={() => setIsModalOpen(false)}>
       <div style={Style.modalContents} onClick={(e) => e.stopPropagation()}>
-        <ModalItemTitle {...commonProps("title")} />
+        <ModalItemTitle {...commonProps("title", modalData, setModalData)} />
         <div style={Style.priorityAndDeadline}>
-          <ModalItemPriority {...commonProps("priority")} />
-          <ModalItemDeadline {...commonProps("deadline")} />
+          <ModalItemPriority
+            {...commonProps("priority", modalData, setModalData)}
+          />
+          <ModalItemDeadline
+            {...commonProps("deadline", modalData, setModalData)}
+          />
         </div>
-        <ModalItemComment {...commonProps("comment")} />
+        <ModalItemComment
+          {...commonProps("comment", modalData, setModalData)}
+        />
         <ModalItemListName
-          handleSetFormData={handleSetFormData}
+          modalData={modalData}
+          setModalData={setModalData}
           listGroup={listGroup}
         />
         <button onClick={closeTaskModal}>Close</button>
@@ -87,6 +78,26 @@ export const GetModalData = (props) => {
       </div>
     </div>
   );
+};
+
+export const modalItems = {
+  listId: "",
+  title: "title",
+  priority: "priority",
+  deadline: "deadline",
+  comment: "comment",
+};
+
+export const commonProps = (modalItem, modalData, setModalData) => ({
+  name: modalItem,
+  value: modalData[modalItems[modalItem]] || "",
+  onChange: (e) => handleSetFormData(e, setModalData),
+});
+
+export const handleSetFormData = (e, setModalData) => {
+  const { name, value } = e.target;
+
+  setModalData((prev) => ({ ...prev, [name]: value }));
 };
 
 const ModalItemTitle = (props) => {
@@ -104,7 +115,6 @@ const ModalItemPriority = (props) => {
         <option value="" disabled>
           {PLACEHOLDER.PRIORITY}
         </option>
-        <option value=""></option>
         <option value="High">{PULLDOWN.PRIORITY_HIGH}</option>
         <option value="Medium">{PULLDOWN.PRIORITY_MEDIUM}</option>
         <option value="Low">{PULLDOWN.PRIORITY_LOW}</option>
@@ -116,7 +126,11 @@ const ModalItemPriority = (props) => {
 const ModalItemDeadline = (props) => {
   return (
     <div style={Style.inputForm}>
-      <input {...props} type="datetime-local" />
+      <input
+        {...props}
+        type="datetime-local"
+        placeholder={PLACEHOLDER.DEADLINE}
+      />
     </div>
   );
 };
@@ -130,12 +144,15 @@ const ModalItemComment = (props) => {
 };
 
 const ModalItemListName = (props) => {
-  const { handleSetFormData, listGroup } = props;
+  const { modalData, setModalData, listGroup } = props;
 
   return (
     <div style={{ ...Style.inputForm, width: "50%" }}>
-      <select name={"listId"} onChange={handleSetFormData}>
-        <option value="">リストを選択してください</option>
+      <select
+        name={"listId"}
+        onChange={(e) => handleSetFormData(e, setModalData)}
+      >
+        <option value="">リストを選択</option>
         {listGroup.map((taskList) => (
           <option value={taskList.listId} key={taskList.listId}>
             {taskList.listName}
