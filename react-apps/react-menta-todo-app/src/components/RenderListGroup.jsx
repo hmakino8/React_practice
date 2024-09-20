@@ -1,23 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { modalItems, commonProps, handleSetFormData } from "./GetModalData";
 import * as Style from "../style/styleTaskList";
 import { formatDate } from "../utils/utils";
 import * as Icon from "../utils/Icon";
 import { LABEL, COLOR, PLACEHOLDER } from "../utils/constants";
 import { generateId } from "../utils/utils";
-import { useEffect } from "react";
 import { deadline } from "../style/styleModal";
-
-const tasksToListGroup = (tasks, listGroup, setListGroup) => {
-  if (!tasks) return;
-
-  setListGroup((prevListGroup) =>
-    prevListGroup.map((prevList) => {
-      const newTasks = tasks.filter((task) => task.listId === prevList.listId);
-      return { ...prevList, tasks: [...newTasks] };
-    })
-  );
-};
+import { initModalData } from "../utils/initializer";
 
 export const RenderListGroup = (props) => {
   const {
@@ -29,14 +18,16 @@ export const RenderListGroup = (props) => {
     setListGroup,
     isAddTask,
     setIsAddTask,
+    isMenuOpen,
   } = props;
 
   useEffect(() => {
     tasksToListGroup(tasks, listGroup, setListGroup);
+    console.log(tasks);
   }, [tasks]);
 
   return (
-    <div style={Style.listGroupWrapper}>
+    <div style={Style.listGroupWrapper(isMenuOpen)}>
       {listGroup.map((list) => (
         <AddListToListGroup
           key={list.listId}
@@ -52,15 +43,49 @@ export const RenderListGroup = (props) => {
   );
 };
 
+const tasksToListGroup = (tasks, listGroup, setListGroup) => {
+  if (!tasks) return;
+
+  setListGroup((prevListGroup) =>
+    prevListGroup.map((prevList) => {
+      const newTasks = tasks.filter((task) => task.listId === prevList.listId);
+      return { ...prevList, tasks: [...newTasks] };
+    })
+  );
+};
+
 export const AddListToListGroup = (props) => {
   const { modalData, setModalData, list, setTasks, isAddTask, setIsAddTask } =
     props;
 
   const completeTaskCount = list.tasks.filter((task) => task.isComplete).length;
 
-  const handleIsAddTask = () => {
-    setIsAddTask(true);
+  const handleIsAddTask = (e) => {
+    const listId = e.target.dataset.listId;
+
+    setTasks((tasks) => [
+      { ...initModalData(), listId: listId, taskId: generateId() },
+      ...tasks,
+    ]);
+    // setIsAddTask(false);
   };
+
+  // useEffect(() => {
+  //   if (!isAddTask) return;
+
+  //   setTasks((prevTasks) => {
+  //     const newTask = {
+  //       ...initModalData(),
+  //       listId: task.listId,
+  //       taskId: generateId(),
+  //     };
+
+  //     return [newTask, ...prevTasks];
+  //   });
+  //   console.log("hello");
+
+  //   setIsAddTask(false);
+  // }, [isAddTask, setTasks, task.listId]);
 
   return (
     <div className="listContents" style={Style.listContents}>
@@ -71,24 +96,28 @@ export const AddListToListGroup = (props) => {
         </button>
       </div>
       <p style={Style.LabelButtonAddTask}>
-        <button style={Style.ButtonAddTask} onClick={handleIsAddTask}>
+        <button
+          style={Style.ButtonAddTask}
+          data-list-id={list.listId}
+          onClick={handleIsAddTask}
+        >
           <Icon.AddTask />
           {LABEL.ADD_TASK}
         </button>
       </p>
       <div style={{ ...Style.tasksComplete }}>
-        {/* {isAddTask && <input placeholder="タイトル" />} */}
         {list.tasks
           .filter((task) => !task.isComplete)
-          .map((taskIncomplete) => {
-            return (
-              <DisplayTask
-                key={taskIncomplete.taskId}
-                task={taskIncomplete}
-                setTasks={setTasks}
-              />
-            );
-          })}
+          .map((taskIncomplete) => (
+            <DisplayTask
+              key={taskIncomplete.taskId}
+              task={taskIncomplete}
+              setTasks={setTasks}
+              modalData={modalData}
+              isAddTask={isAddTask}
+              setIsAddTask={setIsAddTask}
+            />
+          ))}
       </div>
       {completeTaskCount > 0 && (
         <div style={{ fontSize: "0.8rem" }}>完了（{completeTaskCount}件）</div>
@@ -102,6 +131,9 @@ export const AddListToListGroup = (props) => {
                 key={taskIncomplete.taskId}
                 task={taskIncomplete}
                 setTasks={setTasks}
+                modalData={modalData}
+                isAddTask={isAddTask}
+                setIsAddTask={setIsAddTask}
               />
             );
           })}
@@ -111,14 +143,15 @@ export const AddListToListGroup = (props) => {
 };
 
 const DisplayTask = (props) => {
-  const { task, setTasks } = props;
+  const { task, setTasks, modalData, isAddTask, setIsAddTask } = props;
   const [isHovered, setIsHovered] = useState(false);
   const [daysLeftMessage, setDaysLeftMessage] = useState("");
   const [isClickedDaysLeft, setIsClickedDaysLeft] = useState(false);
+  const titleRef = useRef(null);
 
   useEffect(() => {
-    setDaysLeftMessage(displayDaysLeftMessage(task.deadline), [task.deadline]);
-  });
+    setDaysLeftMessage(displayDaysLeftMessage(task.deadline));
+  }, [task.deadline]);
 
   const handleToggleIsComplete = () => {
     setTasks((prevTasks) => {
@@ -157,15 +190,23 @@ const DisplayTask = (props) => {
     const { name, value } = e.target;
     const taskId = e.target.dataset.taskId;
 
-    console.log("thisisit!", name);
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => {
+    setTasks((prevTasks) => {
+      let newTasks = prevTasks.map((task) => {
         if (task.taskId === taskId) {
           return { ...task, [name]: value };
         }
         return task;
-      })
-    );
+      });
+
+      // if (!newTasks) {
+      //   newTasks = {
+      //     ...modalData,
+      //     taskId: generateId(),
+      //   };
+      //   return [...prevTasks, { ...newTasks }];
+      // }
+      return newTasks;
+    });
   };
 
   const calculateDaysLeft = (deadline) => {
@@ -213,18 +254,28 @@ const DisplayTask = (props) => {
     setIsClickedDaysLeft((isClickedDaysLeft) => !isClickedDaysLeft);
   };
 
+  // useEffect(() => {
+  //   if (!isAddTask) return;
+
+  //   setTasks((prevTasks) => [
+  //     { ...modalData, listId: generateId() },
+  //     ...prevTasks,
+  //   ]);
+  // }, [isAddTask]);
+
+  useEffect(() => {
+    if (isAddTask) {
+      titleRef.current.focus();
+      setIsAddTask(false);
+    }
+  }, [isAddTask]);
+
   return (
-    <button style={Style.task}>
-      {/* <div
-          onMouseEnter={handleIsHovered}
-          onMouseLeave={handleIsHovered}
-          style={{ margin: "0 10px", display: "flex" }}
-        > */}
+    <div className="task" style={Style.task}>
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          // justifyContent: "center",
           width: "100%",
         }}
       >
@@ -232,11 +283,7 @@ const DisplayTask = (props) => {
           type="checkbox"
           style={Style.checkbox}
           onChange={handleToggleIsComplete}
-        ></input>
-        {/* <input
-        {...commonProps("title", modalData, setModalData)}
-        style={Style.taskTitle}
-      /> */}
+        />
         <input
           name={"title"}
           value={task.title}
@@ -244,6 +291,7 @@ const DisplayTask = (props) => {
           onChange={handleChangeTaskInfo}
           onFocus={(e) => e.target.select()}
           onKeyDown={handleKeyDown}
+          ref={titleRef}
           style={Style.taskTitle}
         />
         <button style={Style.buttonTaskEdit}>
@@ -289,6 +337,6 @@ const DisplayTask = (props) => {
           </>
         )}
       </div>
-    </button>
+    </div>
   );
 };

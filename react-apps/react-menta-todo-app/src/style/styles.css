@@ -46,6 +46,10 @@ textarea:not(:focus):hover {
   background-color: rgb(230, 230, 230);
 }
 
+.task:hover {
+  background-color: rgb(250, 250, 250);
+}
+
 button {
   background-color: none;
 }

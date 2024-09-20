@@ -1,3 +1,4 @@
+import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 import { COLOR } from "../utils/constants";
 
 export const taskTitle = {
@@ -24,7 +25,7 @@ export const taskDeadline = (length) => ({
 export const checkbox = {
   // marginRight: "20px",
   appearance: "none",
-  webkitAppearance: "none",
+  WebkitAppearance: "none",
   border: "1px solid rgb(200, 200, 200)",
   borderRadius: "50%",
   // marginRight: "15px",
@@ -53,7 +54,7 @@ export const buttonTaskEdit = {
 };
 
 export const priority = {
-  webkitAppearance: "none",
+  WebkitAppearance: "none",
   MozAppearance: "none",
   appearance: "none",
   padding: "10px",
@@ -69,15 +70,20 @@ export const priorityColor = {
 };
 
 export const listContents = {
+  // position: "absolute",
+  boxSizing: "border-box",
   display: "flex",
+  // flexBasis: "300px",
   flexDirection: "column",
-  width: "95%",
+  width: "calc(100% - 10px)",
   minWidth: "300px",
   maxWidth: "700px",
-  minHeight: "300px",
+  // minHeight: "300px",
+  height: "calc(100% - 30px)",
+  // minHeight: "50px",
   backgroundColor: "white",
   borderRadius: "15px",
-  border: "1px solid rgb(240, 240 ,240)",
+  // border: "1px solid rgb(240, 240 ,240)",
   margin: "15px 5px",
   padding: "5px",
 };
@@ -123,9 +129,12 @@ export const IconButtonAddTask = {
 };
 
 export const tasksComplete = {
+  // top: "100px",
+  // position: "absolute",
   width: "100%",
   borderRadius: "3px",
   overflowY: "auto",
+  maxHeight: "50vh",
   // border: "1px solid",
   // minHeight: "100px",
 };
@@ -154,14 +163,19 @@ export const task = {
   border: "1.2px solid, rgb(240, 240, 240",
   // alignItems: "center",
   flexDirection: "column",
+  padding: "5px",
 };
 
-export const listGroupWrapper = {
+export const listGroupWrapper = (isMenuOpen) => ({
+  position: "absolute",
+  left: isMenuOpen ? "250px" : "0px",
   display: "flex",
   borderRadius: "5px",
   fontSize: "0.6rem",
-  width: "100%",
+  width: isMenuOpen ? "calc(100% - 250px)" : "100%",
   overflowX: "auto",
+  // border: "1px solid red",
+  height: "100%",
   // margin: "0 auto",
-  // justifyContent: "center",
-};
+  justifyContent: "center",
+});

@@ -21,6 +21,10 @@ export const TodoApp = () => {
     console.log("listGroup=", listGroup);
   }, [listGroup]);
 
+  useEffect(() => {
+    console.log("tasks=", tasks);
+  }, [tasks]);
+
   return (
     <div style={Style.todoAppWrapper}>
       <TodoAppHeader isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
@@ -53,6 +57,7 @@ export const TodoApp = () => {
           setListGroup={setListGroup}
           isAddTask={isAddTask}
           setIsAddTask={setIsAddTask}
+          isMenuOpen={isMenuOpen}
         />
       </div>
     </div>
