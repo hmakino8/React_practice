@@ -174,8 +174,7 @@ export const listGroupWrapper = (isMenuOpen) => ({
   fontSize: "0.6rem",
   width: isMenuOpen ? "calc(100% - 250px)" : "100%",
   overflowX: "auto",
-  // border: "1px solid red",
   height: "100%",
   // margin: "0 auto",
-  justifyContent: "center",
+  // justifyContent: "center",
 });

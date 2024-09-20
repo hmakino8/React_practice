@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { modalItems, commonProps, handleSetFormData } from "./GetModalData";
 import * as Style from "../style/styleTaskList";
 import { formatDate } from "../utils/utils";
@@ -57,6 +57,7 @@ const tasksToListGroup = (tasks, listGroup, setListGroup) => {
 export const AddListToListGroup = (props) => {
   const { modalData, setModalData, list, setTasks, isAddTask, setIsAddTask } =
     props;
+  const [isDisplayTaskComplete, setIsDisplayTaskComplete] = useState(false);
 
   const completeTaskCount = list.tasks.filter((task) => task.isComplete).length;
 
@@ -64,7 +65,12 @@ export const AddListToListGroup = (props) => {
     const listId = e.target.dataset.listId;
 
     setTasks((tasks) => [
-      { ...initModalData(), listId: listId, taskId: generateId() },
+      {
+        ...initModalData(),
+        listId: listId,
+        taskId: generateId(),
+        priority: "Low",
+      },
       ...tasks,
     ]);
     // setIsAddTask(false);
@@ -86,6 +92,10 @@ export const AddListToListGroup = (props) => {
 
   //   setIsAddTask(false);
   // }, [isAddTask, setTasks, task.listId]);
+
+  const toggleIsDisplayTaskComplete = () => {
+    setIsDisplayTaskComplete((prev) => !prev);
+  };
 
   return (
     <div className="listContents" style={Style.listContents}>
@@ -120,24 +130,54 @@ export const AddListToListGroup = (props) => {
           ))}
       </div>
       {completeTaskCount > 0 && (
-        <div style={{ fontSize: "0.8rem" }}>完了（{completeTaskCount}件）</div>
+        <div
+          style={{
+            fontSize: "0.8rem",
+            alignItems: "center",
+            display: "flex",
+            width: "80%",
+            border: "none",
+            borderRadius: "5px",
+            backgroundColor: "transparent",
+            cursor: "pointer",
+          }}
+          onClick={toggleIsDisplayTaskComplete}
+        >
+          <button
+            style={{
+              display: "flex",
+              // height: "20px",
+              // width: "20px",
+              padding: "3px",
+              justifyContent: "center",
+              alignItems: "center",
+              border: "none",
+              borderRadius: "100%",
+            }}
+          >
+            {isDisplayTaskComplete ? <Icon.ArrowDown /> : <Icon.ArrowRight />}
+          </button>
+          完了（{completeTaskCount}件）
+        </div>
       )}
-      <div style={{ ...Style.tasksComplete }}>
-        {list.tasks
-          .filter((task) => task.isComplete)
-          .map((taskIncomplete) => {
-            return (
-              <DisplayTask
-                key={taskIncomplete.taskId}
-                task={taskIncomplete}
-                setTasks={setTasks}
-                modalData={modalData}
-                isAddTask={isAddTask}
-                setIsAddTask={setIsAddTask}
-              />
-            );
-          })}
-      </div>
+      {isDisplayTaskComplete && (
+        <div style={{ ...Style.tasksComplete }}>
+          {list.tasks
+            .filter((task) => task.isComplete)
+            .map((taskIncomplete) => {
+              return (
+                <DisplayTask
+                  key={taskIncomplete.taskId}
+                  task={taskIncomplete}
+                  setTasks={setTasks}
+                  modalData={modalData}
+                  isAddTask={isAddTask}
+                  setIsAddTask={setIsAddTask}
+                />
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 };
@@ -147,7 +187,6 @@ const DisplayTask = (props) => {
   const [isHovered, setIsHovered] = useState(false);
   const [daysLeftMessage, setDaysLeftMessage] = useState("");
   const [isClickedDaysLeft, setIsClickedDaysLeft] = useState(false);
-  const titleRef = useRef(null);
 
   useEffect(() => {
     setDaysLeftMessage(displayDaysLeftMessage(task.deadline));
@@ -263,13 +302,6 @@ const DisplayTask = (props) => {
   //   ]);
   // }, [isAddTask]);
 
-  useEffect(() => {
-    if (isAddTask) {
-      titleRef.current.focus();
-      setIsAddTask(false);
-    }
-  }, [isAddTask]);
-
   return (
     <div className="task" style={Style.task}>
       <div
@@ -291,7 +323,6 @@ const DisplayTask = (props) => {
           onChange={handleChangeTaskInfo}
           onFocus={(e) => e.target.select()}
           onKeyDown={handleKeyDown}
-          ref={titleRef}
           style={Style.taskTitle}
         />
         <button style={Style.buttonTaskEdit}>

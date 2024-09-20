@@ -8,6 +8,14 @@ export const Clock = () => {
   );
 };
 
+export const ArrowRight = () => {
+  return <span className="material-symbols-outlined">arrow_right</span>;
+};
+
+export const ArrowDown = () => {
+  return <span className="material-symbols-outlined">arrow_drop_down</span>;
+};
+
 export const MoreVert = () => {
   return (
     <span className="material-symbols-outlined" style={Style.iconMoreVert}>
