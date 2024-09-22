@@ -1,9 +1,9 @@
 export const todoAppWrapper = {
-  position: "fixed",
   display: "flex",
+  flexDirection: "column",
+  position: "fixed",
   top: "0",
   left: "0",
-  flexDirection: "column",
   width: "100vw",
   height: "100vh",
   backgroundColor: "rgb(250, 250, 250)",
@@ -15,11 +15,34 @@ export const todoAppHeader = {
   alignItems: "center",
   color: "rgb(100, 100, 100)",
   fontSize: "1.5rem",
+  fontWeight: "bold",
+  height: "65px",
   minHeight: "65px",
-  maxHeight: "65px",
   backgroundColor: "#fff",
   borderBottom: "1px solid rgb(200, 200 ,200)",
-  fontWeight: "bold",
+};
+
+export const search = {
+  width: "100%",
+};
+
+export const searchLabel = {
+  display: "flex",
+  marginLeft: "20px",
+  border: "1px solid rgb(240, 240, 240)",
+  borderRadius: "20px",
+  backgroundColor: "rgb(240, 240, 240)",
+  height: "30px",
+  width: "80%",
+  maxWidth: "500px",
+  margin: "0 auto",
+  alignItems: "center",
+};
+
+export const searchInput = {
+  width: "calc(100% - 45px)",
+  height: "100%",
+  alignItems: "center",
 };
 
 export const toggleMenuProject = {
@@ -32,8 +55,8 @@ export const toggleMenuProject = {
 };
 
 export const todoAppBody = {
-  position: "relative",
   display: "flex",
+  position: "relative",
   height: "100%",
 };
 

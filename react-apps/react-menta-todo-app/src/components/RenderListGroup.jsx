@@ -1,16 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { modalItems, commonProps, handleSetFormData } from "./GetModalData";
 import * as Style from "../style/styleTaskList";
-import { formatDate } from "../utils/utils";
 import * as Icon from "../utils/Icon";
-import {
-  LABEL,
-  COLOR,
-  PLACEHOLDER,
-  DEFAULT_LIST_NAME,
-} from "../utils/constants";
+import { LABEL } from "../utils/constants";
 import { generateId } from "../utils/utils";
-import { deadline } from "../style/styleModal";
 import { initModalData } from "../utils/initializer";
 
 export const RenderListGroup = (props) => {

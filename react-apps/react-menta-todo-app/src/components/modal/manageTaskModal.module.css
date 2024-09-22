@@ -1,0 +1,27 @@
+.modalWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+}
+
+.wrapperPriorityAndDeadline {
+  display: flex;
+  align-items: flex-end;
+}
+
+.modalContents {
+  background-color: #fff;
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid rgba(240, 240, 240);
+  border-radius: 10px;
+  min-width: 500px;
+  max-height: 500px;
+}

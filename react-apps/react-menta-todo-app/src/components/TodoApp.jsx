@@ -1,30 +1,22 @@
-import { useState, useEffect } from "react";
-import { GetModalData } from "./GetModalData";
+import { useState } from "react";
+import { ManageTaskModal } from "./modal/ManageTaskModal";
 import { RenderListGroup } from "./RenderListGroup";
 import { initListGroup, initModalData } from "../utils/initializer";
 import { TodleTitle } from "../utils/TodleTitle";
 import { TodleButtonAdd } from "../utils/TodleButtonAdd";
+import { generateId } from "../utils/utils";
 import { LABEL, PLACEHOLDER } from "../utils/constants";
 import * as Icon from "../utils/Icon";
 import * as Style from "../style/todoApp";
-import { generateId } from "../utils/utils";
 
 export const TodoApp = () => {
-  const [tasks, setTasks] = useState([]);
   const [modalData, setModalData] = useState(initModalData());
+  const [tasks, setTasks] = useState([]);
   const [listGroup, setListGroup] = useState(initListGroup());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isAddTask, setIsAddTask] = useState(false);
   const [searchKey, setSearchKey] = useState("");
-
-  useEffect(() => {
-    console.log("listGroup=", listGroup);
-  }, [listGroup]);
-
-  useEffect(() => {
-    console.log("tasks=", tasks);
-  }, [tasks]);
 
   return (
     <div style={Style.todoAppWrapper}>
@@ -36,13 +28,12 @@ export const TodoApp = () => {
       />
       <div style={Style.todoAppBody}>
         {isModalOpen && (
-          <GetModalData
+          <ManageTaskModal
             setIsModalOpen={setIsModalOpen}
             modalData={modalData}
             setModalData={setModalData}
             setTasks={setTasks}
             listGroup={listGroup}
-            setListGroup={setListGroup}
           />
         )}
         {isMenuOpen && (
@@ -75,44 +66,25 @@ export const TodoApp = () => {
 const TodoAppHeader = (props) => {
   const { isMenuOpen, setIsMenuOpen, searchKey, setSearchKey } = props;
 
-  const handleToggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   return (
     <div style={Style.todoAppHeader}>
-      <button style={Style.toggleMenuProject} onClick={handleToggleMenu}>
+      <button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        style={Style.toggleMenuProject}
+      >
         <Icon.ToggleMenuProject />
       </button>
+
       <TodleTitle />
 
-      <div style={{ width: "100%" }}>
-        <label
-          style={{
-            // top: "90px",
-            // left: "0",
-            display: "flex",
-            marginLeft: "20px",
-            border: "1px solid rgb(240, 240, 240)",
-            borderRadius: "20px",
-            backgroundColor: "rgb(240, 240, 240)",
-            height: "30px",
-            width: "80%",
-            maxWidth: "500px",
-            margin: "0 auto",
-            alignItems: "center",
-          }}
-        >
+      <div style={Style.search}>
+        <label style={Style.searchLabel}>
           <Icon.Search />
           <input
-            style={{
-              width: "calc(100% - 45px)",
-              height: "100%",
-              alignItems: "center",
-            }}
             value={searchKey}
-            placeholder={PLACEHOLDER.SEARCH_TASKS}
+            placeholder={PLACEHOLDER.SEARCH_TASK}
             onChange={(e) => setSearchKey(e.target.value)}
+            style={Style.searchInput}
           />
         </label>
       </div>

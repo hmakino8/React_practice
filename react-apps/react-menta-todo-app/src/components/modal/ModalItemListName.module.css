@@ -1,0 +1,6 @@
+.container {
+  display: flex;
+  flex-flow: column;
+  width: 50%;
+  margin-bottom: 20px;
+}

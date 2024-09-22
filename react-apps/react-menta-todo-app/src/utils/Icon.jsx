@@ -8,6 +8,10 @@ export const Clock = () => {
   );
 };
 
+export const Close = () => {
+  return <span className="material-symbols-outlined">close</span>;
+};
+
 export const VisibilityOff = () => {
   return <span className="material-symbols-outlined">visibility_off</span>;
 };
