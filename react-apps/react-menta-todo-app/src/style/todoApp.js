@@ -74,6 +74,6 @@ export const buttonCreateTaskList = {
   width: "90%",
   height: "40px",
   borderRadius: "20px",
-  top: "90px",
+  top: "130px",
   border: "none",
 };

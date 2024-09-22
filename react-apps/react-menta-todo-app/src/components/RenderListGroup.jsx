@@ -25,6 +25,7 @@ export const RenderListGroup = (props) => {
     isAddTask,
     setIsAddTask,
     isMenuOpen,
+    searchKey,
   } = props;
 
   useEffect(() => {
@@ -34,7 +35,19 @@ export const RenderListGroup = (props) => {
 
   return (
     <div style={Style.listGroupWrapper(isMenuOpen)}>
-      {listGroup.map(
+      {(searchKey
+        ? listGroup.map((list) => {
+            const filteredTasks = list.tasks.filter((task) =>
+              task.title.includes(searchKey)
+            );
+            return {
+              ...list,
+              tasks: filteredTasks,
+              isDisplay: filteredTasks.length > 0 ? list.isDisplay : false,
+            };
+          })
+        : listGroup
+      ).map(
         (list) =>
           list.isDisplay && (
             <AddListToListGroup

@@ -16,6 +16,7 @@ export const TodoApp = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isAddTask, setIsAddTask] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
 
   useEffect(() => {
     console.log("listGroup=", listGroup);
@@ -27,7 +28,12 @@ export const TodoApp = () => {
 
   return (
     <div style={Style.todoAppWrapper}>
-      <TodoAppHeader isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <TodoAppHeader
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+        searchKey={searchKey}
+        setSearchKey={setSearchKey}
+      />
       <div style={Style.todoAppBody}>
         {isModalOpen && (
           <GetModalData
@@ -59,6 +65,7 @@ export const TodoApp = () => {
           isAddTask={isAddTask}
           setIsAddTask={setIsAddTask}
           isMenuOpen={isMenuOpen}
+          searchKey={searchKey}
         />
       </div>
     </div>
@@ -66,7 +73,7 @@ export const TodoApp = () => {
 };
 
 const TodoAppHeader = (props) => {
-  const { isMenuOpen, setIsMenuOpen } = props;
+  const { isMenuOpen, setIsMenuOpen, searchKey, setSearchKey } = props;
 
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -78,19 +85,37 @@ const TodoAppHeader = (props) => {
         <Icon.ToggleMenuProject />
       </button>
       <TodleTitle />
-      <label
-        style={{
-          display: "flex",
-          marginLeft: "20px",
-          border: "1px solid rgb(240, 240, 240)",
-          borderRadius: "20px",
-          backgroundColor: "rgb(240, 240, 240)",
-          width: "200px",
-        }}
-      >
-        <Icon.search />
-        <input />
-      </label>
+
+      <div style={{ width: "100%" }}>
+        <label
+          style={{
+            // top: "90px",
+            // left: "0",
+            display: "flex",
+            marginLeft: "20px",
+            border: "1px solid rgb(240, 240, 240)",
+            borderRadius: "20px",
+            backgroundColor: "rgb(240, 240, 240)",
+            height: "30px",
+            width: "80%",
+            maxWidth: "500px",
+            margin: "0 auto",
+            alignItems: "center",
+          }}
+        >
+          <Icon.Search />
+          <input
+            style={{
+              width: "calc(100% - 45px)",
+              height: "100%",
+              alignItems: "center",
+            }}
+            value={searchKey}
+            placeholder={PLACEHOLDER.SEARCH_TASKS}
+            onChange={(e) => setSearchKey(e.target.value)}
+          />
+        </label>
+      </div>
     </div>
   );
 };
@@ -168,6 +193,7 @@ const MenuBar = (props) => {
         <TodleButtonAdd />
         <p style={Style.menuBarLabel}>{LABEL.ADD_TASK_TO_LIST}</p>
       </button>
+
       <button style={Style.buttonCreateTaskList} onClick={enableCreateTaskList}>
         <Icon.CreateTaskList />
         {LABEL.CREATE_TASK_LIST}
@@ -177,7 +203,7 @@ const MenuBar = (props) => {
           style={{
             position: "absolute",
             width: "90%",
-            top: "130px",
+            top: "170px",
             borderRadius: "0",
             borderTop: "none",
             borderRight: "none",
@@ -197,7 +223,7 @@ const MenuBar = (props) => {
           fontSize: "0.9rem",
           position: "absolute",
           width: "90%",
-          top: "160px",
+          top: "210px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -223,41 +249,38 @@ const MenuBar = (props) => {
           )}
         </button>
       </div>
-      {isOpenLists && (
-        <>
-          {listGroup.map((list, index) => (
-            <label
-              className="menu-list"
-              key={list.listId}
+      {isOpenLists &&
+        listGroup.map((list, index) => (
+          <label
+            className="menu-list"
+            key={list.listId}
+            style={{
+              position: "absolute",
+              top: `${240 + 35 * index}px`,
+              display: "flex",
+              alignItems: "center",
+              height: "35px",
+              width: "80%",
+              border: "none",
+              borderRadius: "20px",
+              fontSize: "1rem",
+              paddingLeft: "5px",
+            }}
+          >
+            <input
               style={{
-                position: "absolute",
-                top: `${200 + 35 * index}px`,
-                display: "flex",
-                alignItems: "center",
-                height: "35px",
-                width: "80%",
-                border: "none",
-                borderRadius: "20px",
-                fontSize: "1rem",
-                paddingLeft: "5px",
+                marginRight: "15px",
+                padding: "20px",
               }}
-            >
-              <input
-                style={{
-                  marginRight: "15px",
-                  padding: "20px",
-                }}
-                type="checkBox"
-                data-list-id={list.listId}
-                checked={list.isDisplay}
-                onChange={handleListContents}
-                disabled={list.isDefault}
-              />
-              {list.listName}
-            </label>
-          ))}
-        </>
-      )}
+              type="checkBox"
+              data-list-id={list.listId}
+              checked={list.isDisplay}
+              onChange={handleListContents}
+              disabled={list.isDefault}
+            />
+            {list.listName}
+          </label>
+        ))}
     </div>
   );
 };

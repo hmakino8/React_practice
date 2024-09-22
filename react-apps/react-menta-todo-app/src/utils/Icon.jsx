@@ -20,7 +20,7 @@ export const Trash = () => {
   return <span className="material-symbols-outlined">delete</span>;
 };
 
-export const search = () => {
+export const Search = () => {
   return <span className="material-symbols-outlined">search</span>;
 };
 

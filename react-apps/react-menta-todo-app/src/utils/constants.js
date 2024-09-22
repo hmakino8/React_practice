@@ -18,6 +18,7 @@ export const PLACEHOLDER = {
   COMMENT: "説明を追加",
   DEADLINE: "期限",
   CREATE_TASK_LIST: "名前を入力してください",
+  SEARCH_TASKS: "タスクを検索",
 };
 
 export const PULLDOWN = {
