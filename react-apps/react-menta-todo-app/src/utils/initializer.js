@@ -6,7 +6,8 @@ export const initListGroup = () => {
     {
       listId: generateId(),
       listName: DEFAULT_LIST_NAME,
-      display: true,
+      isDefault: true,
+      isDisplay: true,
       tasks: [],
     },
   ];

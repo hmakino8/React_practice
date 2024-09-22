@@ -133,10 +133,10 @@ export const tasksComplete = {
   // position: "absolute",
   width: "100%",
   borderRadius: "3px",
-  overflowY: "auto",
   maxHeight: "50vh",
   // border: "1px solid",
   // minHeight: "100px",
+  overflowY: "auto",
 };
 
 export const listNoData = {

@@ -28,25 +28,21 @@ export const GetModalData = (props) => {
 
     setTasks((prevTasks) => [...prevTasks, { ...newTasks }]);
     setModalData(initModalData());
-
     closeTaskModal();
   };
 
   const taskEditer = () => {
-    // setTasks((prevTasks) => {
-    //   return prevTasks.map((task) => {
-    //     if (task.id === modalData.id) {
-    //       setModalData((prevModalData) => ({
-    //         ...prevModalData,
-    //         isEditing: false,
-    //       }));
-    //       return { ...task, ...modalData };
-    //     } else {
-    //       return task;
-    //     }
-    //   });
-    // });
-    // closeTaskModal();
+    setTasks((prevTasks) =>
+      prevTasks.map((prevTask) => {
+        if (prevTask.taskId === modalData.taskId) {
+          return { ...prevTask, ...modalData };
+        }
+        return prevTask;
+      })
+    );
+
+    setModalData(initModalData());
+    closeTaskModal();
   };
 
   return (
@@ -70,11 +66,9 @@ export const GetModalData = (props) => {
           listGroup={listGroup}
         />
         <button onClick={closeTaskModal}>Close</button>
-        {modalData.isEditing ? (
-          <button onClick={taskEditer}>変更を保存</button>
-        ) : (
-          <button onClick={taskAdder}>追加</button>
-        )}
+        <button onClick={modalData.taskId ? taskEditer : taskAdder}>
+          保存
+        </button>
       </div>
     </div>
   );
@@ -146,18 +140,32 @@ const ModalItemComment = (props) => {
 const ModalItemListName = (props) => {
   const { modalData, setModalData, listGroup } = props;
 
+  const listName = listGroup.map((list) => {
+    if (list.listId === modalData.listId) {
+      return list.listName;
+    }
+    return "";
+  });
+
   return (
     <div style={{ ...Style.inputForm, width: "50%" }}>
       <select
         name={"listId"}
         onChange={(e) => handleSetFormData(e, setModalData)}
       >
-        <option value="">リストを選択</option>
-        {listGroup.map((taskList) => (
-          <option value={taskList.listId} key={taskList.listId}>
-            {taskList.listName}
-          </option>
-        ))}
+        {modalData.listId ? (
+          <option value={modalData.listId}>{listName}</option>
+        ) : (
+          <option value="">リストを選択</option>
+        )}
+        {listGroup.map(
+          (taskList) =>
+            taskList.listId !== modalData.listId && (
+              <option value={taskList.listId} key={taskList.listId}>
+                {taskList.listName}
+              </option>
+            )
+        )}
       </select>
     </div>
   );

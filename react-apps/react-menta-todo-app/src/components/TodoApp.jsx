@@ -51,6 +51,7 @@ export const TodoApp = () => {
         <RenderListGroup
           tasks={tasks}
           setTasks={setTasks}
+          setIsModalOpen={setIsModalOpen}
           modalData={modalData}
           setModalData={setModalData}
           listGroup={listGroup}
@@ -77,6 +78,19 @@ const TodoAppHeader = (props) => {
         <Icon.ToggleMenuProject />
       </button>
       <TodleTitle />
+      <label
+        style={{
+          display: "flex",
+          marginLeft: "20px",
+          border: "1px solid rgb(240, 240, 240)",
+          borderRadius: "20px",
+          backgroundColor: "rgb(240, 240, 240)",
+          width: "200px",
+        }}
+      >
+        <Icon.search />
+        <input />
+      </label>
     </div>
   );
 };
@@ -105,7 +119,7 @@ const MenuBar = (props) => {
         {
           listId: generateId(),
           listName: listName,
-          display: true,
+          isDisplay: true,
           tasks: [],
         },
         ...prevListGroup,
@@ -137,7 +151,7 @@ const MenuBar = (props) => {
     setListGroup((prevListGroup) =>
       prevListGroup.map((prevList) => {
         if (prevList.listId === listId) {
-          return { ...prevList, display: !prevList.display };
+          return { ...prevList, isDisplay: !prevList.isDisplay };
         }
         return prevList;
       })
@@ -235,9 +249,9 @@ const MenuBar = (props) => {
                 }}
                 type="checkBox"
                 data-list-id={list.listId}
-                checked={list.display}
-                onClick={handleListContents}
-                disabled={list.listName === "マイタスク"}
+                checked={list.isDisplay}
+                onChange={handleListContents}
+                disabled={list.isDefault}
               />
               {list.listName}
             </label>

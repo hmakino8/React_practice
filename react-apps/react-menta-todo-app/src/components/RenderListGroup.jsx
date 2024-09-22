@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { modalItems, commonProps, handleSetFormData } from "./GetModalData";
 import * as Style from "../style/styleTaskList";
 import { formatDate } from "../utils/utils";
 import * as Icon from "../utils/Icon";
-import { LABEL, COLOR, PLACEHOLDER } from "../utils/constants";
+import {
+  LABEL,
+  COLOR,
+  PLACEHOLDER,
+  DEFAULT_LIST_NAME,
+} from "../utils/constants";
 import { generateId } from "../utils/utils";
 import { deadline } from "../style/styleModal";
 import { initModalData } from "../utils/initializer";
@@ -13,6 +18,7 @@ export const RenderListGroup = (props) => {
     tasks,
     setTasks,
     modalData,
+    setIsModalOpen,
     setModalData,
     listGroup,
     setListGroup,
@@ -28,21 +34,22 @@ export const RenderListGroup = (props) => {
 
   return (
     <div style={Style.listGroupWrapper(isMenuOpen)}>
-      {listGroup.map((list) => (
-        <>
-          {list.display && (
+      {listGroup.map(
+        (list) =>
+          list.isDisplay && (
             <AddListToListGroup
               key={list.listId}
               modalData={modalData}
+              setIsModalOpen={setIsModalOpen}
               setModalData={setModalData}
               list={list}
               setTasks={setTasks}
               isAddTask={isAddTask}
               setIsAddTask={setIsAddTask}
+              setListGroup={setListGroup}
             />
-          )}
-        </>
-      ))}
+          )
+      )}
     </div>
   );
 };
@@ -53,16 +60,29 @@ const tasksToListGroup = (tasks, listGroup, setListGroup) => {
   setListGroup((prevListGroup) =>
     prevListGroup.map((prevList) => {
       const newTasks = tasks.filter((task) => task.listId === prevList.listId);
-      return { ...prevList, tasks: [...newTasks] };
+      return {
+        ...prevList,
+        tasks: [...newTasks],
+        isDefault: prevList.hasOwnProperty("isDefault")
+          ? prevList.isDefault
+          : false,
+      };
     })
   );
 };
 
 export const AddListToListGroup = (props) => {
-  const { modalData, setModalData, list, setTasks, isAddTask, setIsAddTask } =
-    props;
+  const {
+    modalData,
+    setIsModalOpen,
+    setModalData,
+    list,
+    setTasks,
+    isAddTask,
+    setIsAddTask,
+    setListGroup,
+  } = props;
   const [isDisplayTaskComplete, setIsDisplayTaskComplete] = useState(false);
-
   const completeTaskCount = list.tasks.filter((task) => task.isComplete).length;
 
   const handleIsAddTask = (e) => {
@@ -105,9 +125,11 @@ export const AddListToListGroup = (props) => {
     <div className="listContents" style={Style.listContents}>
       <div style={Style.listTitle}>
         <p style={Style.listName}>{list.listName}</p>
-        <button style={Style.buttonTaskEdit}>
-          <Icon.MoreVert />
-        </button>
+        <Dropdown
+          list={list}
+          setListGroup={setListGroup}
+          isMoreVertOnList={true}
+        />
       </div>
       <p style={Style.LabelButtonAddTask}>
         <button
@@ -128,6 +150,8 @@ export const AddListToListGroup = (props) => {
               task={taskIncomplete}
               setTasks={setTasks}
               modalData={modalData}
+              setModalData={setModalData}
+              setIsModalOpen={setIsModalOpen}
               isAddTask={isAddTask}
               setIsAddTask={setIsAddTask}
             />
@@ -175,8 +199,11 @@ export const AddListToListGroup = (props) => {
                   task={taskIncomplete}
                   setTasks={setTasks}
                   modalData={modalData}
+                  setModalData={setModalData}
+                  setIsModalOpen={setIsModalOpen}
                   isAddTask={isAddTask}
                   setIsAddTask={setIsAddTask}
+                  isMoreVertOnList={true}
                 />
               );
             })}
@@ -186,8 +213,293 @@ export const AddListToListGroup = (props) => {
   );
 };
 
+export const Dropdown = (props) => {
+  const {
+    list,
+    setListGroup,
+    task,
+    setTasks,
+    setIsModalOpen,
+    setModalData,
+    isMoreVertOnList,
+  } = props;
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
+  return (
+    <div
+      style={{
+        position: "relative",
+        display: "inline-block",
+      }}
+    >
+      <button
+        onClick={toggleDropdown}
+        style={{
+          display: "flex",
+          padding: "15px 10px",
+          // height: "20px",
+          // width: "20px",
+          border: "none",
+          borderRadius: "100%",
+          justifyContent: "center",
+          textAlign: "center",
+        }}
+      >
+        <Icon.MoreVert />
+      </button>
+
+      {isOpen &&
+        (isMoreVertOnList ? (
+          <MoreVertOnList
+            list={list}
+            setListGroup={setListGroup}
+            dropdownRef={dropdownRef}
+          />
+        ) : (
+          <MoreVertOnTask
+            task={task}
+            setTasks={setTasks}
+            setIsModalOpen={setIsModalOpen}
+            setModalData={setModalData}
+            dropdownRef={dropdownRef}
+          />
+        ))}
+    </div>
+  );
+};
+
+const MoreVertOnTask = (props) => {
+  const { task, setTasks, setIsModalOpen, setModalData, dropdownRef } = props;
+
+  const handleDeleteTask = (e) => {
+    e.stopPropagation();
+    const taskId = e.currentTarget.dataset.taskId;
+
+    setTasks((prevTasks) => prevTasks.filter((task) => task.taskId !== taskId));
+  };
+
+  const handleOpenTaskInfo =
+    ({ task, setIsModalOpen, setModalData }) =>
+    (e) => {
+      e.stopPropagation();
+
+      setModalData((prevModalData) => ({ ...prevModalData, ...task }));
+      setIsModalOpen(true);
+    };
+
+  return (
+    <div ref={dropdownRef}>
+      <ul
+        style={{
+          width: "130px",
+          position: "absolute",
+          top: "0",
+          right: "50px",
+          height: "95%",
+          backgroundColor: "#fff",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
+          listStyle: "none",
+          padding: "5px 0",
+          margin: "0",
+          boxShadow: "0 0 5px rgba(0, 0, 0, 0.3)",
+          zIndex: 1,
+          display: "flex",
+          alignItems: "flex-start",
+        }}
+      >
+        <li
+          style={{
+            margin: "auto",
+            display: "flex",
+            alignItems: "center",
+            fontSize: "0.8rem",
+            width: "100%",
+          }}
+        >
+          <button
+            style={{
+              height: "40px",
+              display: "flex",
+              alignItems: "center",
+              border: "none",
+              width: "100%",
+            }}
+            data-task-id={task.taskId}
+            onClick={handleDeleteTask}
+          >
+            <Icon.Trash />
+            <p>削除</p>
+          </button>
+        </li>
+        <li
+          style={{
+            margin: "auto",
+            display: "flex",
+            alignItems: "center",
+            fontSize: "0.8rem",
+            width: "100%",
+          }}
+        >
+          <button
+            style={{
+              height: "40px",
+              display: "flex",
+              alignItems: "center",
+              border: "none",
+              width: "100%",
+            }}
+            onClick={handleOpenTaskInfo({ task, setIsModalOpen, setModalData })}
+          >
+            <Icon.Info />
+            <p>詳細</p>
+          </button>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+const MoreVertOnList = (props) => {
+  const { list, setListGroup, dropdownRef } = props;
+
+  const handleDeleteList = (e) => {
+    if (list.isDefault) return;
+
+    e.stopPropagation();
+    const listId = e.currentTarget.dataset.listId;
+
+    setListGroup((prevListGroup) =>
+      prevListGroup.filter((list) => list.listId !== listId)
+    );
+  };
+
+  const handleInvisibleList = (e) => {
+    if (list.isDefault) return;
+
+    e.stopPropagation();
+    const listId = e.currentTarget.dataset.listId;
+
+    setListGroup((prevListGroup) =>
+      prevListGroup.map((prevList) => {
+        if (prevList.listId === listId) {
+          return { ...prevList, isDisplay: false };
+        }
+        return prevList;
+      })
+    );
+  };
+
+  console.log("here");
+  return (
+    <div ref={dropdownRef}>
+      <ul
+        style={{
+          width: "160px",
+          position: "absolute",
+          top: "100%",
+          right: "0",
+          backgroundColor: list.isDefault ? "rgb(240, 240, 240)" : "#fff",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
+          listStyle: "none",
+          padding: "10px 0",
+          margin: "0",
+          boxShadow: "0 0 5px rgba(0, 0, 0, 0.3)",
+          zIndex: 1, // メニューが前面に表示されるように
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+        }}
+      >
+        <li
+          style={{
+            // padding: "5px 10px",
+            margin: "auto",
+            display: "flex",
+            alignItems: "center",
+            fontSize: "0.8rem",
+            width: "100%",
+          }}
+        >
+          <button
+            disabled={list.isDefault}
+            style={{
+              height: "40px",
+              display: "flex",
+              alignItems: "center",
+              border: "none",
+              width: "100%",
+              ...(list.isDefault && { cursor: "default" }),
+            }}
+            data-list-id={list.listId}
+            onClick={handleDeleteList}
+          >
+            <Icon.Trash />
+            <p style={{ marginLeft: "10px" }}>リストを削除</p>
+          </button>
+        </li>
+        {list.isDefault && <div>※このリストは削除できません</div>}
+        <li
+          style={{
+            margin: "auto",
+            display: "flex",
+            alignItems: "center",
+            fontSize: "0.8rem",
+            width: "100%",
+          }}
+        >
+          <button
+            style={{
+              height: "40px",
+              display: "flex",
+              alignItems: "center",
+              border: "none",
+              width: "100%",
+              ...(list.isDefault && { cursor: "default" }),
+            }}
+            data-list-id={list.listId}
+            onClick={handleInvisibleList}
+          >
+            <Icon.VisibilityOff />
+            <p style={{ marginLeft: "10px" }}>リストを非表示</p>
+          </button>
+        </li>
+        {list.isDefault && <div>※このリストは非表示にできません</div>}
+      </ul>
+    </div>
+  );
+};
+
 const DisplayTask = (props) => {
-  const { task, setTasks, modalData, isAddTask, setIsAddTask } = props;
+  const {
+    task,
+    setTasks,
+    modalData,
+    setModalData,
+    setIsModalOpen,
+    isAddTask,
+    setIsAddTask,
+  } = props;
   const [isHovered, setIsHovered] = useState(false);
   const [daysLeftMessage, setDaysLeftMessage] = useState("");
   const [isClickedDaysLeft, setIsClickedDaysLeft] = useState(false);
@@ -329,9 +641,16 @@ const DisplayTask = (props) => {
           onKeyDown={handleKeyDown}
           style={Style.taskTitle}
         />
-        <button style={Style.buttonTaskEdit}>
+        {/* <button style={Style.buttonTaskEdit}>
           <Icon.MoreVert />
-        </button>
+        </button> */}
+        <Dropdown
+          task={task}
+          setTasks={setTasks}
+          setIsModalOpen={setIsModalOpen}
+          setModalData={setModalData}
+          isMoreVertOnList={false}
+        />
         <select
           name={"priority"}
           value={task.priority}

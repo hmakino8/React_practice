@@ -8,6 +8,22 @@ export const Clock = () => {
   );
 };
 
+export const VisibilityOff = () => {
+  return <span className="material-symbols-outlined">visibility_off</span>;
+};
+
+export const Info = () => {
+  return <span className="material-symbols-outlined">info</span>;
+};
+
+export const Trash = () => {
+  return <span className="material-symbols-outlined">delete</span>;
+};
+
+export const search = () => {
+  return <span className="material-symbols-outlined">search</span>;
+};
+
 export const ArrowRight = () => {
   return <span className="material-symbols-outlined">arrow_right</span>;
 };
@@ -17,11 +33,13 @@ export const ArrowDown = () => {
 };
 
 export const KeyboardArrowDown = () => {
-  return <span class="material-symbols-outlined">keyboard_arrow_down</span>;
+  return <span className="material-symbols-outlined">keyboard_arrow_down</span>;
 };
 
 export const KeyboardControlKey = () => {
-  return <span class="material-symbols-outlined">keyboard_control_key</span>;
+  return (
+    <span className="material-symbols-outlined">keyboard_control_key</span>
+  );
 };
 
 export const MoreVert = () => {

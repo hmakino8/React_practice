@@ -1,10 +1,13 @@
 export const todoAppWrapper = {
   position: "fixed",
   display: "flex",
+  top: "0",
+  left: "0",
   flexDirection: "column",
   width: "100vw",
   height: "100vh",
   backgroundColor: "rgb(250, 250, 250)",
+  border: "3px solid blue",
 };
 
 export const todoAppHeader = {
@@ -40,6 +43,8 @@ export const MenuBarWrapper = {
   display: "flex",
   padding: "15px",
   borderRight: "1px solid rgb(220, 220, 220)",
+  border: "1px solid red",
+  overflowY: "auto",
 };
 
 export const buttonAddTaskToList = {
