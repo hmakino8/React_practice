@@ -1,0 +1,19 @@
+.container {
+  position: relative;
+  min-width: 250px;
+  display: flex;
+  padding: 15px;
+  border-right: 1px solid rgb(220, 220, 220);
+  overflow-y: auto;
+}
+
+.createList {
+  position: absolute;
+  width: 90%;
+  top: 170px;
+  border-radius: 0;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  background-color: transparent;
+}

@@ -1,17 +1,15 @@
 import { generateId } from "./utils";
 import { DEFAULT_LIST_NAME } from "./constants";
 
-export const initListGroup = () => {
-  return [
-    {
-      listId: generateId(),
-      listName: DEFAULT_LIST_NAME,
-      isDefault: true,
-      isDisplay: true,
-      tasks: [],
-    },
-  ];
-};
+export const initListGroup = () => [
+  {
+    listId: generateId(),
+    listName: DEFAULT_LIST_NAME,
+    isDefault: true,
+    isDisplay: true,
+    tasks: [],
+  },
+];
 
 export const initModalData = () => ({
   listId: "",

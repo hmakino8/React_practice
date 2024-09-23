@@ -1,0 +1,123 @@
+.invisible1 {
+  position: absolute;
+  padding: 18px;
+  top: 6px;
+  left: 12px;
+  background-color: #fff;
+  z-index: 0;
+  border: none;
+  border-radius: 50%;
+}
+
+.invisible2 {
+  position: absolute;
+  padding: 6px 2px;
+  top: 18px;
+  left: 41px;
+  background-color: #fff;
+  z-index: 2;
+  border: none;
+}
+
+.invisible3 {
+  position: absolute;
+  padding: 6px 2px;
+  top: 18px;
+  left: 15px;
+  background-color: #fff;
+  z-index: 2;
+}
+
+.invisible4 {
+  position: absolute;
+  padding: 2px 6px;
+  top: 35px;
+  left: 24px;
+  background-color: #fff;
+  z-index: 2;
+}
+
+.invisible5 {
+  position: absolute;
+  padding: 2px 6px;
+  top: 9px;
+  left: 24px;
+  background-color: #fff;
+  z-index: 2;
+}
+
+.invisible6 {
+  position: absolute;
+  padding: 5px;
+  top: 12px;
+  left: 18px;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.invisible7 {
+  position: absolute;
+  padding: 5px;
+  top: 12px;
+  left: 32px;
+  background-color: #fff;
+  z-index: 1;
+}
+.invisible8 {
+  position: absolute;
+  padding: 5px;
+  top: 26px;
+  left: 32px;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.invisible9 {
+  position: absolute;
+  padding: 5px;
+  top: 26px;
+  left: 18px;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.iconColor {
+  position: absolute;
+  top: 14px;
+  background: conic-gradient(
+    var(--blue) 0% 25%,
+    var(--green) 25% 50%,
+    var(--yellow) 50% 75%,
+    var(--red) 75% 100%
+  );
+  transform: rotate(45deg);
+  padding: 10px;
+  left: 20px;
+}
+
+.label {
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: right;
+  margin-right: 15px;
+}
+
+.wrapper {
+  position: absolute;
+  align-self: flex-start;
+  display: flex;
+  border-radius: 30px;
+  width: 110px;
+  height: 50px;
+  box-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgb(220, 220, 220);
+  align-items: center;
+}
+
+.wrapper:hover {
+  background-color: var(--blue-transparent);
+}
+
+.wrapper:not(:hover) {
+  background-color: #fff;
+}

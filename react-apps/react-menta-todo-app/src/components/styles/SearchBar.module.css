@@ -1,0 +1,22 @@
+.wrapper {
+  width: 100%;
+}
+
+.label {
+  display: flex;
+  margin-left: 20px;
+  border: 1px solid rgb(240, 240, 240);
+  border-radius: 20px;
+  background-color: rgb(240, 240, 240);
+  height: 30px;
+  width: 80%;
+  max-width: 500px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.input {
+  width: calc(100% - 45px);
+  height: 100%;
+  align-items: center;
+}
