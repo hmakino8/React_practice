@@ -1,3 +1,4 @@
+import React, { useEffect, useRef, useState } from "react";
 import { InputCheckbox } from "./InputCheckbox";
 import { InputTitle } from "./InputTitle";
 import { SelectPriority } from "./SelectPriority";
@@ -7,6 +8,32 @@ import styles from "./styles/Task.module.css";
 
 export const Task = (props) => {
   const { task, setTasks, setListGroup, setModalData, setIsModalOpen } = props;
+  const Ref = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const handleMouseEnter = () => {
+      setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+      setIsHovered(false);
+    };
+
+    const elem = Ref.current;
+
+    if (elem) {
+      elem.addEventListener("mouseenter", handleMouseEnter);
+      elem.addEventListener("mouseleave", handleMouseLeave);
+
+      return () => {
+        if (elem) {
+          elem.removeEventListener("mouseenter", handleMouseEnter);
+          elem.removeEventListener("mouseleave", handleMouseLeave);
+        }
+      };
+    }
+  }, []);
 
   const handleToggleIsComplete = () => {
     setTasks((prevTasks) => {
@@ -47,7 +74,7 @@ export const Task = (props) => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.contentWrapper}>
+      <div ref={Ref} className={styles.contentWrapper}>
         <InputCheckbox
           isComplete={task.isComplete}
           handleToggleIsComplete={handleToggleIsComplete}
@@ -57,18 +84,23 @@ export const Task = (props) => {
           handleUpdateTaskInfo={handleUpdateTaskInfo}
           handleKeyDown={handleKeyDown}
         />
-        <MoreOptions
-          list={null}
-          setListGroup={setListGroup}
-          task={task}
-          setTasks={setTasks}
-          setIsModalOpen={setIsModalOpen}
-          setModalData={setModalData}
-        />
-        <SelectPriority
-          task={task}
-          handleUpdateTaskInfo={handleUpdateTaskInfo}
-        />
+        {isHovered && (
+          <MoreOptions
+            list={null}
+            setListGroup={setListGroup}
+            task={task}
+            setTasks={setTasks}
+            setIsModalOpen={setIsModalOpen}
+            setModalData={setModalData}
+            isHovered={isHovered}
+          />
+        )}
+        {(!task.isComplete || (task.isComplete && isHovered)) && (
+          <SelectPriority
+            task={task}
+            handleUpdateTaskInfo={handleUpdateTaskInfo}
+          />
+        )}
       </div>
       <div className={styles.inputDeadlineWrapper}>
         {task.deadline && (

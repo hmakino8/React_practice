@@ -13,7 +13,7 @@ export const LABEL = {
   INVISIBLE_LIST: "リストを非表示",
   SAVE: "保存",
   DELETE: "削除",
-  DETAIL: "詳細情報",
+  DETAIL: "詳細",
 };
 
 export const PLACEHOLDER = {
@@ -35,7 +35,7 @@ export const PULLDOWN = {
 
 export const ALEART = {
   DELETE_LIST: "*このリストは削除できません",
-  INVISIBLE_LIST: "*このリストは非表示にできません",
+  INVISIBLE_LIST: "*このリストは削除・非表示不可",
 };
 
 export const DEFAULT_LIST_NAME = "マイタスク";

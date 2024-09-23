@@ -12,3 +12,12 @@
   border: none;
   border-radius: 5px;
 }
+
+.daysLeftMessage:hover {
+  border-bottom: none;
+  cursor: pointer;
+}
+
+.daysLeftMessage:not(:focus):hover {
+  border-bottom: none;
+}

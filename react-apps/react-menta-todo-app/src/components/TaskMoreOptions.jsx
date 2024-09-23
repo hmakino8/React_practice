@@ -23,7 +23,7 @@ export const TaskMoreOptions = (props) => {
 
   return (
     <div ref={dropdownRef}>
-      <ul>
+      <ul className={styles.wrapper}>
         <li className={styles.delete}>
           <ButtonDeleteTask task={task} handleDeleteTask={handleDeleteTask} />
         </li>

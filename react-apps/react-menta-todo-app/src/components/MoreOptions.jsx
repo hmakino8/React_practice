@@ -27,7 +27,7 @@ export const MoreOptions = (props) => {
 
   return (
     <div className={styles.wrapper}>
-      <ButtonMoreOptions setIsOpen={setIsOpen} />
+      <ButtonMoreOptions list={list} setIsOpen={setIsOpen} />
       {isOpen &&
         (list ? (
           <ListMoreOptions

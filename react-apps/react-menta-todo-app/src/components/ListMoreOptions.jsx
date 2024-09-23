@@ -48,7 +48,9 @@ export const ListMoreOptions = ({ list, setListGroup, dropdownRef }) => {
             handleInvisibleList={handleInvisibleList}
           />
         </li>
-        {list.isDefault && <div>{ALEART.INVISIBLE_LIST}</div>}
+        {list.isDefault && (
+          <div className={styles.alart}>{ALEART.INVISIBLE_LIST}</div>
+        )}
       </ul>
     </div>
   );
