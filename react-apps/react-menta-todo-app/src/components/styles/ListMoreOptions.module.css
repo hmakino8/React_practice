@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 160px;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  align-items: flex-start;
+}
+
+.wrapperDefaultList {
+  background-color: rgb(240, 240, 240);
+}
+
+.delete {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  width: "100%";
+}
+
+.invisible {
+  display: flex;
+  margin: auto;
+  align-items: center;
+  font-size: 0.8rem;
+  width: 100%;
+}

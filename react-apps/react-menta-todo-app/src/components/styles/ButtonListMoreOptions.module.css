@@ -1,0 +1,13 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+button {
+  display: flex;
+  padding: 15px 10px;
+  border: none;
+  border-radius: 100%;
+  justify-content: center;
+  text-align: center;
+}

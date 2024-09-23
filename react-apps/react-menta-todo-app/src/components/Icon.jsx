@@ -1,7 +1,7 @@
 import { LABEL } from "../utils/constants";
 import styles from "./styles/Icon.module.css";
 
-export const Clock = () => (
+export const IconClock = () => (
   <span className={`material-symbols-outlined ${styles.clock}`}>schedule</span>
 );
 
@@ -9,23 +9,23 @@ export const Close = () => (
   <span className="material-symbols-outlined">close</span>
 );
 
-export const VisibilityOff = () => (
+export const IconVisibilityOff = () => (
   <span className="material-symbols-outlined">visibility_off</span>
 );
 
-export const Info = () => (
+export const IconInfo = () => (
   <span className="material-symbols-outlined">info</span>
 );
 
-export const Trash = () => (
+export const IconTrash = () => (
   <span className="material-symbols-outlined">delete</span>
 );
 
-export const ArrowRight = () => (
+export const IconArrowRight = () => (
   <span className="material-symbols-outlined">arrow_right</span>
 );
 
-export const ArrowDown = () => (
+export const IconArrowDown = () => (
   <span className="material-symbols-outlined">arrow_drop_down</span>
 );
 
@@ -37,13 +37,13 @@ export const KeyboardControlKey = () => (
   <span className="material-symbols-outlined">keyboard_control_key</span>
 );
 
-export const MoreVert = () => (
+export const IconMoreVert = () => (
   <span className={`material-symbols-outlined ${styles.moreVert}`}>
     more_vert
   </span>
 );
 
-export const AddTask = () => (
+export const IconAddTask = () => (
   <span className={`material-symbols-outlined ${styles.addTask}`}>
     add_task
   </span>

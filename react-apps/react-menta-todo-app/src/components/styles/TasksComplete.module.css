@@ -1,0 +1,26 @@
+.wrapper {
+  width: 100%;
+  border-radius: 3px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.buttonWrapper {
+  font-size: 0.8rem;
+  align-items: center;
+  display: flex;
+  width: 80%;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+button {
+  display: flex;
+  padding: 3px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 100%;
+}

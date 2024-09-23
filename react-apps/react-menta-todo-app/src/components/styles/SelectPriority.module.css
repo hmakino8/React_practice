@@ -1,0 +1,21 @@
+.priority {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 10px;
+  font-size: 0;
+  border-radius: 100%;
+  border: 2px solid rgb(240, 240, 240);
+}
+
+.priorityHigh {
+  background-color: var(--red);
+}
+
+.priorityMedium {
+  background-color: var(--yellow);
+}
+
+.priorityLow {
+  background-color: #fff;
+}

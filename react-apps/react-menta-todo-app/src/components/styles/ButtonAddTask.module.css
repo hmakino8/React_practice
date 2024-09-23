@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  font-size: 1rem;
+  height: 10px;
+  align-items: center;
+}
+
+button {
+  display: flex;
+  border-radius: 10px;
+  padding: 5px;
+  width: 80%;
+  border: none;
+  color: var(--blue);
+}

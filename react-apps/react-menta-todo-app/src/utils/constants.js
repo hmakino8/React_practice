@@ -9,7 +9,11 @@ export const LABEL = {
   ADD_TASK_TO_LIST: "作成",
   ADD_TASK: "タスクを追加",
   CREATE_TASK_LIST: "新しいリストを作成",
+  DELETE_LIST: "リストを削除",
+  INVISIBLE_LIST: "リストを非表示",
   SAVE: "保存",
+  DELETE: "削除",
+  DETAIL: "詳細情報",
 };
 
 export const PLACEHOLDER = {
@@ -27,6 +31,11 @@ export const PULLDOWN = {
   PRIORITY_MEDIUM: "中",
   PRIORITY_LOW: "低",
   CHOOSE_LIST_NAME: "リストを選択",
+};
+
+export const ALEART = {
+  DELETE_LIST: "*このリストは削除できません",
+  INVISIBLE_LIST: "*このリストは非表示にできません",
 };
 
 export const DEFAULT_LIST_NAME = "マイタスク";

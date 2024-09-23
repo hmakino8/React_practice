@@ -1,0 +1,7 @@
+.buttonInfo {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border: none;
+  width: 100%;
+}

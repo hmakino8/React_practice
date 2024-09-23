@@ -1,0 +1,15 @@
+.deleteButton {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border: none;
+  width: 100%;
+}
+
+.deleteButtonWithDefaultList {
+  cursor: default;
+}
+
+p {
+  margin-left: 10px;
+}

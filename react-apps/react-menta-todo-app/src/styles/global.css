@@ -59,10 +59,6 @@ textarea:not(:focus):hover {
   cursor: pointer;
 }
 
-.task:hover {
-  background-color: rgb(250, 250, 250);
-}
-
 button {
   background-color: none;
 }
@@ -78,9 +74,4 @@ button:not(:hover) {
 
 .buttonAddTaskToList:not(:hover) {
   background-color: #fff;
-}
-
-.listContents:hover {
-  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgb(220, 220, 220);
 }

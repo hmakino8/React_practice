@@ -1,0 +1,26 @@
+.wrapper {
+  width: 99%;
+  min-height: 50px;
+  cursor: default;
+  display: flex;
+  margin: 5px 1px;
+  border-radius: 3px;
+  border: 1.2px solid rgb(240, 240, 240);
+  flex-direction: column;
+  padding: 5px;
+}
+
+.wrapper:hover {
+  background-color: rgb(250, 250, 250);
+}
+
+.contentWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.inputDeadlineWrapper {
+  display: flex;
+  align-items: center;
+}

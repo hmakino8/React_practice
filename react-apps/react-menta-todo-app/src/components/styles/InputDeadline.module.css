@@ -1,0 +1,14 @@
+.daysLeft {
+  background-color: transparent;
+}
+
+.daysLeftMessage {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: norap;
+  align-items: center;
+  background-color: rgb(240, 240, 240);
+  border: none;
+  border-radius: 5px;
+}

@@ -1,0 +1,18 @@
+.container {
+  position: absolute;
+  display: flex;
+  border-radius: 5px;
+  font-size: 0.6rem;
+  overflow-x: auto;
+  height: 100%;
+}
+
+.menuOpen {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+.menuClose {
+  left: 0px;
+  width: 100%;
+}
