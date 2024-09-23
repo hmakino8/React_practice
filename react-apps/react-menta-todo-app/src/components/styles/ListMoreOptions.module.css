@@ -4,6 +4,7 @@
   position: absolute;
   width: 160px;
   top: 100%;
+  height: 100px;
   right: 0;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -21,7 +22,7 @@
 }
 
 .delete {
-  margin: auto;
+  /* margin: auto; */
   display: flex;
   align-items: center;
   font-size: 0.8rem;
@@ -30,7 +31,7 @@
 
 .invisible {
   display: flex;
-  margin: auto;
+  /* margin: auto; */
   align-items: center;
   font-size: 0.8rem;
   width: 100%;

@@ -13,7 +13,7 @@ export const MoreOptions = (props) => {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (dropdownRef.current?.contains(e.target)) {
+      if (!dropdownRef.current?.contains(e.target)) {
         setIsOpen(false);
       }
     };

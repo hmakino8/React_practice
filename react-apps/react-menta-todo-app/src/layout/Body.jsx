@@ -11,8 +11,6 @@ export const Body = ({ isMenuOpen, searchKey }) => {
   const [listGroup, setListGroup] = useState(initListGroup());
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(listGroup);
-
   return (
     <div className={styles.body}>
       {isModalOpen && (
