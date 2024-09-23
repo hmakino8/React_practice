@@ -33,7 +33,7 @@ export const Dashboard = (props) => {
         };
       })
     );
-  }, [tasks]);
+  }, [tasks, setListGroup]);
 
   return (
     <div

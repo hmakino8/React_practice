@@ -12,6 +12,6 @@ export const ButtonInvisibleList = ({ list, handleInvisibleList }) => (
     onClick={handleInvisibleList}
   >
     <IconVisibilityOff />
-    <p>{LABEL.INVISIBLE_LIST}</p>
+    <p className={styles.paragraph}>{LABEL.INVISIBLE_LIST}</p>
   </button>
 );

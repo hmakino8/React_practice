@@ -15,7 +15,7 @@
   align-items: center;
 }
 
-.input {
+.inputSearchBar {
   width: calc(100% - 45px);
   height: 100%;
   align-items: center;

@@ -1,3 +1,5 @@
+import styles from "./styles/InputTitle.module.css";
+
 export const InputTitle = ({ task, handleUpdateTaskInfo, handleKeyDown }) => (
   <input
     name={"title"}
@@ -6,5 +8,6 @@ export const InputTitle = ({ task, handleUpdateTaskInfo, handleKeyDown }) => (
     onChange={handleUpdateTaskInfo}
     onFocus={(e) => e.target.select()}
     onKeyDown={handleKeyDown}
+    className={styles.inputTitle}
   />
 );

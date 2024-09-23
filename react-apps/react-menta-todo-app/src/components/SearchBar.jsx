@@ -9,7 +9,7 @@ export const SearchBar = ({ searchKey, setSearchKey }) => (
         value={searchKey}
         placeholder={PLACEHOLDER.SEARCH_TASK}
         onChange={(e) => setSearchKey(e.target.value)}
-        className={styles.input}
+        className={styles.inputSearchBar}
       />
     </label>
   </div>

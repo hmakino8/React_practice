@@ -47,12 +47,12 @@ export const TasksComplete = (props) => {
 
 const ButtonToggleTasksComplete = ({ count, isVisible, setIsVisible }) => (
   <div
-    className={styles.bottonWrapper}
+    className={styles.buttonWrapper}
     onClick={() => setIsVisible((prev) => !prev)}
   >
     <button className={styles.buttonToggleTasksComplete}>
       {isVisible ? <IconArrowDown /> : <IconArrowRight />}
     </button>
-    完了（{count}件）
+    <p>完了（{count}件）</p>
   </div>
 );
