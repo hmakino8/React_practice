@@ -19,5 +19,4 @@ export const initModalData = () => ({
   deadline: "",
   comment: "",
   isComplete: false,
-  isEditing: false,
 });
