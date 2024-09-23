@@ -47,7 +47,7 @@ export const Task = (props) => {
 
   return (
     <div className={styles.wrapper}>
-      <div style={styles.contentWrapper}>
+      <div className={styles.contentWrapper}>
         <InputCheckbox handleToggleIsComplete={handleToggleIsComplete} />
         <InputTitle
           task={task}

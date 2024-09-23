@@ -47,12 +47,12 @@ export const Dashboard = (props) => {
           list.isDisplay && (
             <TaskList
               key={list.listId}
-              modalData={modalData}
-              setIsModalOpen={setIsModalOpen}
-              setModalData={setModalData}
               list={list}
               setTasks={setTasks}
               setListGroup={setListGroup}
+              modalData={modalData}
+              setIsModalOpen={setIsModalOpen}
+              setModalData={setModalData}
             />
           )
       )}

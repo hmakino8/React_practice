@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { Dashboard } from "./Dashboard";
 import { ManageTaskModal } from "../components/ManageTaskModal";
 import { MenuBar } from "../components/MenuBar";
-import { Dashboard } from "./Dashboard";
 import { initModalData, initListGroup } from "../utils/initializer";
 import styles from "./styles/Body.module.css";
 
@@ -10,6 +10,8 @@ export const Body = ({ isMenuOpen, searchKey }) => {
   const [tasks, setTasks] = useState([]);
   const [listGroup, setListGroup] = useState(initListGroup());
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  console.log(listGroup);
 
   return (
     <div className={styles.body}>
