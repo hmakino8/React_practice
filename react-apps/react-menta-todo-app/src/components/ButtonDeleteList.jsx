@@ -13,6 +13,6 @@ export const ButtonDeleteList = ({ list, handleDeleteList }) => (
     onClick={handleDeleteList}
   >
     <IconTrash />
-    <p>{LABEL.DELETE_LIST}</p>
+    <p className={styles.paragraph}>{LABEL.DELETE_LIST}</p>
   </button>
 );

@@ -5,7 +5,7 @@
   align-items: center;
 }
 
-button {
+.buttonAddTask {
   display: flex;
   border-radius: 10px;
   padding: 5px;

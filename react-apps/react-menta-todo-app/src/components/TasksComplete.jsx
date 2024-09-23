@@ -50,7 +50,9 @@ const ButtonToggleTasksComplete = ({ count, isVisible, setIsVisible }) => (
     className={styles.bottonWrapper}
     onClick={() => setIsVisible((prev) => !prev)}
   >
-    <button>{isVisible ? <IconArrowDown /> : <IconArrowRight />}</button>
+    <button className={styles.buttonToggleTasksComplete}>
+      {isVisible ? <IconArrowDown /> : <IconArrowRight />}
+    </button>
     完了（{count}件）
   </div>
 );
