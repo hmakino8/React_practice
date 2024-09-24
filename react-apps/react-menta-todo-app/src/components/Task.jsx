@@ -8,7 +8,7 @@ import styles from "./styles/Task.module.css";
 
 export const Task = (props) => {
   const { task, setTasks, setListGroup, setModalData, setIsModalOpen } = props;
-  const Ref = useRef(null);
+  const taskRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
@@ -20,16 +20,16 @@ export const Task = (props) => {
       setIsHovered(false);
     };
 
-    const elem = Ref.current;
+    const target = taskRef.current;
 
-    if (elem) {
-      elem.addEventListener("mouseenter", handleMouseEnter);
-      elem.addEventListener("mouseleave", handleMouseLeave);
+    if (target) {
+      target.addEventListener("mouseenter", handleMouseEnter);
+      target.addEventListener("mouseleave", handleMouseLeave);
 
       return () => {
-        if (elem) {
-          elem.removeEventListener("mouseenter", handleMouseEnter);
-          elem.removeEventListener("mouseleave", handleMouseLeave);
+        if (target) {
+          target.removeEventListener("mouseenter", handleMouseEnter);
+          target.removeEventListener("mouseleave", handleMouseLeave);
         }
       };
     }
@@ -73,8 +73,8 @@ export const Task = (props) => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div ref={Ref} className={styles.contentWrapper}>
+    <div ref={taskRef} className={styles.wrapper}>
+      <div className={styles.contentWrapper}>
         <InputCheckbox
           isComplete={task.isComplete}
           handleToggleIsComplete={handleToggleIsComplete}

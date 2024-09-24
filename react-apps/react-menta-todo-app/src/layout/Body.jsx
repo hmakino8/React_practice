@@ -3,16 +3,17 @@ import { Dashboard } from "./Dashboard";
 import { ManageTaskModal } from "../components/ManageTaskModal";
 import { MenuBar } from "../components/MenuBar";
 import { initModalData, initListGroup } from "../utils/initializer";
+import { generateId } from "../utils/utils";
 import styles from "./styles/Body.module.css";
 import { TESTDATA_LISTS, TESTDATA_TASKS } from "../Test/testData";
 
 export const Body = ({ isMenuOpen, searchKey }) => {
   const [modalData, setModalData] = useState(initModalData());
-  const [tasks, setTasks] = useState(TESTDATA_TASKS);
+  const [tasks, setTasks] = useState(
+    TESTDATA_TASKS().map((prev) => ({ ...prev, taskId: generateId() }))
+  );
   const [listGroup, setListGroup] = useState(TESTDATA_LISTS());
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  console.log(listGroup);
 
   return (
     <div className={styles.body}>
