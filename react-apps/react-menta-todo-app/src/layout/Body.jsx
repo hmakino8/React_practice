@@ -1,18 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dashboard } from "./Dashboard";
 import { ManageTaskModal } from "../components/ManageTaskModal";
 import { MenuBar } from "../components/MenuBar";
-import { initModalData, initListGroup } from "../utils/initializer";
-import { generateId } from "../utils/utils";
+import { initModalData, initListGroup, initTasks } from "../utils/initializer";
 import styles from "./styles/Body.module.css";
-import { TESTDATA_LISTS, TESTDATA_TASKS } from "../Test/testData";
 
 export const Body = ({ isMenuOpen, searchKey }) => {
+  const DEBUG = true;
+
   const [modalData, setModalData] = useState(initModalData());
-  const [tasks, setTasks] = useState(
-    TESTDATA_TASKS().map((prev) => ({ ...prev, taskId: generateId() }))
-  );
-  const [listGroup, setListGroup] = useState(TESTDATA_LISTS());
+  const [tasks, setTasks] = useState(initTasks(DEBUG));
+  const [listGroup, setListGroup] = useState(initListGroup(DEBUG));
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (

@@ -7,6 +7,7 @@ import { ModalItemPriority } from "./ModalItemPriority";
 import { ModalItemDeadline } from "./ModalItemDeadline";
 import { ModalItemComment } from "./ModalItemComment";
 import { ModalItemListName } from "./ModalItemListName";
+import { ModalItemTimestamp } from "./ModalItemTimestamp";
 import { generateId } from "../utils/utils";
 import styles from "./styles/manageTaskModal.module.css";
 import "../styles/global.css";
@@ -24,10 +25,12 @@ export const ManageTaskModal = (props) => {
     const newTasks = {
       ...modalData,
       taskId: generateId(),
+      dateCreated: new Date(),
+      lastUpdated: new Date(),
       ...(!modalData.priority && { priority: "Low" }),
     };
 
-    setTasks((prevTasks) => [...prevTasks, { ...newTasks }]);
+    setTasks((prevTasks) => [{ ...newTasks }, ...prevTasks]);
     setModalData(initModalData());
     closeModal();
   };
@@ -36,7 +39,7 @@ export const ManageTaskModal = (props) => {
     setTasks((prevTasks) =>
       prevTasks.map((prevTask) =>
         prevTask.taskId === modalData.taskId
-          ? { ...prevTask, ...modalData }
+          ? { ...prevTask, ...modalData, lastUpdated: new Date() }
           : prevTask
       )
     );
@@ -71,6 +74,10 @@ export const ManageTaskModal = (props) => {
           modalData={modalData}
           taskAdder={taskAdder}
           taskEditer={taskEditer}
+        />
+        <ModalItemTimestamp
+          lastUpdated={modalData.lastUpdated}
+          dateCreated={modalData.dateCreated}
         />
       </div>
     </div>

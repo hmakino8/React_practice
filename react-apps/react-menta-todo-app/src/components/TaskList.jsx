@@ -3,8 +3,8 @@ import { TasksIncomplete } from "./TasksIncomplete.jsx";
 import { TasksComplete } from "./TasksComplete.jsx";
 import { generateId } from "../utils/utils";
 import { initModalData } from "../utils/initializer";
-import styles from "./styles/TaskList.module.css";
 import { MoreOptions } from "./MoreOptions";
+import styles from "./styles/TaskList.module.css";
 
 export const TaskList = (props) => {
   const {
@@ -27,6 +27,8 @@ export const TaskList = (props) => {
         listId: listId,
         taskId: generateId(),
         priority: "Low",
+        dateCreated: new Date(),
+        lastUpdated: new Date(),
       },
       ...tasks,
     ]);

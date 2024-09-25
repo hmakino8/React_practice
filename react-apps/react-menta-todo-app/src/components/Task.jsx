@@ -42,7 +42,11 @@ export const Task = (props) => {
       const newTasks = prevTasks.map((prevTask, mapIndex) => {
         if (prevTask.taskId === task.taskId) {
           index = mapIndex;
-          return { ...prevTask, isComplete: !prevTask.isComplete };
+          return {
+            ...prevTask,
+            isComplete: !prevTask.isComplete,
+            lastUpdated: new Date(),
+          };
         } else {
           return prevTask;
         }
@@ -63,7 +67,9 @@ export const Task = (props) => {
 
     setTasks((prevTasks) =>
       prevTasks.map((prevTask) =>
-        prevTask.taskId === taskId ? { ...prevTask, [name]: value } : prevTask
+        prevTask.taskId === taskId
+          ? { ...prevTask, [name]: value, lastUpdated: new Date() }
+          : prevTask
       )
     );
   };

@@ -13,6 +13,10 @@
   border-radius: 5px;
 }
 
+.daysLeftMessageExpired {
+  color: var(--red);
+}
+
 .daysLeftMessage:hover {
   border-bottom: none;
   cursor: pointer;

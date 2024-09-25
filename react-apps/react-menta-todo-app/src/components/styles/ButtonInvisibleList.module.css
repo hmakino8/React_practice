@@ -6,8 +6,9 @@
   width: 100%;
 }
 
-.buttonInvisibleWithDefaultList {
+.buttonInvisibleWithDefaultList:hover {
   cursor: default;
+  background-color: #fff;
 }
 
 .paragraph {

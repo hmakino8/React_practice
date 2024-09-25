@@ -17,15 +17,3 @@
   margin-right: 15px;
   font-size: 1.6rem;
 }
-
-.buttonCreateTaskList {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-  width: 90%;
-  height: 40px;
-  border-radius: 20px;
-  top: 130px;
-  border: none;
-}

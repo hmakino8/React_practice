@@ -1,4 +1,5 @@
 import styles from "./styles/InputTitle.module.css";
+import classNames from "classnames";
 
 export const InputTitle = ({ task, handleUpdateTaskInfo, handleKeyDown }) => (
   <input
@@ -8,6 +9,8 @@ export const InputTitle = ({ task, handleUpdateTaskInfo, handleKeyDown }) => (
     onChange={handleUpdateTaskInfo}
     onFocus={(e) => e.target.select()}
     onKeyDown={handleKeyDown}
-    className={styles.inputTitle}
+    className={classNames(styles.inputTitle, {
+      [styles.inputTitleComplete]: task.isComplete,
+    })}
   />
 );

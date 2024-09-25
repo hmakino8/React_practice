@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { IconClock } from "./Icon";
+import classNames from "classnames";
 import styles from "./styles/InputDeadline.module.css";
 
 export const InputDeadline = ({ task, handleUpdateTaskInfo }) => {
@@ -42,8 +43,10 @@ export const InputDeadline = ({ task, handleUpdateTaskInfo }) => {
         return `明日`;
       case daysLeft === 0:
         return `今日`;
+      case daysLeft === -1:
+        return `昨日`;
       default:
-        return `${-daysLeft}日超過`;
+        return `${-daysLeft}日前`;
     }
   }, []);
 
@@ -70,7 +73,10 @@ export const InputDeadline = ({ task, handleUpdateTaskInfo }) => {
           value={message}
           onClick={() => setToggleDaysLeft((prev) => !prev)}
           style={{ width: `${messageWidth}ch` }}
-          className={styles.daysLeftMessage}
+          className={classNames(styles.daysLeftMessage, {
+            [styles.daysLeftMessageExpired]:
+              calculateDaysLeft(task.deadline) < 0,
+          })}
         />
       )}
     </>

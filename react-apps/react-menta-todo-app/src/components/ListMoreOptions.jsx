@@ -1,7 +1,6 @@
 import { ButtonDeleteList } from "./ButtonDeleteList";
 import { ButtonInvisibleList } from "./ButtonInvisibleList";
 import { ALEART } from "../utils/constants";
-import classNames from "classnames";
 import styles from "./styles/ListMoreOptions.module.css";
 
 export const ListMoreOptions = ({ list, setListGroup, dropdownRef }) => {
@@ -31,13 +30,33 @@ export const ListMoreOptions = ({ list, setListGroup, dropdownRef }) => {
     );
   };
 
+  const activeIsSortByDateCreated = () => {
+    setListGroup((prevListGroup) =>
+      prevListGroup.map((prevList) => {
+        if (prevList.listId === list.listId) {
+          return { ...prevList, isSortByDateCreated: true };
+        }
+        return prevList;
+      })
+    );
+  };
+
   return (
     <div ref={dropdownRef}>
-      <ul
-        className={classNames(styles.wrapper, {
-          [styles.wrapperDefaultList]: list.isDefault,
-        })}
-      >
+      <ul className={styles.wrapper}>
+        <li className={styles.fullWidth}>並び替え</li>
+        <li className={styles.fullWidth}>
+          <button
+            className={styles.fullButton}
+            onClick={activeIsSortByDateCreated}
+          >
+            作成日
+          </button>
+        </li>
+        <li className={styles.fullWidth}>
+          <button className={styles.fullButton}>更新日時</button>
+        </li>
+        <p className={styles.border}></p>
         <li className={styles.delete}>
           <ButtonDeleteList list={list} handleDeleteList={handleDeleteList} />
         </li>

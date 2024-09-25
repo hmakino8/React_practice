@@ -2,11 +2,8 @@ import { useState } from "react";
 import { ButtonDisplayModal } from "./ButtonDisplayModal";
 import { generateId } from "../utils/utils";
 import { PLACEHOLDER } from "../utils/constants";
-import {
-  CreateTaskList as IconCreateTaskList,
-  KeyboardControlKey as IconKeyboardControlKey,
-  KeyboardArrowDown as IconKeyboardArrowDown,
-} from "./Icon";
+import { ButtonCreateTaskList } from "./ButtonCreateTaskList";
+import { IconKeyboardControlKey, IconKeyboardArrowDown } from "./Icon";
 import styles from "./styles/MenuBar.module.css";
 
 export const MenuBar = ({ listGroup, setListGroup, setIsModalOpen }) => {
@@ -47,7 +44,7 @@ export const MenuBar = ({ listGroup, setListGroup, setIsModalOpen }) => {
   return (
     <div className={styles.container}>
       <ButtonDisplayModal setIsModalOpen={setIsModalOpen} />
-      <IconCreateTaskList
+      <ButtonCreateTaskList
         isActiveCreateList={isActiveCreateList}
         setIsActiveCreateList={setIsActiveCreateList}
       />

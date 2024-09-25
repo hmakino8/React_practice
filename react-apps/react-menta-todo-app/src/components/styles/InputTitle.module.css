@@ -6,6 +6,10 @@
   background-color: transparent;
 }
 
+.inputTitleComplete {
+  text-decoration: line-through;
+}
+
 .inputTitle:hover {
   border-bottom: none;
 }

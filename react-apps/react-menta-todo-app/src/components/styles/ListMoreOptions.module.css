@@ -4,14 +4,12 @@
   position: absolute;
   width: 160px;
   top: 100%;
-  height: 110px;
   right: 0;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   list-style: none;
-  padding: 10px 0;
-  margin: 0;
+  padding: 5px 0;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   z-index: 1;
   align-items: flex-start;
@@ -21,13 +19,7 @@
   background-color: rgb(240, 240, 240);
 }
 
-.delete {
-  display: flex;
-  align-items: center;
-  font-size: 0.8rem;
-  width: 100%;
-}
-
+.delete,
 .invisible {
   display: flex;
   align-items: center;
@@ -37,4 +29,24 @@
 
 .alart {
   margin-left: 10px;
+  color: var(--red);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.fullButton {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.border {
+  width: 100%;
+  border: 1px solid rgb(240, 240, 240);
 }

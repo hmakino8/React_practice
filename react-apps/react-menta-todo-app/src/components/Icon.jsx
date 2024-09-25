@@ -1,11 +1,10 @@
-import { LABEL } from "../utils/constants";
 import styles from "./styles/Icon.module.css";
 
 export const IconClock = () => (
   <span className={`material-symbols-outlined ${styles.clock}`}>schedule</span>
 );
 
-export const Close = () => (
+export const IconClose = () => (
   <span className="material-symbols-outlined">close</span>
 );
 
@@ -29,11 +28,11 @@ export const IconArrowDown = () => (
   <span className="material-symbols-outlined">arrow_drop_down</span>
 );
 
-export const KeyboardArrowDown = () => (
+export const IconKeyboardArrowDown = () => (
   <span className="material-symbols-outlined">keyboard_arrow_down</span>
 );
 
-export const KeyboardControlKey = () => (
+export const IconKeyboardControlKey = () => (
   <span className="material-symbols-outlined">keyboard_control_key</span>
 );
 
@@ -49,18 +48,8 @@ export const IconAddTask = () => (
   </span>
 );
 
-export const CreateTaskList = (props) => {
-  const { isActiveCreateList, setIsActiveCreateList } = props;
-
-  return (
-    <button
-      className={styles.buttonCreateTaskList}
-      onClick={() => !isActiveCreateList && setIsActiveCreateList(true)}
-    >
-      <span className={`material-symbols-outlined ${styles.createTaskList}`}>
-        add
-      </span>
-      {LABEL.CREATE_TASK_LIST}
-    </button>
-  );
-};
+export const IconAdd = () => (
+  <span className={`material-symbols-outlined ${styles.createTaskList}`}>
+    add
+  </span>
+);
